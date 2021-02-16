@@ -63,6 +63,7 @@
  * @property {string} [href]
  * @property {string} [title]
  * @property {string} [subtitle]
+ * @property {string} [icon]
  * @property {DrockServerPage[]} [page]
  */
 
