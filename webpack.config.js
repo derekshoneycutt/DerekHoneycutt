@@ -1,6 +1,9 @@
 ﻿const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPartialsPlugin = require('html-webpack-partials-plugin');
+
+const buildMode = 'production';
 
 const components = [
     { file: 'swiper', name: 'swiper' },
@@ -49,12 +52,12 @@ function getCSSExportRule(name) {
     };
 }
 
-function getCSSExportsForComponents() {
-    return components.map(v => ({
-        mode: 'production',
-        entry: [`./front_src/cmp/${v.file}.scss`],
+function getCssExports(entrydir, outdir, cmp) {
+    return cmp.map(v => ({
+        mode: buildMode,
+        entry: [`./front_src/${entrydir}/${v.file}.scss`],
         output: {
-            path: path.resolve(__dirname, 'wwwroot/cmpcss'),
+            path: path.resolve(__dirname, `wwwroot/${outdir}`),
             filename: `sass.js`
         },
         module: {
@@ -65,28 +68,22 @@ function getCSSExportsForComponents() {
     }));
 }
 
-function getCSSExportsForSawtoothComponents() {
-    return sawtoothComponents.map(v => ({
-        mode: 'production',
-        entry: [`./front_src/sawtooth/cmp/${v.file}.scss`],
-        output: {
-            path: path.resolve(__dirname, 'wwwroot/cmpcss/sawtooth'),
-            filename: `sass.js`
-        },
-        module: {
-            rules: [
-                getCSSExportRule(v.name)
-            ]
-        }
-    }));
+function getHighBodyPartials(templatefilename, paths) {
+    return paths.map(v => {
+        return {
+            path: path.join(__dirname, v),
+            priority: "high",
+            location: "body",
+            template_filename: templatefilename
+        };
+    });
 }
 
 module.exports = [
-    ...getCSSExportsForComponents(),
-    ...getCSSExportsForSawtoothComponents(),
+    ...getCssExports('cmp', 'cmpcss', components),
     {
-        mode: 'production',
-        entry: ['./front_src/app.scss', './front_src/app.js'],
+        mode: buildMode,
+        entry: [`./front_src/app.scss`, './front_src/app.js'],
         output: {
             path: path.resolve(__dirname, 'wwwroot'),
             filename: 'bundle.js'
@@ -106,12 +103,17 @@ module.exports = [
                 cssFile: 'bundle.css',
                 template: './front_src/index.html',
                 filename: 'index.html'
-            })
+            }),
+            new HtmlWebpackPartialsPlugin(
+                getHighBodyPartials('index.html', [
+                    'front_src/cmp/swiper.html'
+                ]))
         ]
     },
+    ...getCssExports('sawtooth/cmp', 'cmpcss/sawtooth', sawtoothComponents),
     {
-        mode: 'production',
-        entry: ['./front_src/sawtooth/sawtooth.scss', './front_src/sawtooth/sawtooth.js'],
+        mode: buildMode,
+        entry: [`./front_src/sawtooth/sawtooth.scss`, './front_src/sawtooth/sawtooth.js'],
         output: {
             path: path.resolve(__dirname, 'wwwroot'),
             filename: 'sawtooth.js'
@@ -131,7 +133,17 @@ module.exports = [
                 cssFile: 'sawtooth.css',
                 template: './front_src/sawtooth/sawtooth.html',
                 filename: 'sawtooth.html'
-            })
+            }),
+            new HtmlWebpackPartialsPlugin(
+                getHighBodyPartials('sawtooth.html', [
+                    'front_src/cmp/calendar.html',
+                    'front_src/cmp/swiper.html',
+                    'front_src/sawtooth/cmp/Core/mdciconbutton.html',
+                    'front_src/sawtooth/cmp/Views/dayhead.html',
+                    'front_src/sawtooth/cmp/Views/week.html',
+                    'front_src/sawtooth/cmp/sawbase.html',
+                    'front_src/sawtooth/cmp/splashscreen.html'
+                ]))
         ]
     }
 ];

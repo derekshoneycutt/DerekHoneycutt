@@ -34,5 +34,9 @@
     <Folder Include="wwwroot\cmpcss\sawtooth\" />
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="npm run wbp" />
+  </Target>
+
 
 </Project>
