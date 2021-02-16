@@ -1,0 +1,144 @@
+﻿@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
+@use "@material/ripple";
+@import '../../material-icons.scss';
+@import '../../RobotoFont.scss';
+
+.saw-topbar {
+    height: var(--saw-topbar-height, 45rem);
+    min-height: var(--saw-topbar-height, 45rem);
+    max-height: var(--saw-topbar-height, 45rem);
+    position: relative;
+    user-select: none;
+    z-index: 10;
+    background-color: rgba(0,0,0,0.3);
+}
+
+.saw-topbar-background {
+    @extend .mdc-elevation--z4;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+.saw-topbar-background-start {
+    width: 0;
+    max-height: 100%;
+    min-height: 100%;
+    background-color: var(--mdc-theme-surface, #fff);
+    border-radius: 0;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+.saw-topbar-background-belowadd {
+    width: 0;
+    max-height: 100%;
+    min-height: 100%;
+    border-radius: 0;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+.saw-topbar-background-end {
+    flex-grow: 1;
+    max-height: 100%;
+    min-height: 100%;
+    /*background: linear-gradient(90deg, var(--mdc-theme-surface, #fff), var(--mdc-theme-primary, #fff));*/
+    background-color: var(--mdc-theme-surface, #fff);
+    border-radius: 0;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+.saw-topbar-left {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 16rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+#saw-toptitle {
+    font-size: 20rem;
+    margin-left: 22.4rem;
+    user-select: none;
+}
+
+.saw-topbar-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 24rem;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+    display: flex;
+    align-items: center;
+}
+
+.saw-topbar-settings {
+    transition: transform 0.5s ease-in-out;
+
+    &:hover {
+        transform: rotate(160deg);
+    }
+}
+
+@media screen and (orientation: landscape) {
+
+    .saw-topbar-background-start {
+        min-width: var(--saw-topbar-landscape-offset, 19rem);
+        max-width: var(--saw-topbar-landscape-offset, 19rem);
+    }
+
+    .saw-topbar-background-belowadd {
+        min-width: calc(var(--saw-addbutton-size, 56rem) - 15rem);
+        max-width: calc(var(--saw-addbutton-size, 56rem) - 15rem);
+        z-index: 0;
+        background: 
+            radial-gradient(circle at 31rem calc(100% + 31.2rem), 
+                transparent calc(var(--saw-addbutton-cutoutradius, 32rem) - 0.1rem),
+                var(--mdc-theme-surface, #fff) var(--saw-addbutton-cutoutradius, 32rem));
+    }
+
+    .saw-topbar-background-end {
+    }
+
+    .saw-topbar-left {
+        left: var(--saw-topbar-landscape-offset, 19rem);
+    }
+
+    @media screen and (min-height: 600px) {
+        .saw-topbar-background-start {
+            transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
+        }
+
+        .saw-topbar-left {
+            transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
+        }
+
+
+
+        #saw-base-expanded:checked {
+
+            ~ .saw-topbar .saw-topbar-background-start {
+                min-width: calc(var(--saw-sidebar-size-expandoffset, 207rem) + var(--saw-topbar-landscape-offset, 19rem));
+                max-width: calc(var(--saw-sidebar-size-expandoffset, 207rem) + var(--saw-topbar-landscape-offset, 19rem));
+                transition-delay: 0s;
+            }
+
+            ~ .saw-topbar .saw-topbar-left {
+                left: calc(var(--saw-sidebar-size-expandoffset, 207rem) + var(--saw-topbar-landscape-offset, 19rem));
+                transition-delay: 0s;
+            }
+
+
+        }// #saw-base-expanded:checked
+
+    }// @media screen and (min-height: 600px)
+}// @media screen and (orientation: landscape)

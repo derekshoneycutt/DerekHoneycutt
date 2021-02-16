@@ -1,0 +1,148 @@
+﻿@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
+@use "@material/ripple";
+@use "@material/list";
+@import '../../material-icons.scss';
+@import '../../RobotoFont.scss';
+
+@mixin saw-sidebar-menu-view-dropout-shown {
+    height: var(--saw-views-dropout-height, 250rem);
+
+    .saw-sidebar-menu-view-list .mdc-list-item {
+        padding-left: var(--saw-listitem-padding-left, 32rem);
+        padding-right: var(--saw-listitem-padding-right, 16rem);
+        height: var(--saw-nav-listitem-height, 48rem);
+
+        .mdc-list-item__graphic {
+            width: var(--saw-std-icon-size, 24rem);
+            height: var(--saw-std-icon-size, 24rem);
+            font-size: var(--saw-std-icon-size, 24rem);
+        }
+
+        .mdc-list-item__text {
+            font-size: 16rem;
+        }
+    }
+}
+
+
+
+.saw-sidebar-menu-view {
+    order: 1;
+}
+
+.saw-sidebar-menu-view-dropout {
+    @extend .mdc-elevation--z6;
+    background-color: var(--mdc-theme-surface, #fff);
+    height: 0rem;
+    max-width: var(--saw-views-dropout-width, 100%);
+    min-width: var(--saw-views-dropout-width, 100%);
+    border-radius: var(--saw-std-surface-border-radius, 2rem);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+
+    &:focus {
+        outline: var(--saw-std-focus-outline, none);
+        border: none;
+    }
+}
+
+.saw-sidebar-menu-view-list {
+    @include list.core-styles;
+    margin: 0;
+    padding: 5rem 0;
+
+    .mdc-list-item {
+        padding-left: 0rem;
+        padding-right: 0rem;
+        height: 0rem;
+        transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+
+        .mdc-list-item__graphic {
+            width: 0rem;
+            height: 0rem;
+            font-size: 0rem;
+            transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+        }
+
+        .mdc-list-item__text {
+            font-size: 0rem;
+            transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+        }
+    }
+}
+
+.saw-sidebar-menu-view:focus-within {
+    .saw-sidebar-menu-item-icon {
+        opacity: 0;
+    }
+
+    .saw-sidebar-menu-view-dropout {
+        @include saw-sidebar-menu-view-dropout-shown;
+    }
+}
+
+
+@media screen and (orientation: landscape) {
+    .saw-sidebar-menu-view {
+        order: 2;
+
+        &:focus-within {
+            order: 0;
+            padding: 0rem;
+        }
+    }
+    
+    .saw-sidebar-menu-view-dropout {
+        position: relative;
+        max-width: 0;
+        min-width: 0;
+    }
+
+    .saw-sidebar-menu-view:focus-within .saw-sidebar-menu-view-dropout {
+        max-width: var(--saw-views-dropout-comp-width, 200rem);
+        min-width: var(--saw-views-dropout-comp-width, 200rem);
+        margin-left: 130rem;
+    }
+
+
+
+    @media screen and (min-height: 600px) {
+        .saw-sidebar-menu-view:focus-within {
+            order: 2;
+        }
+
+
+        #saw-base-expanded:checked {
+
+            ~ .saw-body .saw-sidebar-menu-view {
+                order: 2;
+                padding: 5rem 0rem;
+            }
+
+            ~ .saw-body .saw-sidebar-menu-view-dropout {
+                @include elevation.elevation(2);
+                @include saw-sidebar-menu-view-dropout-shown;
+                max-width: var(--saw-views-dropout-comp-width-expanded, 235rem);
+                min-width: var(--saw-views-dropout-comp-width-expanded, 235rem);
+                margin-left: -25rem;
+                transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
+            }
+
+            ~ .saw-body .saw-sidebar-menu-view-list .mdc-list-item {
+                transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
+
+                .mdc-list-item__graphic {
+                    transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
+                }
+
+                .mdc-list-item__text {
+                    transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
+                }
+            }
+        }// #saw-base-expanded:checked
+
+    }// @media screen and (min-height: 600px)
+}// @media screen and (orientation: landscape)

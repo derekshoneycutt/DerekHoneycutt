@@ -1,0 +1,92 @@
+﻿@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
+@use "@material/ripple";
+@import '../material-icons.scss';
+@import '../RobotoFont.scss';
+
+:host {
+    all: initial;
+    display: block;
+    contain: none;
+    font-family: Roboto, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
+    --drock-swiper-positionoffsetX: 0;
+    --drock-swiper-positionoffsetY: 0;
+    --drock-swiper-slottranslength: var(--drock-transitions-length, 0.3s);
+    --drock-swiper-overflow: visible;
+    --drock-swiper-orientation: row;
+}
+
+.drock-swiper-container {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: var(--drock-swiper-orientation, row);
+    align-items: flex-start;
+    overflow: var(--drock-swiper-overflow, hidden);
+}
+
+::slotted(*) {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    transform: translate(var(--drock-swiper-positionoffsetX, 0), var(--drock-swiper-positionoffsetY, 0));
+    transition: transform var(--drock-swiper-slottranslength, 0.3s) ease-in-out;
+}
+
+.drock-swiper-nav {
+    @extend .material-icons;
+    @include elevation.elevation(6);
+    @include ripple.surface;
+    @include ripple.radius-bounded;
+    @include ripple.states;
+    overflow: hidden;
+    font-size: 35rem;
+    position: absolute;
+    width: 40rem;
+    height: 40rem;
+    top: calc(50% - 20rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--mdc-theme-primary-ultralight, #fff);
+    color: var(--mdc-theme-primary-ultradark, #666);
+    z-index: 10;
+    cursor: pointer;
+    border-radius: 50%;
+    user-select: none;
+    transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
+
+    &:active {
+        @include elevation.elevation(3);
+    }
+}
+
+.drock-swiper-prev {
+    left: -50rem;
+}
+
+.drock-swiper-next {
+    right: -50rem;
+}
+
+.drock-swiper-prev.drock-swiper-shownav {
+    left: 10rem;
+}
+
+.drock-swiper-next.drock-swiper-shownav {
+    right: 10rem;
+}
+
+.drock-swiper-hidden {
+    display: none !important;
+}

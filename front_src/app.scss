@@ -1,0 +1,82 @@
+﻿@use '@material/button/mdc-button';
+@use '@material/button';
+@use '@material/ripple';
+
+@import 'RobotoFont.scss';
+@import 'material-icons.scss';
+
+:root {
+    /*  There might be some nonstandard themes below, but roll w/ it! */
+    --mdc-theme-primary: #0096a5;
+    --mdc-theme-primary-light: #56c7d6;
+    --mdc-theme-primary-dark: #006876;
+    --mdc-theme-primary-ultralight: #ebf7f8;
+    --mdc-theme-primary-ultradark: #003d4a;
+    --mdc-theme-on-primary: #000;
+    --mdc-theme-primary-bg: #0096a5;
+    --mdc-theme-secondary: #64BE6D;
+    --mdc-theme-secondary-light: #96f19c;
+    --mdc-theme-secondary-dark: #308d40;
+    --mdc-theme-secondary-ultralight: #c9ffcd;
+    --mdc-theme-secondary-ultradark: #005f15;
+    --mdc-theme-on-secondary: #000;
+    --mdc-theme-secondary-bg: #64BE6D;
+    --mdc-theme-surface: #fff;
+    --mdc-theme-surface-dark: #ebf7f8;
+    --mdc-theme-on-surface: #000;
+    --mdc-theme-background: #fff;
+    --mdc-theme-error: #b00020;
+    --mdc-theme-on-error: #fff;
+    --mdc-theme-text-primary-on-background: rgba(0,0,0,.87);
+    --mdc-theme-text-secondary-on-background: rgba(0,0,0,.54);
+    --mdc-theme-text-hint-on-background: rgba(0,0,0,.38);
+    --mdc-theme-text-disabled-on-background: rgba(0,0,0,.38);
+    --mdc-theme-text-icon-on-background: #000; //rgba(0,0,0,.38);
+    --mdc-theme-text-primary-on-light: rgba(0,0,0,.87);
+    --mdc-theme-text-secondary-on-light: rgba(0,0,0,.54);
+    --mdc-theme-text-hint-on-light: rgba(0,0,0,.38);
+    --mdc-theme-text-disabled-on-light: rgba(0,0,0,.38);
+    --mdc-theme-text-icon-on-light: rgba(0,0,0,.38);
+    --mdc-theme-text-primary-on-dark: #fff;
+    --mdc-theme-text-secondary-on-dark: rgba(255,255,255,.7);
+    --mdc-theme-text-hint-on-dark: rgba(255,255,255,.5);
+    --mdc-theme-text-disabled-on-dark: rgba(255,255,255,.5);
+    --mdc-theme-text-icon-on-dark: rgba(255,255,255,.5);
+    
+    --drock-transitions-length: 0.25s;
+
+    /* Make 1rem = 1px when default font-size is 16px */
+    font-size: 6.25%;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
+    font-family: Roboto, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16rem;
+}
+
+.drock-base {
+    font-size: 1rem;
+}
+
+#swipe-base, .landing-swipe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.landing-div {
+    position: relative;
+}

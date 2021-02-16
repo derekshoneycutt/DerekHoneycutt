@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/bin
+/node_modules
+/obj
+/appsettings.Development.json
+/appsettings.json
+/derekhoneycutt.db

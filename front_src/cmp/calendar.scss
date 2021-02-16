@@ -1,0 +1,99 @@
+﻿@use "@material/ripple";
+@import '../material-icons.scss';
+@import '../RobotoFont.scss';
+
+:host {
+    all: initial;
+    display: block;
+    contain: content;
+    font-family: Roboto, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+
+.mdc-ripple-surface {
+    @include ripple.surface;
+    @include ripple.radius-bounded;
+    @include ripple.states;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+}
+
+
+.drock-cal-container {
+    text-align: center;
+}
+
+.drock-cal-table {
+    border-spacing: 3.2rem;
+    border-collapse: separate;
+}
+
+.drock-cal-head {
+    position: relative;
+    overflow: hidden;
+    font-size: 0.7em;
+    color: var(--mdc-theme-text-disabled-on-background, #999);
+    font-weight: normal;
+    user-select: none;
+}
+
+.drock-cal-tophead {
+    display: flex;
+    align-items: center;
+}
+
+.drock-cal-month {
+    flex-grow: 1;
+    font-size: 1.4em;
+    text-align: left;
+    user-select: none;
+}
+
+.drock-cal-nav {
+    padding: 4.8rem 4.8rem 1.6rem 4.8rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    user-select: none;
+
+    &:focus {
+        outline: var(--drock-std-focus-outline, none);
+        border: none;
+    }
+}
+
+.drock-cal-day {
+    position: relative;
+    overflow: hidden;
+    font-size: 0.8em;
+    padding: 6.4rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    user-select: none;
+
+    &:focus {
+        outline: var(--drock-std-focus-outline, none);
+        border: none;
+    }
+}
+
+.drock-cal-day-today {
+    color: var(--mdc-theme-secondary, #77f);
+    font-weight: bold;
+}
+
+.drock-cal-day-outmonth {
+    color: var(--mdc-theme-text-disabled-on-background, #999);
+}
+
+.drock-cal-day-selected {
+    background-color: var(--mdc-theme-primary-ultralight, #eee);
+    color: var(--mdc-theme-primary, #000);
+}

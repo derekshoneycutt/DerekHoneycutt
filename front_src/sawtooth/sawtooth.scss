@@ -1,0 +1,128 @@
+﻿@use '@material/button/mdc-button';
+@use '@material/button';
+@use '@material/ripple';
+
+@import '../RobotoFont.scss';
+@import '../material-icons.scss';
+
+:root {
+    /*  There might be some nonstandard themes below, but roll w/ it! */
+    --mdc-theme-primary: #0096a5;
+    --mdc-theme-primary-light: #56c7d6;
+    --mdc-theme-primary-dark: #006876;
+    --mdc-theme-primary-ultralight: #ebf7f8;
+    --mdc-theme-primary-ultradark: #003d4a;
+    --mdc-theme-on-primary: #000;
+    --mdc-theme-primary-bg: #0096a5;
+    --mdc-theme-secondary: #64BE6D;
+    --mdc-theme-secondary-light: #96f19c;
+    --mdc-theme-secondary-dark: #308d40;
+    --mdc-theme-secondary-ultralight: #c9ffcd;
+    --mdc-theme-secondary-ultradark: #005f15;
+    --mdc-theme-on-secondary: #000;
+    --mdc-theme-secondary-bg: #64BE6D;
+    --mdc-theme-surface: #fff;
+    --mdc-theme-surface-dark: #ebf7f8;
+    --mdc-theme-on-surface: #000;
+    --mdc-theme-background: #fff;
+    --mdc-theme-error: #b00020;
+    --mdc-theme-on-error: #fff;
+    --mdc-theme-text-primary-on-background: rgba(0,0,0,.87);
+    --mdc-theme-text-secondary-on-background: rgba(0,0,0,.54);
+    --mdc-theme-text-hint-on-background: rgba(0,0,0,.38);
+    --mdc-theme-text-disabled-on-background: rgba(0,0,0,.38);
+    --mdc-theme-text-icon-on-background: #000;//rgba(0,0,0,.38);
+    --mdc-theme-text-primary-on-light: rgba(0,0,0,.87);
+    --mdc-theme-text-secondary-on-light: rgba(0,0,0,.54);
+    --mdc-theme-text-hint-on-light: rgba(0,0,0,.38);
+    --mdc-theme-text-disabled-on-light: rgba(0,0,0,.38);
+    --mdc-theme-text-icon-on-light: rgba(0,0,0,.38);
+    --mdc-theme-text-primary-on-dark: #fff;
+    --mdc-theme-text-secondary-on-dark: rgba(255,255,255,.7);
+    --mdc-theme-text-hint-on-dark: rgba(255,255,255,.5);
+    --mdc-theme-text-disabled-on-dark: rgba(255,255,255,.5);
+    --mdc-theme-text-icon-on-dark: rgba(255,255,255,.5);
+    
+
+    --sawtooth-event-default: #FDFFC7;
+    --sawtooth-event-default-good: #C7FFD0;
+    --sawtooth-event-bad: #FFD4D4;
+
+    /* Outside of themes, these variables control the flow of the app, generally */
+    --saw-transitions-length: 0.25s;
+    --saw-sidebar-expand-delay: 0.15s;
+
+    --saw-std-icon-size: 24rem;
+    --saw-std-surface-border-radius: 2rem;
+    --saw-std-focus-outline: 1px dotted #808080;
+
+    --saw-topbar-height: 45rem;
+    --saw-topbar-landscape-offset: 19rem;
+
+    --saw-sidebar-size: 48rem;
+    --saw-sidebar-size-expanded: 255rem;
+    --saw-sidebar-size-expandoffset: 207rem;
+    --saw-sidebar-body-offset: calc(var(--saw-addbutton-size, 56rem) + 19rem);
+    --saw-sidebar-body-offset-expanded: calc(var(--saw-addbutton-drawer-height, 145rem) + 10rem);
+
+    --saw-listitem-padding-left: 32rem;
+    --saw-listitem-padding-right: 16rem;
+    --saw-nav-listitem-height: 48rem;
+
+    --saw-addbutton-size: 56rem;
+    --saw-addbutton-cutoutradius: calc((var(--saw-addbutton-size, 56rem) / 2) + 4rem);
+    --saw-addbutton-portrait-left: calc(50% - (var(--saw-addbutton-size, 56rem) / 2));
+    --saw-addbutton-portrait-bottom: 20rem;
+    --saw-addbutton-landscape-left: 22.8rem;
+    --saw-addbutton-landscape-bottom: calc(100% - 104.2rem);
+    --saw-addbutton-drawer-height: 145rem;
+    --saw-addbutton-drawer-width: 200rem;
+    --saw-addbutton-space: 7rem;
+    --saw-addbutton-space-landscape: 6rem;
+    --saw-addbutton-cutout-border-radius: 6rem;
+    
+    --saw-calendar-dropout-comp-width: 215rem;
+    --saw-calendar-dropout-comp-height: 250rem;
+    --saw-calendar-dropout-width: max(var(--saw-calendar-dropout-comp-width, 215rem), calc(100% - 20rem));
+    --saw-calendar-dropout-height: 275rem;
+    --saw-calendar-todaychip-height: 25.6rem;
+    
+    --saw-views-dropout-comp-width: 200rem;
+    --saw-views-dropout-comp-width-expanded: 235rem;
+    --saw-views-dropout-width: max(var(--saw-views-dropout-comp-width, 200rem), 100%);
+    --saw-views-dropout-height: 300rem;
+
+    --saw-sidebar-currexpansion: 0rem;
+
+    /* Make 1rem = 1px when default font-size is 16px */
+    font-size: 6.25%;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+    font-family: Roboto, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16rem;
+}
+
+saw-base {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+saw-splash {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}

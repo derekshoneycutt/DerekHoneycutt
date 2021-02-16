@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="mdc-typography">
+    <saw-base>
+        <drock-swiper id="saw-swipewindow" orientation="x">
+        </drock-swiper>
+    </saw-base>
+
+    <!--<saw-splash src="SplashScreen-min.jpg"></saw-splash>
+    <%= require('html-loader!./cmp/splashscreen.html') %>-->
+
+    <%= require('html-loader!./cmp/Core/mdciconbutton.html') %>
+    <%= require('html-loader!./cmp/Views/dayhead.html') %>
+    <%= require('html-loader!./cmp/Views/week.html') %>
+    <%= require('html-loader!../cmp/calendar.html') %>
+    <%= require('html-loader!./cmp/sawbase.html') %>
+    <%= require('html-loader!../cmp/swiper.html') %>
+
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.cssFile %>">
+</body>
+</html>

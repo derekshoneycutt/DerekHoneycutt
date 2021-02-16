@@ -1,0 +1,26 @@
+﻿@use "@material/icon-button";
+@import '../../../material-icons.scss';
+@import '../../../RobotoFont.scss';
+
+:host {
+    all: initial;
+    display: block;
+    contain: content;
+    font-family: Roboto, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+.saw-mdc-icon-button {
+    @include icon-button.core-styles;
+    user-select: none;
+
+    .mdc-icon-button {
+        font-size: var(--saw-std-icon-size, 24rem);
+        width: calc(var(--saw-std-icon-size, 24rem) * 2);
+        height: calc(var(--saw-std-icon-size, 24rem) * 2);
+        padding: calc(var(--saw-std-icon-size, 24rem) / 2);
+    }
+}

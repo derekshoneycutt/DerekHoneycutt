@@ -1,0 +1,194 @@
+﻿<link rel="preload" href="/cmpcss/sawtooth/sawbase.css" as="style">
+<template id="saw-base" aria-hidden="true">
+    <link rel="stylesheet" href="/cmpcss/sawtooth/sawbase.css" />
+    <div class="saw-base-root">
+        <input id="saw-base-expanded" type="checkbox" name="saw-base-expanded" aria-hidden="true" />
+
+        <!--
+            TOP BAR
+        -->
+        <section class="saw-topbar">
+            <div class="saw-topbar-background" aria-hidden="true">
+                <div class="saw-topbar-background-start"></div>
+                <div class="saw-topbar-background-belowadd"></div>
+                <div class="saw-topbar-background-end"></div>
+            </div>
+
+            <section class="saw-topbar-left" role="banner">
+                <div id="saw-toptitle" class="saw-topbar-monthtitle"></div>
+            </section>
+            <nav class="saw-topbar-right">
+                <!--<saw-mdc-icon-button title="Search" class="saw-topbar-right-icon-link">
+                    search
+                </saw-mdc-icon-button>-->
+                <saw-mdc-icon-button title="Settings" class="saw-topbar-right-icon-link saw-topbar-settings" role="button">
+                    settings
+                </saw-mdc-icon-button>
+            </nav>
+        </section>
+        <!-- END TOP BAR -->
+        <!--
+            BODY
+        -->
+        <section class="saw-body">
+            <!--
+                MAINFRAME
+            -->
+            <main class="saw-mainframe">
+                <slot></slot>
+            </main>
+            <!-- END MAINFRAME -->
+            <!--
+                SIDE BAR
+            -->
+            <section class="saw-sidebar">
+                <div class="saw-sidebar-background">
+                    <div class="saw-sidebar-background-start"></div>
+                    <div class="saw-sidebar-background-belowadd"></div>
+                    <div class="saw-sidebar-background-end"></div>
+                </div>
+
+                <section class="saw-sidebar-body">
+                    <nav class="saw-sidebar-menu">
+                        <!--
+                            CALENDAR
+                        -->
+                        <div class="saw-sidebar-menu-item saw-sidebar-menu-calendar">
+                            <div class="saw-sidebar-menu-item-icon" role="button" tabindex="0"
+                                 title="Move to date">
+                                <div class="mdc-ripple-surface"></div>
+                                <i class="material-icons">event</i>
+                            </div>
+                            <nav class="saw-sidebar-menu-calendar-dropout">
+                                <div id="saw-navchip-today" class="mdc-chip-set saw-mdc-chipset" role="grid">
+                                    <div id="saw-navchip-row-today" class="mdc-chip saw-mdc-chip" role="row">
+                                        <div class="mdc-chip__ripple"></div>
+                                        <span role="gridcell">
+                                            <span id="saw-nav-today-chip" role="button" tabindex="0"
+                                                  title="Move to today"
+                                                  class="mdc-chip__primary-action">
+                                                <span class="mdc-chip__text">Today</span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <drock-calendar id="saw-nav-calendar"></drock-calendar>
+                            </nav>
+                        </div>
+                        <!-- END CALENDAR -->
+
+                        <div class="saw-sidebar-menu-item-spacer" aria-hidden="true"></div>
+
+                        <!--
+                            VIEW MENU
+                        -->
+                        <div class="saw-sidebar-menu-item saw-sidebar-menu-view">
+                            <div class="saw-sidebar-menu-item-icon" role="button" tabindex="0" title="Change view">
+                                <div class="mdc-ripple-surface"></div>
+                                <i id="saw-sidebar-menu-view-icon" class="material-icons">view_day</i>
+                            </div>
+                            <nav class="saw-sidebar-menu-view-dropout">
+                                <ul class="mdc-list saw-sidebar-menu-view-list">
+                                    <li id="saw-view-agenda" class="mdc-list-item" title="Move to agenda view" tabindex="0">
+                                        <div class="mdc-list-item__ripple"></div>
+                                        <span class="mdc-list-item__graphic material-icons">view_agenda</span>
+                                        <span class="mdc-list-item__text">Agenda</span>
+                                        <div class="mdc-list-item__touch"></div>
+                                    </li>
+                                    <li id="saw-view-day" class="mdc-list-item" title="Move to day view" tabindex="0">
+                                        <div class="mdc-list-item__ripple"></div>
+                                        <span class="mdc-list-item__graphic material-icons">view_day</span>
+                                        <span class="mdc-list-item__text">Day</span>
+                                        <div class="mdc-list-item__touch"></div>
+                                    </li>
+                                    <li id="saw-view-3day" class="mdc-list-item" title="Move to three day view" tabindex="0">
+                                        <div class="mdc-list-item__ripple"></div>
+                                        <span class="mdc-list-item__graphic material-icons">view_week</span>
+                                        <span class="mdc-list-item__text">Three day</span>
+                                        <div class="mdc-list-item__touch"></div>
+                                    </li>
+                                    <li id="saw-view-week" class="mdc-list-item" title="Move to week view" tabindex="0">
+                                        <div class="mdc-list-item__ripple"></div>
+                                        <span class="mdc-list-item__graphic material-icons">view_week</span>
+                                        <span class="mdc-list-item__text">Week</span>
+                                        <div class="mdc-list-item__touch"></div>
+                                    </li>
+                                    <li id="saw-view-month" class="mdc-list-item" title="Move to month view" tabindex="0">
+                                        <div class="mdc-list-item__ripple"></div>
+                                        <span class="mdc-list-item__graphic material-icons">view_module</span>
+                                        <span class="mdc-list-item__text">Month</span>
+                                        <div class="mdc-list-item__touch"></div>
+                                    </li>
+                                    <li id="saw-view-reports" class="mdc-list-item" title="Move to reports view" tabindex="0">
+                                        <div class="mdc-list-item__ripple"></div>
+                                        <span class="mdc-list-item__graphic material-icons">view_list</span>
+                                        <span class="mdc-list-item__text">Reports</span>
+                                        <div class="mdc-list-item__touch"></div>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- END VIEW MENU -->
+
+                    </nav>
+
+                    <div class="saw-sidebar-body-spacer"></div>
+
+                    <label class="saw-sidebar-body-expander" for="saw-base-expanded" tabindex="0">
+                        <div class="mdc-ripple-surface"></div>
+                        <i class="saw-sidebar-body-expander-doexpand material-icons">chevron_right</i>
+                        <span class="saw-sidebar-body-expander-text">Hide sidebar</span>
+                    </label>
+                </section>
+            </section>
+            <!-- END SIDE BAR -->
+            <!--
+                ADD BUTTON
+            -->
+            <section class="saw-add-button">
+                <nav class="saw-add-button-drawer">
+                    <ul class="mdc-list saw-add-button-drawer-list">
+                        <li id="saw-add-plan" class="mdc-list-item" title="Add plan" tabindex="0">
+                            <div class="mdc-list-item__ripple"></div>
+                            <span class="mdc-list-item__graphic material-icons">account_balance_wallet</span>
+                            <span class="mdc-list-item__text">Add plan</span>
+                            <div class="mdc-list-item__touch"></div>
+                        </li>
+                        <li id="saw-add-receipt" class="mdc-list-item" title="Add receipt" tabindex="0">
+                            <div class="mdc-list-item__ripple"></div>
+                            <span class="mdc-list-item__graphic material-icons">swap_vert</span>
+                            <span class="mdc-list-item__text">Add receipt</span>
+                            <div class="mdc-list-item__touch"></div>
+                        </li>
+                        <li id="saw-add-note" class="mdc-list-item" title="Add note" tabindex="0">
+                            <div class="mdc-list-item__ripple"></div>
+                            <span class="mdc-list-item__graphic material-icons">note_add</span>
+                            <span class="mdc-list-item__text">Add note</span>
+                            <div class="mdc-list-item__touch"></div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="mdc-touch-target-wrapper saw-add-button-self">
+                    <button class="mdc-fab" aria-label="Add" title="Add event" tabindex="0">
+                        <div class="mdc-fab__ripple"></div>
+                        <span class="mdc-fab__icon material-icons">add</span>
+                        <div class="mdc-fab__touch"></div>
+                    </button>
+                </div>
+                <div class="mdc-touch-target-wrapper saw-add-button-hidedrawer">
+                    <button class="mdc-fab" aria-label="Add" title="Close add event options" tabindex="0">
+                        <div class="mdc-fab__ripple"></div>
+                        <span class="mdc-fab__icon material-icons">close</span>
+                        <div class="mdc-fab__touch"></div>
+                    </button>
+                </div>
+            </section>
+            <!-- END ADD BUTTON -->
+
+
+        </section>
+        <!-- END BODY -->
+
+
+    </div>
+</template>

@@ -1,0 +1,343 @@
+﻿@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
+@use "@material/ripple";
+@import '../../material-icons.scss';
+@import '../../RobotoFont.scss';
+
+.saw-sidebar {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.46) 0rem, rgba(0, 0, 0, 0.46) 15rem, transparent);
+    margin: 0;
+    max-height: var(--saw-sidebar-size, 48rem);
+    min-height: var(--saw-sidebar-size, 48rem);
+    max-width: 100%;
+    min-width: 100%;
+    position: relative;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+    z-index: 10;
+    display: flex;
+
+    &:focus-within {
+        z-index: 12;
+    }
+}
+
+.saw-sidebar-background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+.saw-sidebar-background-start {
+    @extend .mdc-elevation--z4;
+    flex-grow: 1;
+    background-color: var(--mdc-theme-surface, #fff);
+    max-height: 100%;
+    min-height: 100%;
+    border-radius: 0 var(--saw-addbutton-cutout-border-radius, 6rem) 0 0;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+.saw-sidebar-background-belowadd {
+    max-width: calc(var(--saw-addbutton-size, 56rem) + var(--saw--addbutton-space, 7rem));
+    min-width: calc(var(--saw-addbutton-size, 56rem) + var(--saw--addbutton-space, 7rem));
+    background: radial-gradient(circle at 50% -5rem,
+                    transparent calc(var(--saw-addbutton-cutoutradius, 32rem) - 0.1rem), 
+                    var(--mdc-theme-surface, #fff) var(--saw-addbutton-cutoutradius, 32rem));
+    /* In chrome, makes next element's shadow appear below instead of on top of element */
+    z-index: 11;
+    max-height: calc(100% - 5rem);
+    min-height: calc(100% - 5rem);
+    align-self: flex-end;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+.saw-sidebar-background-end {
+    @extend .mdc-elevation--z4;
+    flex-grow: 1;
+    max-height: 100%;
+    min-height: 100%;
+    background-color: var(--mdc-theme-surface, #fff);
+    border-radius: var(--saw-addbutton-cutout-border-radius, 6rem) 0 0 0;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+.saw-sidebar-body {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+.saw-sidebar-menu {
+    z-index: 11;
+    margin: 0;
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-items: stretch;
+    flex-grow: 1;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+.saw-sidebar-menu-item {
+    position: relative;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    flex-grow: 1;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+
+    &:focus {
+        border: none;
+        outline: var(--saw-std-focus-outline, none);
+    }
+}
+
+.saw-sidebar-menu-item-spacer {
+    order: 2;
+    min-width: calc(var(--saw-addbutton-size, 56rem) + var(--saw-addbutton-space, 7rem) + 17rem);
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+
+
+.saw-sidebar-menu-item-icon {
+    font-size: var(--saw-std-icon-size, 24rem);
+    height: var(--saw-std-icon-size, 24rem);
+    width: var(--saw-std-icon-size, 24rem);
+    cursor: pointer;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+
+    &:focus {
+        border: none;
+        outline: var(--saw-std-focus-outline, none);
+    }
+}
+
+.saw-sidebar-menu-item .mdc-ripple-surface {
+    @include ripple.surface;
+    @include ripple.radius-bounded;
+    @include ripple.states;
+    position: absolute;
+    top: 0rem;
+    left: 0rem;
+    right: 0rem;
+    bottom: 0rem;
+    overflow: hidden;
+}
+
+
+
+.saw-sidebar-body-spacer {
+    max-height: 0rem;
+    max-width: 0rem;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+.saw-sidebar-body-expander {
+    max-height: 0rem;
+    max-width: 0rem;
+    font-size: 0rem;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+
+@media screen and (orientation: landscape) {
+
+    .saw-sidebar {
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.46) 0rem, rgba(0, 0, 0, 0.46) 26rem, transparent);
+        margin: 0;
+        max-height: 100%;
+        min-height: 100%;
+        max-width: var(--saw-sidebar-size, 48rem);
+        min-width: var(--saw-sidebar-size, 48rem);
+        align-self: flex-end;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .saw-sidebar-background {
+        flex-direction: column;
+    }
+
+    .saw-sidebar-background-start {
+        box-shadow: unset;
+        flex-grow: unset;
+        max-height: 0;
+        min-height: 0;
+        max-width: 100%;
+        min-width: 100%;
+        border-radius: 0;
+    }
+
+    .saw-sidebar-background-belowadd {
+        max-width: calc(100% - 4rem);
+        min-width: calc(100% - 4rem);
+        max-height: calc(var(--saw-addbutton-size, 56rem) + var(--saw--addbutton-space-landscape, 6rem));
+        min-height: calc(var(--saw-addbutton-size, 56rem) + var(--saw--addbutton-space-landscape, 6rem));
+        align-self: flex-start;
+        background: radial-gradient(circle at calc(100% + 7rem) 31rem, transparent calc(var(--saw-addbutton-cutoutradius, 32rem) - 0.1rem), var(--mdc-theme-surface, #fff) var(--saw-addbutton-cutoutradius, 32rem));
+    }
+
+    .saw-sidebar-background-end {
+        max-width: 100%;
+        min-width: 100%;
+        border-radius: 0 var(--saw-addbutton-cutout-border-radius, 6rem) 0 0;
+    }
+
+    .saw-sidebar-body {
+        margin: var(--saw-sidebar-body-offset, 75rem) 0 0 0;
+    }
+
+    .saw-sidebar-menu {
+        flex-grow: unset;
+        flex-direction: column;
+    }
+
+    .saw-sidebar:focus-within {
+        .saw-sidebar-background-belowadd {
+            max-height: 0rem;
+            min-height: 0rem;
+        }
+
+        .saw-sidebar-body {
+            margin: 0rem;
+        }
+
+        .saw-sidebar-menu {
+            margin: -5rem 0;
+        }
+    }
+
+    .saw-sidebar-menu-item {
+        padding: 10rem 0;
+    }
+
+    .saw-sidebar-menu-item-spacer {
+        min-width: 0;
+        min-height: 0;
+        order: 0
+    }
+
+
+    @media screen and (min-height: 600px) {
+        .saw-sidebar {
+            transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
+        }
+
+        .saw-sidebar:focus-within {
+            .saw-sidebar-background-belowadd {
+                max-height: calc(var(--saw-addbutton-size, 56rem) + var(--saw--addbutton-space-landscape, 6rem));
+                min-height: calc(var(--saw-addbutton-size, 56rem) + var(--saw--addbutton-space-landscape, 6rem));
+            }
+
+            .saw-sidebar-body {
+                margin: var(--saw-sidebar-body-offset, 75rem) 0 0 0;
+            }
+        }
+
+        .saw-sidebar-body-spacer {
+            flex-grow: 1;
+            max-height: 100%;
+            max-width: 100%;
+        }
+
+        .saw-sidebar-body-expander {
+            position: relative;
+            max-width: 100%;
+            max-height: var(--saw-sidebar-size, 45rem);
+            min-height: var(--saw-sidebar-size, 45rem);
+            font-size: 15rem;
+            background-color: var(--mdc-theme-primary-dark, #eee);
+            color: var(--mdc-theme-text-primary-on-dark, rgba(0,0,0,0.3));
+            border: 1px var(--mdc-theme-primary, #000) solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 12;
+            cursor: pointer;
+            user-select: none;
+            transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+
+            &:focus {
+                outline: var(--saw-std-focus-outline, none);
+            }
+
+            .mdc-ripple-surface {
+                @include ripple.surface;
+                @include ripple.radius-bounded;
+                @include ripple.states;
+                position: absolute;
+                top: 0rem;
+                left: 0rem;
+                right: 0rem;
+                bottom: 0rem;
+                overflow: hidden;
+            }
+
+            .saw-sidebar-body-expander-doexpand {
+                transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+            }
+
+            .saw-sidebar-body-expander-text {
+                font-size: 0rem;
+                transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+            }
+        }
+
+
+
+        #saw-base-expanded:checked {
+
+            ~ .saw-body .saw-sidebar {
+                background: linear-gradient(90deg, rgba(0, 0, 0, 0.46) 0rem, rgba(0, 0, 0, 0.46) 233rem, transparent);
+                min-width: var(--saw-sidebar-size-expanded, 255rem);
+                max-width: var(--saw-sidebar-size-expanded, 255rem);
+                transition-delay: 0s;
+            }
+
+            ~ .saw-body .saw-sidebar-background-belowadd {
+                max-height: calc(var(--saw-addbutton-size, 56rem) + var(--saw--addbutton-space-landscape, 6rem));
+                min-height: calc(var(--saw-addbutton-size, 56rem) + var(--saw--addbutton-space-landscape, 6rem));
+            }
+
+            ~ .saw-body .saw-sidebar-body {
+                margin: var(--saw-sidebar-body-offset-expanded, 155rem) 0 0 0;
+            }
+
+            ~ .saw-body .saw-sidebar-menu {
+                overflow-y: auto;
+                max-height: calc(100vh - 245rem);
+                margin: -5rem 0;
+            }
+
+            ~ .saw-body .saw-sidebar-menu-item-spacer {
+                order: 3;
+            }
+
+            ~ .saw-body .saw-sidebar-menu-item-icon {
+                opacity: 0;
+            }
+
+            ~ .saw-body .saw-sidebar-body-expander-doexpand {
+                transform: rotate(180deg);
+            }
+
+            ~ .saw-body .saw-sidebar-body-expander-text {
+                font-size: 16rem;
+                margin-left: 16rem;
+            }
+
+        }// #saw-base-expanded:checked
+
+    } // @media screen and (min-height: 600px)
+}// @media screen and (orientation: landscape)

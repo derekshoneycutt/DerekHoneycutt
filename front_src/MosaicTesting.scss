@@ -1,0 +1,47 @@
+﻿.wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    grid-auto-flow: dense;
+    list-style: none;
+    margin: 1em auto;
+    padding: 0;
+}
+
+.wrapper li {
+    border: 1px solid #ccc;
+}
+
+.wrapper li:nth-child(2n) {
+    grid-column-end: span 2;
+}
+
+.wrapper li:nth-child(5n) {
+    grid-row-end: span 2;
+}
+
+.wrapper li img {
+    display: block;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/*
+<ul class="wrapper">
+   <li><img src="https://placehold.it/200x300" alt="placeholder"></li>
+   <li><img src="https://placehold.it/350x200" alt="placeholder"></li>
+   <li><img src="https://placehold.it/350x200" alt="placeholder"></li>
+   <li><img src="https://placehold.it/350x200" alt="placeholder"></li>
+   <li><img src="https://placehold.it/200x300" alt="placeholder"></li>
+   <li><img src="https://placehold.it/200x300" alt="placeholder"></li>
+   <li><img src="https://placehold.it/350x200" alt="placeholder"></li>
+   <li><img src="https://placehold.it/200x300" alt="placeholder"></li>
+   <li><img src="https://placehold.it/200x300" alt="placeholder"></li>
+   <li><img src="https://placehold.it/200x300" alt="placeholder"></li>
+   <li><img src="https://placehold.it/350x200" alt="placeholder"></li>
+   <li><img src="https://placehold.it/350x200" alt="placeholder"></li>
+   <li><img src="https://placehold.it/350x200" alt="placeholder"></li>
+</ul>
+
+*/

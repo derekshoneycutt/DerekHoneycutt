@@ -1,0 +1,185 @@
+﻿@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
+@use "@material/ripple";
+@use "@material/chips/mdc-chips";
+@import '../../material-icons.scss';
+@import '../../RobotoFont.scss';
+
+@mixin saw-sidebar-menu-calendar-comp-shown {
+    padding: 0rem 10rem 0rem 8rem;
+
+    drock-calendar {
+        max-width: var(--saw-calendar-dropout-comp-width, 215rem);
+        max-height: var(--saw-calendar-dropout-comp-height, 250rem);
+        font-size: 16rem;
+    }
+}
+
+@mixin saw-sidebar-menu-calendar-todaychip-shown {
+    margin: 5rem 5rem 20rem 5rem;
+    display: block;
+    max-height: var(--saw-calendar-todaychip-height, 25.6rem);
+
+    .saw-mdc-chip {
+        max-height: var(--saw-calendar-todaychip-height, 25.6rem);
+
+        &:focus-within {
+            outline: var(--saw-std-focus-outline, none);
+            border: none;
+        }
+
+        .mdc-chip__touch {
+            max-height: 48rem;
+        }
+
+        span {
+            max-height: var(--saw-calendar-todaychip-height, 25.6rem);
+            font-size: 14rem;
+        }
+    }
+}
+
+
+
+drock-calendar:unresolved {
+    visibility: hidden;
+}
+
+.saw-sidebar-menu-calendar {
+    order: 3;
+}
+
+
+.saw-sidebar-menu-calendar-dropout {
+    @extend .mdc-elevation--z6;
+    background-color: var(--mdc-theme-surface, #fff);
+    height: 0rem;
+    max-width: var(--saw-calendar-dropout-width, 100%);
+    min-width: var(--saw-calendar-dropout-width, 100%);
+    border-radius: var(--saw-std-surface-border-radius, 2rem);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+
+    drock-calendar {
+        max-width: 0rem;
+        max-height: 0rem;
+        font-size: 0rem;
+        transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+        transition-delay: 0s;
+    }
+
+    &:focus {
+        outline: var(--saw-std-focus-outline, none);
+        border: none;
+    }
+}
+
+#saw-navchip-today {
+    margin: 0rem;
+    max-height: 0rem;
+    padding: 0rem;
+    user-select: none;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+
+    .saw-mdc-chip {
+        margin: 0rem;
+        max-height: 0rem;
+        transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+
+        .mdc-chip__touch {
+            max-height: 0rem;
+        }
+
+        span {
+            max-height: 0rem;
+            font-size: 0rem;
+            transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+        }
+    }
+}
+
+.saw-sidebar-menu-calendar:focus-within {
+    .saw-sidebar-menu-item-icon {
+        opacity: 0;
+    }
+
+    .saw-sidebar-menu-calendar-dropout {
+        @include saw-sidebar-menu-calendar-comp-shown;
+        height: calc(var(--saw-calendar-dropout-height, 285rem) + 15rem);
+    }
+
+    #saw-navchip-today {
+        @include saw-sidebar-menu-calendar-todaychip-shown;
+    }
+}
+
+
+
+@media screen and (orientation: landscape) {
+    .saw-sidebar-menu-calendar {
+        order: 1;
+
+        &:focus-within {
+            order: 0;
+            padding: 0rem;
+        }
+    }
+
+    .saw-sidebar-menu-calendar-dropout {
+        position: relative;
+        max-width: 0;
+        min-width: 0;
+        flex-direction: column;
+    }
+
+    .saw-sidebar-menu-calendar:focus-within .saw-sidebar-menu-calendar-dropout {
+        max-width: var(--saw-calendar-dropout-width-landscape, 215rem);
+        min-width: var(--saw-calendar-dropout-width-landscape, 215rem);
+        height: var(--saw-calendar-dropout-height, 285rem);
+        margin-left: 160rem;
+
+        #saw-navchip-today {
+            margin: 5rem;
+        }
+    }
+
+
+    @media screen and (min-height: 600px) {
+        .saw-sidebar-menu-calendar:focus-within {
+            order: 1;
+        }
+
+        #saw-base-expanded:checked {
+
+            ~ .saw-body .saw-sidebar-menu-calendar {
+                order: 1;
+                padding: 5rem 0rem;
+            }
+
+            ~ .saw-body .saw-sidebar-menu-calendar-dropout {
+                @include elevation.elevation(2);
+                @include saw-sidebar-menu-calendar-comp-shown;
+                margin-left: -25rem;
+                max-width: var(--saw-calendar-dropout-comp-width, 215rem);
+                min-width: var(--saw-calendar-dropout-comp-width, 215rem);
+                height: var(--saw-calendar-dropout-height, 285rem);
+                transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
+
+                drock-calendar {
+                    transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
+                }
+            }
+
+            ~ .saw-body #saw-navchip-today {
+                @include saw-sidebar-menu-calendar-todaychip-shown;
+                margin: 5rem;
+            }
+        }// #saw-base-expanded:checked
+
+    }// @media screen and (min-height: 600px)
+}// @media screen and (orientation: landscape)

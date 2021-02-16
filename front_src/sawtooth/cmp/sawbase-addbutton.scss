@@ -1,0 +1,240 @@
+﻿@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
+@use "@material/ripple";
+@use "@material/fab/mdc-fab";
+@use "@material/list";
+@import '../../material-icons.scss';
+@import '../../RobotoFont.scss';
+
+@mixin saw-add-button-fab {
+    .mdc-fab {
+        height: var(--saw-addbutton-size, 56rem);
+        width: var(--saw-addbutton-size, 56rem);
+
+        .mdc-fab__icon {
+            width: var(--saw-std-icon-size, 24rem);
+            height: var(--saw-std-icon-size, 24rem);
+            font-size: var(--saw-std-icon-size, 24rem);
+        }
+    }
+}
+
+@mixin saw-add-button-hidedrawer-hide {
+    top: calc(var(--saw-addbutton-size, 56rem) / 2);
+    left: calc(var(--saw-addbutton-size, 56rem) / 2);
+    width: 0;
+    height: 0;
+
+    .mdc-fab {
+        height: 0;
+        width: 0;
+
+        .mdc-fab__icon {
+            font-size: 0rem;
+        }
+    }
+}
+
+@mixin saw-add-button-hidedrawer-shown {
+    @include saw-add-button-fab;
+    top: 0rem;
+    left: 0rem;
+    width: var(--saw-addbutton-size, 56rem);
+    height: var(--saw-addbutton-size, 56rem);
+
+
+    .mdc-fab__icon {
+        transform: rotate(360deg);
+    }
+}
+
+@mixin saw-add-button-drawer-showbase {
+    min-width: var(--saw-addbutton-drawer-width, 200rem);
+    max-width: var(--saw-addbutton-drawer-width, 200rem);
+    min-height: var(--saw-addbutton-drawer-height, 145rem);
+    max-height: var(--saw-addbutton-drawer-height, 145rem);
+}
+
+@mixin saw-add-button-drawer-list-item-shown {
+    padding-left: var(--saw-listitem-padding-left, 32rem);
+    padding-right: var(--saw-listitem-padding-right, 16rem);
+    height: var(--saw-nav-listitem-height, 48rem);
+
+    .mdc-list-item__graphic {
+        width: var(--saw-std-icon-size, 24rem);
+        height: var(--saw-std-icon-size, 24rem);
+        font-size: var(--saw-std-icon-size, 24rem);
+    }
+
+    .mdc-list-item__text {
+        font-size: 16rem;
+    }
+}
+
+
+
+.saw-add-button {
+    @include saw-add-button-fab;
+    position: absolute;
+    bottom: var(--saw-addbutton-portrait-bottom, 20rem);
+    left: var(--saw-addbutton-portrait-left, 50%);
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+    z-index: 11;
+
+    .saw-add-button-self .mdc-fab {
+        transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+    }
+}
+
+.saw-add-button-hidedrawer {
+    @include saw-add-button-hidedrawer-hide;
+    position: absolute;
+    --mdc-theme-secondary: var(--mdc-theme-surface, #fff);
+    --mdc-theme-on-secondary: var(--mdc-theme-on-surface, #000);
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+
+    .mdc-fab {
+        z-index: 15;
+        transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+
+        .mdc-fab__icon {
+            transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+        }
+    }
+}
+
+.saw-add-button-drawer {
+    @extend .mdc-elevation--z4;
+    background-color: var(--mdc-theme-secondary-ultralight, #eee);
+    border-radius: var(--saw-std-surface-border-radius, 2rem);
+    position: absolute;
+    bottom: calc(var(--saw-addbutton-size, 48rem) / 2);
+    right: calc(var(--saw-addbutton-size, 48rem) / 2);
+    min-width: 0;
+    max-width: 0;
+    min-height: 0;
+    max-height: 0;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+    align-content: flex-start;
+    flex-direction: column;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+.saw-add-button-drawer-list {
+    @include list.core-styles;
+    margin: 0;
+    padding: 0;
+}
+
+.saw-add-button-drawer-list .mdc-list-item {
+    padding-left: 0rem;
+    padding-right: 0rem;
+    height: 0rem;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+    user-select: none;
+
+    .mdc-list-item__graphic {
+        width: 0rem;
+        height: 0rem;
+        font-size: 0rem;
+        transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+        --mdc-theme-text-icon-on-background: var(--mdc-theme-secondary-ultradark, #000);
+    }
+
+    .mdc-list-item__text {
+        font-size: 0rem;
+        transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+        color: var(--mdc-theme-secondary-ultradark, #000);
+    }
+}
+
+.saw-add-button:focus-within {
+    .saw-add-button-self .mdc-fab {
+        opacity: 0;
+    }
+
+    .saw-add-button-hidedrawer {
+        @include saw-add-button-hidedrawer-shown;
+    }
+
+    .saw-add-button-drawer {
+        @include saw-add-button-drawer-showbase;
+        padding: 4rem 0 calc((var(--saw-addbutton-size, 48rem) / 2) + 9rem) 0;
+        right: calc(-1 * ((var(--saw-addbutton-drawer-width, 200rem) - var(--saw-addbutton-size, 56rem)) / 2));
+    }
+
+    .saw-add-button-drawer-list .mdc-list-item {
+        @include saw-add-button-drawer-list-item-shown;
+    }
+}
+
+
+@media screen and (orientation: landscape) {
+
+    .saw-add-button {
+        position: absolute;
+        bottom: var(--saw-addbutton-landscape-bottom, 100%);
+        left: var(--saw-addbutton-landscape-left, 22.8rem);
+    }
+
+    .saw-add-button-drawer {
+        top: calc(var(--saw-addbutton-size, 48rem) / 2);
+        left: calc((var(--saw-addbutton-size, 48rem) / 2) - 5rem);
+        bottom: unset;
+        right: unset;
+    }
+
+    .saw-add-button:focus-within .saw-add-button-drawer {
+        right: unset;
+        padding: 5rem 0 4rem 0;
+    }
+
+    @media screen and (min-height: 600px) {
+        .saw-add-button {
+            transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
+        }
+
+        #saw-base-expanded:checked {
+
+            ~ .saw-body .saw-add-button {
+                left: calc(var(--saw-sidebar-size-expandoffset, 207rem) + var(--saw-addbutton-landscape-left, 22.8rem));
+                z-index: 13;
+                transition-delay: 0s;
+            }
+
+            ~ .saw-body .saw-add-button-self .mdc-fab {
+                opacity: 1;
+                z-index: 12;
+            }
+
+            ~ .saw-body .saw-add-button-hidedrawer {
+                @include saw-add-button-hidedrawer-hide;
+            }
+
+            ~ .saw-body .saw-add-button-drawer {
+                @include elevation.elevation(2);
+                @include saw-add-button-drawer-showbase;
+                top: -15rem;
+                left: calc(-1 * (var(--saw-addbutton-drawer-width, 200rem) - 15rem));
+                padding: 5rem 0 4rem 0;
+                transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
+            }
+
+            ~ .saw-body .saw-add-button-drawer-list .mdc-list-item {
+                @include saw-add-button-drawer-list-item-shown;
+                transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
+
+                .mdc-list-item__graphic {
+                    transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
+                }
+
+                .mdc-list-item__text {
+                    transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
+                }
+            }
+        }// #saw-base-expanded:checked
+
+    }// @media screen and (min-height: 600px)
+}// @media screen and (orientation: landscape)

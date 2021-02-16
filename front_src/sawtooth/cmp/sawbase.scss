@@ -1,0 +1,79 @@
+﻿@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
+@use "@material/ripple";
+@import '../../material-icons.scss';
+@import '../../RobotoFont.scss';
+@import './sawbase-topbar.scss';
+@import './sawbase-sidebar.scss';
+@import './sawbase-addbutton.scss';
+@import './sawbase-menu-calendar.scss';
+@import './sawbase-menu-view.scss';
+
+:host {
+    all: initial;
+    display: block;
+    contain: content;
+    font-family: Roboto, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
+}
+
+::slotted(*) {
+    width: 100%;
+    height: 100%;
+}
+
+saw-mdc-icon-button:unresolved {
+    visibility: hidden;
+}
+
+.saw-base-root {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--mdc-theme-background, #fff);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#saw-base-expanded {
+    opacity: 0;
+    height: 0;
+    width: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.saw-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.saw-mainframe {
+    flex-grow: 1;
+}
+
+@media screen and (orientation: landscape) {
+    .saw-body {
+        flex-direction: row-reverse;
+    }
+
+    @media screen and (min-height: 600px) {
+
+        #saw-base-expanded:checked {
+
+        }// #saw-base-expanded:checked
+
+    }// @media screen and (min-height: 600px)
+}// @media screen and (orientation: landscape)

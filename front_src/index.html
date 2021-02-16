@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="mdc-typography">
+
+    <drock-swiper id="swipe-base" orientation="x" hidexmove="true">
+        <div class="landing-div">
+            <drock-swiper class="landing-swipe" orientation="y" hidexmove="true">
+                <div id="enterhere"></div>
+            </drock-swiper>
+        </div>
+        <div class="landing-div">
+            <drock-swiper class="landing-swipe" orientation="y" hidexmove="true">
+                <div>this is just some text</div>
+                <div>this is just some... more text</div>
+            </drock-swiper>
+        </div>
+        <div class="landing-div">
+            <drock-swiper class="landing-swipe" orientation="y" hidexmove="true">
+                <div>Yes, another screen</div>
+                <div>O_o</div>
+            </drock-swiper>
+        </div>
+    </drock-swiper>
+
+    <%= require('html-loader!./cmp/swiper.html') %>
+
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.cssFile %>">
+</body>
+</html>
