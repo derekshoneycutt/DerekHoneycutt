@@ -37,12 +37,12 @@ The `RestFetch` interface is a wrapper over Javascript's `fetch` that automatica
 ```json
 {
 	...,
-	links: [
+	"links": [
 		{
-			rel: 'This becomes the function name in the JS object',
-			method: 'HTTP methods supported, separated by a |',
-			href: 'address to query',
-			[postData]: {'Any string or object representing a template to send back in POST requests'}
+			"rel": "This becomes the function name in the JS object",
+			"method": "HTTP methods supported, separated by a |",
+			"href": "address to query",
+			"[postData]": "Any string or object representing a template to send back in POST requests"
 		},
 		...
 	]
