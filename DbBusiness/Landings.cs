@@ -22,13 +22,13 @@ namespace DerekHoneycutt.DbBusiness
             DbModels.DatabaseContext dbContext, ILogger log)
         {
             var models = await (from landing in dbContext.Landings
-
                                 select new BusinessModels.Landing()
                                 {
                                     Id = landing.Id,
                                     Href = landing.Href,
                                     Title = landing.Title,
                                     Subtitle = landing.Subtitle,
+                                    Icon = landing.Icon,
                                     Pages = (from page in landing.Pages
                                              orderby page.Order
                                              select 

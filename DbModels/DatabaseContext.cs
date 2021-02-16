@@ -82,6 +82,9 @@ namespace DerekHoneycutt.DbModels
             builder.Entity<Landing>().Property(l => l.Subtitle)
                 .HasMaxLength(MaxSubtitleLength)
                 .IsRequired(false);
+            builder.Entity<Landing>().Property(l => l.Icon)
+                .HasMaxLength(MaxTitleLength)
+                .IsRequired(false);
             builder.Entity<Landing>()
                 .HasMany(l => l.Pages)
                 .WithOne(p => p.Landing)

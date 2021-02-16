@@ -31,6 +31,11 @@ namespace DerekHoneycutt.BusinessModels
         public string Subtitle { get; set; }
 
         /// <summary>
+        /// Gets or Sets the icon of the section
+        /// </summary>
+        public string Icon { get; set; }
+
+        /// <summary>
         /// Gets or Sets a collection of pages that make up the landing section
         /// </summary>
         public ICollection<Page> Pages { get; set; }

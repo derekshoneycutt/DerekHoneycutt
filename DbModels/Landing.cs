@@ -31,6 +31,11 @@ namespace DerekHoneycutt.DbModels
         public string Subtitle { get; set; }
 
         /// <summary>
+        /// Gets or Sets the icon of the section
+        /// </summary>
+        public string Icon { get; set; }
+
+        /// <summary>
         /// Gets or Sets a collection of all of the pages associated to the landing section
         /// </summary>
         public ICollection<Page> Pages { get; set; }
