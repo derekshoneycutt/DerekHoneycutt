@@ -1,10 +1,6 @@
 ﻿@use "@material/elevation";
-@use "@material/elevation/mdc-elevation";
-@use "@material/ripple";
-@use "@material/fab/mdc-fab";
 @use "@material/list";
-@import '../../material-icons.scss';
-@import '../../RobotoFont.scss';
+@use "@material/fab/mdc-fab";
 
 @mixin saw-add-button-fab {
     .mdc-fab {
@@ -104,7 +100,7 @@
 }
 
 .saw-add-button-drawer {
-    @extend .mdc-elevation--z4;
+    @include elevation.elevation(4);
     background-color: var(--mdc-theme-secondary-ultralight, #eee);
     border-radius: var(--saw-std-surface-border-radius, 2rem);
     position: absolute;

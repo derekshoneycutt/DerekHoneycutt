@@ -1,8 +1,4 @@
 ﻿@use "@material/elevation";
-@use "@material/elevation/mdc-elevation";
-@use "@material/ripple";
-@import '../../material-icons.scss';
-@import '../../RobotoFont.scss';
 
 .saw-topbar {
     height: var(--saw-topbar-height, 45rem);
@@ -15,7 +11,7 @@
 }
 
 .saw-topbar-background {
-    @extend .mdc-elevation--z4;
+    @include elevation.elevation(4);
     position: absolute;
     top: 0;
     right: 0;

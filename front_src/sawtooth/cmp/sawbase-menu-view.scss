@@ -1,9 +1,5 @@
 ﻿@use "@material/elevation";
-@use "@material/elevation/mdc-elevation";
-@use "@material/ripple";
 @use "@material/list";
-@import '../../material-icons.scss';
-@import '../../RobotoFont.scss';
 
 @mixin saw-sidebar-menu-view-dropout-shown {
     height: var(--saw-views-dropout-height, 250rem);
@@ -32,7 +28,7 @@
 }
 
 .saw-sidebar-menu-view-dropout {
-    @extend .mdc-elevation--z6;
+    @include elevation.elevation(6);
     background-color: var(--mdc-theme-surface, #fff);
     height: 0rem;
     max-width: var(--saw-views-dropout-width, 100%);

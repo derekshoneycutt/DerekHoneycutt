@@ -1,15 +1,7 @@
-﻿@use "@material/ripple";
-@use "@material/elevation";
-@use "@material/elevation/mdc-elevation";
-@use "@material/fab";
-@use "@material/fab/mdc-fab";
+﻿@use "@material/fab/mdc-fab";
 
 @import '../material-icons.scss';
 @import '../RobotoFont.scss';
-
-/* 
-@include fab.core-styles;
-*/
 
 :host {
     all: initial;

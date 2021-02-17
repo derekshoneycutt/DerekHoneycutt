@@ -1,8 +1,5 @@
 ﻿@use "@material/elevation";
-@use "@material/elevation/mdc-elevation";
 @use "@material/ripple";
-@import '../../material-icons.scss';
-@import '../../RobotoFont.scss';
 
 .saw-sidebar {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.46) 0rem, rgba(0, 0, 0, 0.46) 15rem, transparent);
@@ -34,7 +31,7 @@
 }
 
 .saw-sidebar-background-start {
-    @extend .mdc-elevation--z4;
+    @include elevation.elevation(4);
     flex-grow: 1;
     background-color: var(--mdc-theme-surface, #fff);
     max-height: 100%;
@@ -58,7 +55,7 @@
 }
 
 .saw-sidebar-background-end {
-    @extend .mdc-elevation--z4;
+    @include elevation.elevation(4);
     flex-grow: 1;
     max-height: 100%;
     min-height: 100%;

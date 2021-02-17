@@ -1,6 +1,5 @@
 ﻿@use "@material/ripple";
 @use "@material/elevation";
-@use "@material/elevation/mdc-elevation";
 @use "@material/tab-bar/mdc-tab-bar";
 @use "@material/tab-scroller/mdc-tab-scroller";
 @use "@material/tab-indicator/mdc-tab-indicator";
@@ -30,7 +29,7 @@
 }
 
 .drock-nav-container {
-    @extend .mdc-elevation--z4;
+    @include elevation.elevation(4);
     min-width: 100%;
     max-width: 100%;
     display: flex;

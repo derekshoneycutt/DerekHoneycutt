@@ -1,9 +1,5 @@
 ﻿@use "@material/elevation";
-@use "@material/elevation/mdc-elevation";
-@use "@material/ripple";
 @use "@material/chips/mdc-chips";
-@import '../../material-icons.scss';
-@import '../../RobotoFont.scss';
 
 @mixin saw-sidebar-menu-calendar-comp-shown {
     padding: 0rem 10rem 0rem 8rem;
@@ -51,7 +47,7 @@ drock-calendar:unresolved {
 
 
 .saw-sidebar-menu-calendar-dropout {
-    @extend .mdc-elevation--z6;
+    @include elevation.elevation(6);
     background-color: var(--mdc-theme-surface, #fff);
     height: 0rem;
     max-width: var(--saw-calendar-dropout-width, 100%);
