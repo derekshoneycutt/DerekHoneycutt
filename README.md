@@ -1,6 +1,6 @@
 ﻿# Derek Honeycutt
 
-This is a repository for my personal portfolio website and code that I'm willing to show as additional portfolio. Although primarily the codebase for my personal "resume" website, there is some work from other projects included.
+This is a repository for my personal portfolio website and code that I'm willing to show as additional portfolio. Although primarily the codebase for my personal "resume" website, there is some work from other projects included as well. For example, a few C# WPF projects are included in an OTHERS folder; these are generally older code that may be below par on my own standards today, but they provide some useful code and old sampling of work I have collected over the years.
 
 The primary project here is an intentionally over-engineered C# Web API RESTful backend with a vanilla Javascript frontend built with web components. 
 
