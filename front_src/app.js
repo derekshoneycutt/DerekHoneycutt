@@ -1,5 +1,6 @@
 ﻿import { Imogene as $, ImogeneExports as $_, ImogeneTemplate as $t } from './Imogene/Imogene';
 import DrockSwiperElement from './cmp/swiper';
+import DrockTopBar from './cmp/drock/topbar';
 import showdown from 'showdown';
 import DOMPurify from 'dompurify';
 import './ServerTypeDefs';
@@ -12,7 +13,10 @@ async function fetchhome() {
     let homefetch = await $_.RestFetch("/", "portfolio");
     console.log(homefetch);
 }
-fetchhome();
+
+$(() => {
+    fetchhome();
+});
 
 let params = new URLSearchParams(document.location.search.substring(1));
 var mydata = {

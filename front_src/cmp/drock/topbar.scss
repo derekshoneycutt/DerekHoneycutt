@@ -1,0 +1,57 @@
+﻿@use "@material/ripple";
+@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
+@use "@material/tab-bar/mdc-tab-bar";
+@use "@material/tab-scroller/mdc-tab-scroller";
+@use "@material/tab-indicator/mdc-tab-indicator";
+@use "@material/tab/mdc-tab";
+@import '../../material-icons.scss';
+@import '../../RobotoFont.scss';
+
+:host {
+    all: initial;
+    display: block;
+    contain: layout;
+    font-family: Roboto, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+
+.mdc-ripple-surface {
+    @include ripple.surface;
+    @include ripple.radius-bounded;
+    @include ripple.states;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.drock-nav-container {
+    @extend .mdc-elevation--z4;
+    min-width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--mdc-theme-surface-dark, #fff);
+}
+
+.drock-nav-head {
+    height: var(--drock-navhead-height, 45rem);
+    min-height: var(--drock-navhead-height, 45rem);
+    max-height: var(--drock-navhead-height, 45rem);
+    display: flex;
+    align-items: center;
+}
+
+.drock-nav-head-title {
+    font-size: 20rem;
+    margin-left: 22.4rem;
+}
+
+.drock-nav-tabs {
+    margin-left: 35rem;
+    max-width: calc(100% - 35rem);
+}

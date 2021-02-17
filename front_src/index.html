@@ -5,27 +5,36 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body class="mdc-typography">
+<body class="mdc-typography drock-body">
 
-    <drock-swiper id="swipe-base" orientation="x" hidexmove="true">
-        <div class="landing-div">
-            <drock-swiper class="landing-swipe" orientation="y" hidexmove="true">
-                <div id="enterhere"></div>
+    <div id="drock-base">
+        <div id="main-body">
+            <drock-swiper id="swipe-base" orientation="x" hidexmove="true">
+                <div class="landing-div">
+                    <drock-swiper class="landing-swipe" orientation="y" hidexmove="true">
+                        <div id="enterhere"></div>
+                    </drock-swiper>
+                </div>
+                <div class="landing-div">
+                    <drock-swiper class="landing-swipe" orientation="y" hidexmove="true">
+                        <div>this is just some text</div>
+                        <div>this is just some... more text</div>
+                    </drock-swiper>
+                </div>
+                <div class="landing-div">
+                    <drock-swiper class="landing-swipe" orientation="y" hidexmove="true">
+                        <div>Yes, another screen</div>
+                        <div>O_o</div>
+                    </drock-swiper>
+                </div>
             </drock-swiper>
         </div>
-        <div class="landing-div">
-            <drock-swiper class="landing-swipe" orientation="y" hidexmove="true">
-                <div>this is just some text</div>
-                <div>this is just some... more text</div>
-            </drock-swiper>
+
+        <div id="drock-topbar">
+            <drock-topbar id="drock-main-nav">
+            </drock-topbar>
         </div>
-        <div class="landing-div">
-            <drock-swiper class="landing-swipe" orientation="y" hidexmove="true">
-                <div>Yes, another screen</div>
-                <div>O_o</div>
-            </drock-swiper>
-        </div>
-    </drock-swiper>
+    </div>
 
     <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.cssFile %>">
 </body>

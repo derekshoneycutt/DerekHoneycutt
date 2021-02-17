@@ -7,14 +7,31 @@ const buildMode = 'production';
 
 const components = [
     { file: 'swiper', name: 'swiper' },
-    { file: 'calendar', name: 'calendar' }
+    { file: 'calendar', name: 'calendar' },
+    { file: 'drock/topbar', name: 'topbar' }
 ];
+
+const mainPartials = [
+    'front_src/cmp/swiper.html',
+    'front_src/cmp/drock/topbar.html'
+];
+
 const sawtoothComponents = [
     { file: 'Core/mdciconbutton', name: 'mdciconbutton' },
     { file: 'Views/dayhead', name: 'dayhead' },
     { file: 'Views/week', name: 'week' },
     { file: 'sawbase', name: 'sawbase' },
     { file: 'splashscreen', name: 'splashscreen' }
+];
+
+const sawtoothPartials = [
+    'front_src/cmp/calendar.html',
+    'front_src/cmp/swiper.html',
+    'front_src/sawtooth/cmp/Core/mdciconbutton.html',
+    'front_src/sawtooth/cmp/Views/dayhead.html',
+    'front_src/sawtooth/cmp/Views/week.html',
+    'front_src/sawtooth/cmp/sawbase.html',
+    'front_src/sawtooth/cmp/splashscreen.html'
 ];
 
 function getCSSExportRule(name) {
@@ -105,9 +122,7 @@ module.exports = [
                 filename: 'index.html'
             }),
             new HtmlWebpackPartialsPlugin(
-                getHighBodyPartials('index.html', [
-                    'front_src/cmp/swiper.html'
-                ]))
+                getHighBodyPartials('index.html', mainPartials))
         ]
     },
     ...getCssExports('sawtooth/cmp', 'cmpcss/sawtooth', sawtoothComponents),
@@ -135,15 +150,7 @@ module.exports = [
                 filename: 'sawtooth.html'
             }),
             new HtmlWebpackPartialsPlugin(
-                getHighBodyPartials('sawtooth.html', [
-                    'front_src/cmp/calendar.html',
-                    'front_src/cmp/swiper.html',
-                    'front_src/sawtooth/cmp/Core/mdciconbutton.html',
-                    'front_src/sawtooth/cmp/Views/dayhead.html',
-                    'front_src/sawtooth/cmp/Views/week.html',
-                    'front_src/sawtooth/cmp/sawbase.html',
-                    'front_src/sawtooth/cmp/splashscreen.html'
-                ]))
+                getHighBodyPartials('sawtooth.html', sawtoothPartials))
         ]
     }
 ];

@@ -7,22 +7,22 @@
 
 :root {
     /*  There might be some nonstandard themes below, but roll w/ it! */
-    --mdc-theme-primary: #0096a5;
-    --mdc-theme-primary-light: #56c7d6;
-    --mdc-theme-primary-dark: #006876;
-    --mdc-theme-primary-ultralight: #ebf7f8;
-    --mdc-theme-primary-ultradark: #003d4a;
-    --mdc-theme-on-primary: #000;
-    --mdc-theme-primary-bg: #0096a5;
-    --mdc-theme-secondary: #64BE6D;
-    --mdc-theme-secondary-light: #96f19c;
-    --mdc-theme-secondary-dark: #308d40;
-    --mdc-theme-secondary-ultralight: #c9ffcd;
-    --mdc-theme-secondary-ultradark: #005f15;
-    --mdc-theme-on-secondary: #000;
-    --mdc-theme-secondary-bg: #64BE6D;
+    --mdc-theme-primary: #9c27b0;
+    --mdc-theme-primary-light: #af52bf;
+    --mdc-theme-primary-dark: #6d1b7b;
+    --mdc-theme-primary-ultralight: #bf74cb;
+    --mdc-theme-primary-ultradark: #4c1256;
+    --mdc-theme-on-primary: #fff;
+    --mdc-theme-primary-bg: #9c27b0;
+    --mdc-theme-secondary: #3d5afe;
+    --mdc-theme-secondary-light: #637bfe;
+    --mdc-theme-secondary-dark: #2a3eb1;
+    --mdc-theme-secondary-ultralight: #8295fe;
+    --mdc-theme-secondary-ultradark: #1d2b7b;
+    --mdc-theme-on-secondary: #fff;
+    --mdc-theme-secondary-bg: #3d5afe;
     --mdc-theme-surface: #fff;
-    --mdc-theme-surface-dark: #ebf7f8;
+    --mdc-theme-surface-dark: #f3e5f5;
     --mdc-theme-on-surface: #000;
     --mdc-theme-background: #fff;
     --mdc-theme-error: #b00020;
@@ -42,9 +42,8 @@
     --mdc-theme-text-hint-on-dark: rgba(255,255,255,.5);
     --mdc-theme-text-disabled-on-dark: rgba(255,255,255,.5);
     --mdc-theme-text-icon-on-dark: rgba(255,255,255,.5);
-    
     --drock-transitions-length: 0.25s;
-
+    --drock-navhead-height: 45rem;
     /* Make 1rem = 1px when default font-size is 16px */
     font-size: 6.25%;
 }
@@ -59,13 +58,25 @@ body {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-size: 16rem;
+    max-width: 100%;
+    max-height: 100%;
 }
 
-.drock-base {
+#drock-base {
     font-size: 1rem;
+    display: flex;
+    flex-direction: column-reverse;
+    max-width: 100%;
+    min-width: 100%;
 }
 
-#swipe-base, .landing-swipe {
+#main-body {
+    position: relative;
+    flex: 1;
+    z-index: 0;
+}
+
+#drock-base, #swipe-base, .landing-swipe {
     position: absolute;
     top: 0;
     left: 0;
@@ -75,8 +86,21 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 .landing-div {
     position: relative;
+}
+
+#drock-topbar {
+    position: relative;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+#drock-main-nav {
+    z-index: 4;
+    max-width: 100%;
+    min-width: 100%;
 }
