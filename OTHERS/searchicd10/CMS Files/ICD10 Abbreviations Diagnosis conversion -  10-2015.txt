@@ -1,0 +1,6 @@
+F17.2   Smoking Smoker
+Z72.0   Smoking Smoker
+Z87.891 Smoking Smoker
+P96.81  Smoking Smoker
+Z81.2   Smoking Smoker
+Z57.31  Smoking Smoker

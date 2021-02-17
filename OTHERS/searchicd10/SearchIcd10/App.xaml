@@ -1,0 +1,11 @@
+﻿<Application x:Class="SearchIcd10.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Startup="ApplicationStart">
+    <Application.Resources>
+
+        <BitmapImage UriSource="Resources/search128.png" x:Key="SearchPng" />
+        
+        <ImageBrush ImageSource="{StaticResource SearchPng}" x:Key="SearchPngBrush" AlignmentX="Left" Stretch="Uniform" Viewport="3,3,16,16" ViewportUnits="Absolute" />
+    </Application.Resources>
+</Application>

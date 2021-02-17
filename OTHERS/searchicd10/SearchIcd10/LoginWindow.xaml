@@ -1,0 +1,40 @@
+﻿<Window x:Class="SearchIcd10.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vms="clr-namespace:SearchIcd10.ViewModels"
+        xmlns:behaviors="clr-namespace:SearchIcd10.Behaviors"
+        xmlns:converters="clr-namespace:SearchIcd10.ValueConverters"
+        Title="Login for Cloud Search ICD" Width="372" ResizeMode="CanMinimize" SizeToContent="Height">
+    <Window.Resources>
+        <converters:EmptyStringToVisibility x:Key="StringVisibilityConverter"/>
+    </Window.Resources>
+    <Window.DataContext>
+        <vms:LoginVM LoginSuccess="LoginVM_LoginSuccess" />
+    </Window.DataContext>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Username:" Margin="5" />
+        <TextBox Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding UserName}" Margin="5,0" />
+
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Text="Password:" Margin="5" />
+        <PasswordBox x:Name="passBox" Grid.Row="3" Grid.ColumnSpan="3" Margin="5,0" />
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Foreground="Red"
+                   Text="{Binding LoginFail}" Visibility="{Binding LoginFail,Converter={StaticResource StringVisibilityConverter}}" TextWrapping="Wrap" />
+        <Button Grid.Row="4" Grid.Column="1" Content="OK" Padding="35,2" Margin="5,5,10,5" IsDefault="True"
+                Command="{Binding TestLogin}" CommandParameter="{Binding ElementName=passBox}"/>
+        <Button Grid.Row="4" Grid.Column="2" Content="Cancel" Padding="25,2" Margin="5" IsCancel="True" />
+    </Grid>
+</Window>

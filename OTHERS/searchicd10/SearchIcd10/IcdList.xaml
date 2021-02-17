@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="SearchIcd10.IcdList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:behaviors="clr-namespace:SearchIcd10.Behaviors"
+             xmlns:converters="clr-namespace:SearchIcd10.ValueConverters"
+             xmlns:local="clr-namespace:SearchIcd10"
+             mc:Ignorable="d" 
+             Name="IcdListCtrl"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converters:ListItemTitleMultiConverter x:Key="ListItemTitleMultiConverter"/>
+        <converters:ChildrenBoolToVisibility x:Key="ChildrenBoolToVisibility" />
+        <converters:IntToCommentButton x:Key="IntToCommentButton" />
+        <converters:BoolToVisibility x:Key="BoolToVisibilityConverter" />
+        <converters:InvertBoolToVisibility x:Key="InvertBoolToVisibilityConverter" />
+        <converters:MultiBoolToVisibility x:Key="MultiBoolToVisibilityConverter" />
+
+        <behaviors:ListItemTemplateSelector x:Key="ListItemTemplateSelector"/>
+
+        <DataTemplate x:Key="CodeItemTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Path=(ItemsControl.AlternationIndex)}" Value="0">
+                                <Setter Property="Background" Value="White"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Path=(ItemsControl.AlternationIndex)}" Value="1">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
+                <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0">
+                    <Button Content="{Binding Path=Title.Number}" Command="{Binding ToggleChosenCmnd}" IsEnabled="True" 
+                            Height="1" Width="1" Margin="0"/>
+                    <Button Content="{Binding Path=Title.Title}" Command="{Binding ToggleChosenCmnd}" IsEnabled="True" 
+                            Height="1" Width="1" Margin="0" />
+                    <Button Content="{Binding Path=Title.Number,Converter={StaticResource IntToCommentButton}}" IsEnabled="True" 
+                            Height="1" Width="1" Margin="0" Click="CommentButton_Click"/>
+                </StackPanel>
+
+                <Border Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Margin="3,3,4,0"
+                        Visibility="{Binding SpecificityComplete,Converter={StaticResource BoolToVisibilityConverter}}" 
+                        Background="#FFC5FFC0" BorderBrush="#FF23721A"
+                        BorderThickness="1" CornerRadius="5"/>
+
+                <CheckBox HorizontalAlignment="Stretch" IsChecked="{Binding IsChosen}" Margin="9,6,9,6" Grid.Column="2"
+                          Visibility="{Binding IsChosen,Converter={StaticResource InvertBoolToVisibilityConverter}}">
+                    <TextBlock TextWrapping="Wrap">
+                        <behaviors:TextBlockHelper.FormattedText>
+                            <MultiBinding Converter="{StaticResource ListItemTitleMultiConverter}" Mode="OneWay">
+                                <Binding Path="ParentTitle" Mode="OneWay" />
+                                <Binding Path="Title" Mode="OneWay" />
+                            </MultiBinding>
+                        </behaviors:TextBlockHelper.FormattedText>
+                    </TextBlock>
+                </CheckBox>
+
+                <CheckBox HorizontalAlignment="Stretch" IsChecked="{Binding IsChosen}" Margin="9,6,9,6" Grid.Column="2"
+                          Visibility="{Binding IsChosen,Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Title,Mode=OneWay}"/>
+                </CheckBox>
+
+                <TextBox Margin="35,2,8,5" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"  VerticalAlignment="Top" Text="{Binding Comment,UpdateSourceTrigger=PropertyChanged}" 
+                         TextWrapping="Wrap" AcceptsReturn="True" IsVisibleChanged="TextBox_IsVisibleChanged" Loaded="TextBox_Loaded"
+                         LostFocus="TextBox_LostFocus">
+                    <TextBox.Visibility>
+                        <MultiBinding Converter="{StaticResource MultiBoolToVisibilityConverter}" Mode="OneWay">
+                            <Binding Path="HasOwnComment" Mode="OneWay"/>
+                            <Binding Path="IsChosen" Mode="OneWay"/>
+                        </MultiBinding>
+                    </TextBox.Visibility>
+                </TextBox>
+
+                <Border Margin="0,5" Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" BorderThickness="1,1,1,5"
+                        BorderBrush="{Binding ElementName=IcdListCtrl,Path=DividerBackBrush}" 
+                        Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" CornerRadius="5">
+                    <Border.Visibility>
+                        <MultiBinding Converter="{StaticResource ChildrenBoolToVisibility}">
+                            <Binding Path="Children"/>
+                            <Binding Path="IsChosen" />
+                        </MultiBinding>
+                    </Border.Visibility>
+                    <local:IcdList ItemsSource="{Binding Children}"
+                                   DividerBackBrush="{Binding ElementName=IcdListCtrl,Path=DividerBackBrush}"
+                                   ItemsReset="IcdList_ItemsReset" FocusChanged="IcdList_FocusChanged"
+                                   ScrollHint="IcdList_ScrollHint"/>
+                </Border>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="DividerItemTemplate">
+            <TextBlock Text="{Binding Path=Title.Title}" Background="{Binding ElementName=IcdListCtrl,Path=DividerBackBrush}" Foreground="WhiteSmoke" 
+                       IsHitTestVisible="False" Focusable="False" Padding="5,6" FontWeight="Normal" />
+        </DataTemplate>
+        <DataTemplate x:Key="MoreButtonItemTemplate">
+            <Button Content="More..." HorizontalAlignment="Stretch"
+                    Command="{Binding ElementName=IcdListCtrl,Path=MoreCommand}" 
+                    Margin="1,3" />
+        </DataTemplate>
+    </UserControl.Resources>
+    <ItemsControl x:Name="termsList" HorizontalContentAlignment="Stretch"
+                  ItemsSource="{Binding ElementName=IcdListCtrl,Path=ItemsSource}"
+                  AlternationCount="2"
+                  ItemTemplateSelector="{StaticResource ListItemTemplateSelector}" />
+
+</UserControl>

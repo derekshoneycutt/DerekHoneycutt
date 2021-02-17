@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SearchIcd10List>
+  <OrderedList id="TopList">
+    <Item type="Divider">Diagnoses</Item>
+    <Item type="Code">J45</Item>
+    <Item type="Code">I48</Item>
+    <Item type="Code">J15</Item>
+    <Item type="Code">I63</Item>
+    <Item type="Code">N18</Item>
+    <Item type="Code">O82</Item>
+    <Item type="Code">O80</Item>
+    <Item type="Code">S62</Item>
+    <Item type="Code">S72</Item>
+    <Item type="Code">S52</Item>
+    <Item type="Code">S92</Item>
+    <Item type="Code">S82</Item>
+    <Item type="Code">S42</Item>
+    <Item type="Code">I50</Item>
+    <Item type="Code">I61</Item>
+    <Item type="Code">I60</Item>
+    <Item type="Code">I67</Item>
+    <Item type="Code">J18</Item>
+    <Item type="Code">L89</Item>
+    <Item type="Code">J96</Item>
+    <Item type="Code">I69</Item>
+    <Item type="Code">R40</Item>
+    <Item type="Code">I21</Item>
+    <Item type="Code">E10</Item>
+    <Item type="Code">E11</Item>
+    <Item type="Code">J12</Item>
+    <Item type="Divider">Procedures</Item>
+    <Item type="Code">3E01</Item>
+    <Item type="Code">0WB</Item>
+    <Item type="Code">0YB</Item>
+    <Item type="Code">0XB</Item>
+    <Item type="Code">021</Item>
+    <Item type="Code">027</Item>
+    <Item type="Code">02H</Item>
+    <Item type="Code">0QQ</Item>
+    <Item type="Code">0SS</Item>
+    <Item type="Code">10E0</Item>
+    <Item type="Code">10D0</Item>
+    <Item type="Code">0JH</Item>
+    <Item type="Code">0PQ</Item>
+    <Item type="Code">0RS</Item>
+  </OrderedList>
+</SearchIcd10List>
