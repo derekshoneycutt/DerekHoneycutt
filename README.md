@@ -1,5 +1,6 @@
 ﻿
 
+
 # Derek Honeycutt
 
 This is a repository for my personal portfolio website and code that I'm willing to show as additional portfolio. Although primarily the codebase for my personal "resume" website, there is some work from other projects included.
@@ -7,6 +8,14 @@ This is a repository for my personal portfolio website and code that I'm willing
 The primary project here is an intentionally over-engineered C# Web API RESTful backend with a vanilla Javascript frontend built with web components. 
 
 # Subprojects
+
+### OTHERS/VagabondLib
+
+This is just a random assortment of C# (heavy on WPF, but useable otherwise) code that can be reused easily enough.
+
+### OTHERS/GpxAnalysis & OTHERS/GPXAnalyzer
+
+This is a WPF project that creates a plot of a GPX file to show elevation change over the course of the adventure. This is a rough project not meant for wide consumption, but it is useful, especially for personal use.
 
 ### Imogene
 
