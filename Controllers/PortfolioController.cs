@@ -193,6 +193,7 @@ namespace DerekHoneycutt.Controllers
                 Title = landing.Title,
                 Subtitle = landing.Subtitle,
                 Icon = landing.Icon,
+                Order = landing.Order,
                 Pages = landing.Pages.Select(p => TranslatePage(p)).ToList(),
                 Links = new[]
                 {

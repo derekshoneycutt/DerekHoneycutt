@@ -22,6 +22,7 @@ namespace DerekHoneycutt.DbBusiness
             DbModels.DatabaseContext dbContext, ILogger log)
         {
             var models = await (from landing in dbContext.Landings
+                                orderby landing.Order
                                 select new BusinessModels.Landing()
                                 {
                                     Id = landing.Id,
@@ -29,6 +30,7 @@ namespace DerekHoneycutt.DbBusiness
                                     Title = landing.Title,
                                     Subtitle = landing.Subtitle,
                                     Icon = landing.Icon,
+                                    Order = landing.Order,
                                     Pages = (from page in landing.Pages
                                              orderby page.Order
                                              select 

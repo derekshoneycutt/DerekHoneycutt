@@ -32,6 +32,8 @@ namespace DerekHoneycutt.DbModels.Mappings
             builder.Property(l => l.Icon)
                 .HasMaxLength(Consts.MaxTitleLength)
                 .IsRequired(false);
+            builder.Property(l => l.Order)
+                .IsRequired(false);
 
             //Foreign keys
             builder

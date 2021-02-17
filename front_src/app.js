@@ -12,15 +12,28 @@ $('#enterhere').setProperties({ innerHTML: html });
 
 async function fetchhome() {
     let homefetch = await $_.RestFetch("/", "portfolio");
-    console.log(homefetch);
+
+    if (homefetch.landings && homefetch.landings instanceof Array) {
+        /** @type {DrockTopBar} */
+        const topbar = $('#drock-main-nav')[0];
+        const tabs = [
+            { icon: 'home', label: 'Home', active: true },
+            ...homefetch.landings
+                .map(l => ({ icon: l.icon, label: l.title, active: false, order: l.order }))
+                .sort((a, b) => (a.order || 0) - (b.order || 0))
+        ];
+        topbar.fillTabs(tabs);
+    }
 }
 
 $(() => {
-    fetchhome();
 
     $('#drock-contactfab').addEvents({
         click: () => console.log('Clicked contact!')
     });
+
+
+    fetchhome();
 });
 
 let params = new URLSearchParams(document.location.search.substring(1));

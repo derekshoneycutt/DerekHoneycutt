@@ -36,6 +36,11 @@ namespace DerekHoneycutt.RestModels
         public string Icon { get; set; }
 
         /// <summary>
+        /// Gets or Sets the order of the landing
+        /// </summary>
+        public int? Order { get; set; }
+
+        /// <summary>
         /// Gets or Sets a collection of the pages that makeup the current landing
         /// </summary>
         public ICollection<Page> Pages { get; set; }

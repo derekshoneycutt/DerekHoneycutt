@@ -36,6 +36,11 @@ namespace DerekHoneycutt.BusinessModels
         public string Icon { get; set; }
 
         /// <summary>
+        /// Gets or Sets the order of the landing
+        /// </summary>
+        public int? Order { get; set; }
+
+        /// <summary>
         /// Gets or Sets a collection of pages that make up the landing section
         /// </summary>
         public ICollection<Page> Pages { get; set; }

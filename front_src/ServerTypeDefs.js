@@ -64,6 +64,7 @@
  * @property {string} [title]
  * @property {string} [subtitle]
  * @property {string} [icon]
+ * @property {number} [order]
  * @property {DrockServerPage[]} [page]
  */
 

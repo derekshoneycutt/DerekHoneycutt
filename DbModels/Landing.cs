@@ -36,6 +36,11 @@ namespace DerekHoneycutt.DbModels
         public string Icon { get; set; }
 
         /// <summary>
+        /// Gets or Sets the order of the landing
+        /// </summary>
+        public int? Order { get; set; }
+
+        /// <summary>
         /// Gets or Sets a collection of all of the pages associated to the landing section
         /// </summary>
         public ICollection<Page> Pages { get; set; }

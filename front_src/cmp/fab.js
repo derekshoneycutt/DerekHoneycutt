@@ -6,8 +6,6 @@ export class DrockFab extends HTMLElement {
     constructor() {
         super();
 
-        const self = this;
-
         const shadowRoot = this.attachShadow({ mode: 'open' });
         /** @type {HTMLTemplateElement} */
         const template = $('#drock-fab')[0];
