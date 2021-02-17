@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="GpxAnalyzer.GpxChartControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GpxAnalyzer"
+             xmlns:WinForms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             xmlns:Charting="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <WindowsFormsHost x:Name="WinFormHost">
+            <WindowsFormsHost.Child>
+                <Charting:Chart x:Name="WinFormsChart">
+                    <Charting:Chart.Series>
+                        <Charting:Series Name="GpxElevation" ChartArea="Default" IsVisibleInLegend="True" 
+                                         ChartType="Area" Color="Transparent" BackGradientStyle="TopBottom" BorderColor="ForestGreen" BackSecondaryColor="ForestGreen" />
+                    </Charting:Chart.Series>
+                    <Charting:Chart.Legends>
+                        <Charting:Legend Name="GpxElevation" Alignment="Center" IsDockedInsideChartArea="True"
+                                         Title="Statistics" TitleSeparator="Line" TitleAlignment="Near" />
+                    </Charting:Chart.Legends>
+                    <Charting:Chart.ChartAreas>
+                        <Charting:ChartArea Name="Default"/>
+                    </Charting:Chart.ChartAreas>
+                </Charting:Chart>
+            </WindowsFormsHost.Child>
+        </WindowsFormsHost>
+    </Grid>
+</UserControl>
