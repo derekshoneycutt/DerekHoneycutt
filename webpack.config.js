@@ -8,11 +8,13 @@ const buildMode = 'production';
 const components = [
     { file: 'swiper', name: 'swiper' },
     { file: 'calendar', name: 'calendar' },
+    { file: 'fab', name: 'fab' },
     { file: 'drock/topbar', name: 'topbar' }
 ];
 
 const mainPartials = [
     'front_src/cmp/swiper.html',
+    'front_src/cmp/fab.html',
     'front_src/cmp/drock/topbar.html'
 ];
 

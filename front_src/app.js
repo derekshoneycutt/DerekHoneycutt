@@ -1,5 +1,6 @@
 ﻿import { Imogene as $, ImogeneExports as $_, ImogeneTemplate as $t } from './Imogene/Imogene';
 import DrockSwiperElement from './cmp/swiper';
+import DrockFab from './cmp/fab';
 import DrockTopBar from './cmp/drock/topbar';
 import showdown from 'showdown';
 import DOMPurify from 'dompurify';
@@ -16,6 +17,10 @@ async function fetchhome() {
 
 $(() => {
     fetchhome();
+
+    $('#drock-contactfab').addEvents({
+        click: () => console.log('Clicked contact!')
+    });
 });
 
 let params = new URLSearchParams(document.location.search.substring(1));

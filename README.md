@@ -63,6 +63,10 @@ In the frontend, the sawtooth directory contains a prototype work-in-progress fo
 
 Included in the `front_src/cmp` directory is several web components that are broadly useful. There are several highly specialized components included in this project, but the primary extendable ones are highlighted here.
 
+##### Floating Action Button (FAB)
+
+This is a really simple component implementing Material Design Components' FAB. The `icon` property identifies what icon to display. Needs to be placed via CSS, but can be treated essentially as a button element.
+
 ##### Swiper
 
 This is a component that holds a number of children and enables swiping action upon them. Each child should be held within a `<div>` container for proper function.

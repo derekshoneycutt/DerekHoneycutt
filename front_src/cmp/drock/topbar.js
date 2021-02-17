@@ -2,7 +2,7 @@
 import { MDCTabBar } from '@material/tab-bar';
 import { MDCRipple } from '@material/ripple';
 
-/** Component for showing an MDC Icon Button */
+/** Component for showing the topbar of my portfolio */
 export class DrockTopBar extends HTMLElement {
     constructor() {
         super();
