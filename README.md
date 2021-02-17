@@ -1,21 +1,10 @@
-﻿
-
-
-# Derek Honeycutt
+﻿# Derek Honeycutt
 
 This is a repository for my personal portfolio website and code that I'm willing to show as additional portfolio. Although primarily the codebase for my personal "resume" website, there is some work from other projects included.
 
 The primary project here is an intentionally over-engineered C# Web API RESTful backend with a vanilla Javascript frontend built with web components. 
 
 # Subprojects
-
-### OTHERS/VagabondLib
-
-This is just a random assortment of C# (heavy on WPF, but useable otherwise) code that can be reused easily enough.
-
-### OTHERS/GpxAnalysis & OTHERS/GPXAnalyzer
-
-This is a WPF project that creates a plot of a GPX file to show elevation change over the course of the adventure. This is a rough project not meant for wide consumption, but it is useful, especially for personal use.
 
 ### Imogene
 
@@ -66,11 +55,15 @@ postData .address = '123 New Address Lane';
 await settings.postAddress(postData);
 ```
 
+### Sawtooth
+
+In the frontend, the sawtooth directory contains a prototype work-in-progress for the frontend of a calendar-based project I have been working with. It is built in here to showcase some of my own code, but it is not more than prototype at this point.
+
 ### Components
 
 Included in the `front_src/cmp` directory is several web components that are broadly useful. There are several highly specialized components included in this project, but the primary extendable ones are highlighted here.
 
-#### Swiper
+##### Swiper
 
 This is a component that holds a number of children and enables swiping action upon them. Each child should be held within a `<div>` container for proper function.
 
@@ -90,7 +83,7 @@ The following events are raised upon extra actions on the element:
 
  - `swipemove` : Raised when the swiper has moved to a different index. Event object includes `detail` object with `index` property set to new index that the swiper lands upon.
 
-#### Calendar
+##### Calendar
 
 This is a basic component that displays and manages a calendar widget. The user is able to navigate month to month and click on a date to select a given date on the calendar.
 
@@ -104,10 +97,33 @@ The following events are raised upon actions on the element:
  - `changemonth` : Raised when the viewed month is changed by user or code.
  - `choosedate` : Raised when the selected date is changed by user or code.
 
-### Sawtooth
 
-In the frontend, the sawtooth directory contains a prototype work-in-progress for the frontend of a calendar-based project I have been working with. It is built in here to showcase some of my own code, but it is not more than prototype at this point.
+### OTHERS/VagabondLib
 
+This is just a random assortment of C# (heavy on WPF, but useable otherwise) code that can be reused easily enough.
+
+### OTHERS/Gpx
+
+This is a WPF solution that creates a plot of a GPX file to show elevation change over the course of the adventure. This is a rough project not meant for wide consumption, but it is useful, especially for personal use.
+
+##### GpxAnalysis
+A simple library that performs basic processing of GPX files. Enables retrieving of many statistics and a basic data structure that is easily deployed to a graph.
+
+##### GpxAnalyzer
+WPF project that displays a graph and UI to the processing library. Selection of GPX files can be entered, specific tracks chosen, and overall analysis of these data provided in easily viewable and shareable manner.
+
+### OTHERS/searchicd10
+
+This is an old prototype project that I made to demonstrate the capabilities of a search performed on ICD 10 code.
+
+##### ICD.DataAccess
+ICD.DataAccess is a library built for performing searches and lookups on a ICD database built for the searchicd10 project.
+
+##### IcdDatabaseBuilder
+Rough (very rough, including in the code!) WPF project for selecting CMS files and building them into a SQLite file. Includes code for other SQL connections, but that has been disabled. Future work might clean this up and make the SQL connections viable to do again.
+
+##### SearchIcd10
+Search application prototype, itself. This hasn't aged very well, but it is a WPF application on top of ICD.DataAccess for performing searches and navigating the ICD 10 database. Includes There is some code to login to and maintain a session with Nuance's Nuance Management Console, but this has been disabled. 
 
 # License
 

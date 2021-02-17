@@ -1,0 +1,66 @@
+3610  CABG Aortocoronary bypass for heart revascularization Not otherwise specified
+3611  CABG Aortocoronary Bypass of 1 one Coronary Artery
+3612  CABG Aortocoronary bypass of 2 two Coronary Arteries
+3613  CABG Aortocoronary bypass of 3 three Coronary Arteries
+3614  CABG Aortocoronary Bypass of 4 Four or more Coronary Arteries
+3615  CABG Single internal mammary coronary artery bypass
+3616  CABG Double Internal mammary coronary artery bypass
+3617  CABG Abdominal coronary artery bypass
+4311  percutaneous endoscopic gastrostomy PEG
+4513  other endoscopy a small intestine EGD
+4516  esophagogastroduodenoscopy EGD with closed biopsy
+0050  Implantation of cardiac resynchronization pacemaker without mention of defibrillation total system CRT-P
+0051  Implantation of cardiac resynchronization defribrillator total system CRT-D
+3929  Ax fem Axillo Femoral bypass vascular surgery Bifemoral
+3929  Ax fem Axillo Femoral bypass vascular surgery Bifemoral
+6549  BSO Bilateral Salpingo oopherectomy 
+654   BSO Bilateral Salpingo oopherectomy 
+6909  D&C Dilation and Curettage
+314   DL Direct Laryngoscopy
+585   DVIU Direct Visual Internal Urethrotomy
+8914  EEG Electroencephalogram
+5110  ERCP Endoscopic Retrograde Cholangiopancreatogram
+511   ERCP Endoscopic Retrograde Cholangiopancreatogram
+9859  ESWL Extra corporeal Shock Wave lithotripsy Kidney Stones renal
+985   ESWL Extra corporeal Shock Wave lithotripsy Kidney Stones renal
+541   Ex Lap Exploratory laparotomy 
+8663  FTSG Full thickness skin graft
+866   FTSG Full thickness skin graft
+8753  IOC Intraoperative Cholangiogram
+470   Lap Appy Laparoscopic Appendectomy
+471   Lap Appy Laparoscopic Appendectomy
+5123  Lap Chole Laparoscopic Cholecystectomy
+3524  MVR Mitral Valve Replacement
+550   PCNL Percutaneous Nephrolithotomy
+5501  PCNL Percutaneous Nephrolithotomy
+3893  PICC Peripherally inserted central catheter
+389   PICC Peripherally inserted central catheter
+866   STSG Split thickness Skin Graft
+8154  TKR  Total Knee Joint Replacement
+8872  TEE Transesophageal Echocardiogram
+363   TMR Transmyocardial revascularization
+6029  TURP Transurethral Resection of prostate
+2769  UPPP Uvulopalatopharyngoplasty UP3 
+294   UPPP Uvulopalatopharyngoplasty UP3 UPThree
+7930  ORIF Open reduction fracture internal
+8417   AKA Above Knee Amputation
+841     BKA Below Knee Amputation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	

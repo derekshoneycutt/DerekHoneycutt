@@ -1,0 +1,119 @@
+4414  AAA Abdominal aneurysm rupture
+4413  AAA abdominal aneurysm without rupture
+4467  Aortic Arch Syndrome Takayasu's Disease
+57149 Chronic Hepatitis ACH
+496   Chronic obstructive pulmonary disease COPD
+8442  ACL Anterior Cruciate Ligament Sprain Tear
+436   Acute cerebrovascular disease ACVD
+31401 Attention deficit disorder with hyperactivity ADHD
+42731 Atrial Fibrillation AFib Fib paroxysmal
+2050  Acute granulocytic leukemia AGL
+5770  Hemorrhagic pancreatitits AHP
+33520 Amyotrophic lateral sclerosis ALS
+4109  myocardium myocardial acute hypertension infarction  AMI
+410   myocardial infarction MI AMI
+205   AML Acute Myelogenous Leukemia Myeloid
+100   Vincent's angina acute necrotizing ulcerative gingivitis ANUG Leptospirosis
+101   Vincent's angina acute necrotizing ulcerative gingivitis ANUG
+42761 Supraventricular premature beats APC
+4276  APC Premature beats
+51852 ARDS Pulmonary insufficiency trauma Adult respiratory distress syndrome
+5185  ARDS
+5849  ARF Acute kidney renal failure
+584   ARF Acute renal failure
+4292  ASCVD Cardiovascular disease arteriosclerotic arteriosclerosis
+429   ASCVD
+6269  AUB Uterine bleeding
+626   AUB Disorder menstuation abnormal bleeding genital tract
+42610 AVB Atrioventricular block
+4261  AVB
+4470  AVF  Arteriovenous Fistula
+447   AVF 
+42650 BBB Bundle Branch block
+4265  BBB
+42653 BBB Bundle Branch block bilateral
+4210  BE Bacterial Endocarditis
+421   Bacterial Endocarditis BE
+381   BOM Bilateral Otitis Media
+382   BOM Bilateral Otitis Media
+5960  BNC Bladder neck obstruction
+596   BNC
+60090 BPH Hypertophy benign prostate
+6000  BPH
+41400 CAD Coronary arteriosclerosis artery
+4140  CAD ASHD Atherosclerotic Cardiovascular Disease
+75563 CDH Dysplasia hip congenital
+7556  CDH
+428   CHF Congestive Heart Failure
+486   Community Acquired Pneumonia ACP CAP
+480   Community Acquired Pneumonia ACP CAP
+482   Community Acquired Pneumonia ACP CAP
+484   Community Acquired Pneumonia ACP CAP
+483   Community Acquired Pneumonia ACP CAP
+5829  Chronic Glomerulonephritis CGN
+582   CGN
+04619 CJS CJD Jakob Creutzfeldt
+0461  CJS
+490   COPD Chronic Obstructive Pulmonary Disease
+6534  CPD Fetopelvic disproportion cephalopelvic
+653   CPD Fetopelvic disproportion cephalopelvic
+5859  CRF Chronic Renal Failure Kidney insufficiency
+585   CRF Chronic renal failure kidney insufficiency
+7159  DJD Osteoarthrosis Degenerative Joint Disease
+715   DJD Osteoarthrosis Degenerative joint disease
+3050  ETOH Alcohol abuse drunkenness excessive drinking of hangover Inebriety
+305   ETOH Alcohol abuse drunkenness excessive drinking of hangover Inebriety
+4478  FMD Fibromuscular hyperplasia of arteries Dysplasia
+447   FMD Fibromuscular hyperplasia of arteries Dysplasia
+77934 FFT Failure to Thrive newborn
+7793  FFT Failure to Thrive newborn
+78341 FFT failure to thrive child children
+7837  FFT failure to thrive adult
+783   FFT Failure to thrive anorexia polydipsia polyphagia
+357   GBS Inflammatory and toxic neuropathy
+3570  GBS Guillain Barre syndrom acute infective polyneuritis
+099   GC  Gonorrhea Venereal Disease VD
+647   Venereal disease GC Pregnancy childbirth
+171   GIST Tumor Stromal Gastrointestinal Malignant neoplasm Hypochondrium Abdominal wall
+1715  GIST Tumor Stromal Gastrointestinal Malignant neoplasm Hypochondrium Abdominal wall
+401   HBP High Blood Pressure Hypertension unspecified
+4019  HBP High Blood pressure Hypertension unspecified
+201   HDNS Hodgkins Disease Nodular sclerosis
+2015  HDNS Hodgkins Disease Nodular sclerosis
+070   HEPB HEPC HEPD HEPE Hepatitis Viral infectious
+250   IDDM Diabetes Mellitus Type 2 1 I II AODM NIDDM JODM
+7143  JRA Juvenile chronic polyarthritis rheumatoid
+71430 JRA Juvenile chronic polyarthritis rheumatoid
+724   LBP Low Back Pain Lumbago
+7242  LBP Low Back Pain Lumbago
+4263  LBBB Left block bundle branch
+42653 LBBB with right left block bundle branch
+426   LBBB Conduction disorders Left bundle branch block
+424   MVP endocardium mitral valve disorders insufficiency
+4240  MVP endocardium mitral valve disorders insufficiency
+042   HIV human immunodeficiency virus acquired syndrome infection
+4439  PAD Peripheral arterial disease PVD
+443   PAD Peripheral arterial disease PVD
+78605 SOB Shortness of Breath dyspnea respiratory abnormalities
+7860  SOB Shortness of Breath dyspnea respiratory abnormalities PND
+6581  PROM rupture of membranes or amnion premature
+658   PROM rupture of membranes or amnion premature
+4019  HTN Hypertension unspecified
+4010  HTN malignant Hypertension
+4011  HTN Benign Hypertension
+43491 CVA Cerebrovascular accident acute infarction cerebral
+434   CVA Cerebrovascular accident acute infarction cerebral
+769   RDS Respiratory Distress Syndrome newborn cardiorespiratory Hyaline IRDS
+5339  PUD Peptic Ulcer
+017   TB Tuberculosis
+012   TB Tuberculosis Lymph Nodes
+011   TB Tuberculosis Tuberculous Tuberculous
+599   UTI Urniary Tract Infection
+4658  URI Upper Respiratory Infection
+4659  URI Upper Respiratory Infection 
+78869 PVR Post Voiding Residual Abnormal urination
+58889 RTA Impaired Renal Tubular 
+
+
+
+
