@@ -68,7 +68,7 @@ namespace DerekHoneycutt
 
             app.Use(async (context, next) =>
             {
-                context.Response.Headers.Add("Content-Security-Policy", "default-src 'self' subaruvagabond.com fonts.googleapis.com fonts.gstatic.com www.gstatic.com www.google.com");
+                context.Response.Headers.Add("Content-Security-Policy", "default-src 'self' subaruvagabond.com fonts.googleapis.com fonts.gstatic.com www.gstatic.com www.google.com docs.google.com");
 
                 await next();
             });

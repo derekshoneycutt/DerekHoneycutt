@@ -364,7 +364,7 @@ namespace DerekHoneycutt.Controllers
                         Href = "portfolio",
                         Method = "GET",
                         PostData = null
-                    },
+                    }/*,  // Keep this, just in case? IDK.
                     new RestModels.Link()
                     {
                         Rel = "Contact",
@@ -376,7 +376,7 @@ namespace DerekHoneycutt.Controllers
                             Return = "person@example.com",
                             Message = "Any plain text to send"
                         }
-                    }
+                    }*/
                 }
             });
         }
@@ -389,11 +389,13 @@ namespace DerekHoneycutt.Controllers
         [HttpPost("contact")]
         public async Task<IActionResult> PostContact(RestModels.PostContact form)
         {
-            var sendto = Configuration.GetValue("ContactEmail", "derekhoneycutthole@mailinator.com");
+            return new OkObjectResult(new { Message = "Message not actually sent." });
+
+            /*var sendto = Configuration.GetValue("ContactEmail", "derekhoneycutthole@mailinator.com");
 
             await _mailer.SendEmailAsync(sendto, form);
 
-            return new OkObjectResult(new { Message = "Sent Successful!" });
+            return new OkObjectResult(new { Message = "Sent Successful!" });*/
         }
     }
 }

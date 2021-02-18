@@ -35,7 +35,7 @@ export default class DrockContact extends HTMLElement {
         this._backButton.addEvents({
             click: e => this.onClose()
         });
-        this._nameField = $(showChildren, '.drock-contact-name-field')[0];
+        /*this._nameField = $(showChildren, '.drock-contact-name-field')[0];
         this._emailField = $(showChildren, '.drock-contact-email-field')[0];
         this._msgField = $(showChildren, '.drock-contact-msg-field')[0];
         this._cancelButton = $(showChildren, '.drock-contact-cancel-btn');
@@ -45,7 +45,7 @@ export default class DrockContact extends HTMLElement {
         this._sendButton = $(showChildren, '.drock-contact-send-btn');
         this._sendButton.addEvents({
             click: e => this.onSend()
-        });
+        });*/
 
 
 

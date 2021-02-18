@@ -73,6 +73,14 @@
     margin: 0 auto;
     z-index: 2;
     overflow: auto;
+    position: relative;
+}
+.drock-contact-viewbody iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
 }
 
 .drock-contact-content {
