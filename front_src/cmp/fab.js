@@ -5,6 +5,13 @@ import { MDCRipple } from '@material/ripple';
 export class DrockFab extends HTMLElement {
     constructor() {
         super();
+    }
+
+    connectedCallback() {
+        if (this.shadowRoot)
+            return;
+
+        //If shadowroot is not already retrieved, create it, copy the template, and setup events & properties
 
         const shadowRoot = this.attachShadow({ mode: 'open' });
         /** @type {HTMLTemplateElement} */
@@ -38,13 +45,14 @@ export class DrockFab extends HTMLElement {
     set icon(value) {
         if (this.getAttribute('icon') !== value)
             this.__setAttribute('icon', value);
-        this.__iconEl.innerHTML = value || 'add';
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
             case 'icon':
                 this.icon = newValue;
+                if (this.__iconEl)
+                    this.__iconEl.innerHTML = value || 'add';
                 break;
             default:
                 break;

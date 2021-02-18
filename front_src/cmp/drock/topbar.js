@@ -13,6 +13,13 @@ export class DrockTopBar extends HTMLElement {
         super();
 
         this._constructed = false;
+    }
+
+    connectedCallback() {
+        if (this.shadowRoot)
+            return;
+
+        //If shadowroot is not already retrieved, create it, copy the template, and setup events & properties
 
         const shadowRoot = this.attachShadow({ mode: 'open' });
         /** @type {HTMLTemplateElement} */
@@ -51,17 +58,21 @@ export class DrockTopBar extends HTMLElement {
      * @param {boolean} [active] Whether this is an active tab or not
      */
     _constructTab(icon, label, active = false) {
-        return $t`
-<button class="mdc-tab mdc-tab--stacked ${active ? 'mdc-tab--active' : ''}" role="tab" aria-selected="true" tabindex="0">
-    <span class="mdc-tab__content">
-        <span class="mdc-tab__icon material-icons" aria-hidden="true">${icon}</span>
-        <span class="mdc-tab__text-label">${label}</span>
-    </span>
-    <span class="mdc-tab-indicator ${active ? 'mdc-tab-indicator--active' : ''}">
-        <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-    </span>
-    <span class="mdc-tab__ripple"></span>
-</button>`
+        return $(['button', {
+            class: 'mdc-tab mdc-tab--stacked ' + (active ? 'mdc-tab--active' : ''),
+            role: 'tab',
+            "aria-selected": active,
+            tabindex: 0
+        },
+            ['span', { class: 'mdc-tab__content' },
+                ['span', { class: 'mdc-tab__icon material-icons', 'aria-hidden': true }, icon],
+                ['span', { class: 'mdc-tab__text-label' }, label]
+            ],
+            ['span', { class: 'mdc-tab-indicator ' + (active ? 'mdc-tab-indicator--active' : '') },
+                ['span', { class: 'mdc-tab-indicator__content mdc-tab-indicator__content--underline' }]
+            ],
+            ['span', { class: 'mdc-tab__ripple' }]
+        ]);
     }
 
     onTabbarActivate(event) {

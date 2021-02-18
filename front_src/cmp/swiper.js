@@ -48,6 +48,13 @@ export default class DrockSwiperElement extends HTMLElement {
         this.crossedBoundary = false;
         /** Marks if user appears to have begun scrolling in opposing axis, blocking swiping actions */
         this.beganScroll = false;
+    }
+
+    connectedCallback() {
+        if (this.shadowRoot)
+            return;
+
+        //If shadowroot is not already retrieved, create it, copy the template, and setup events & properties
 
         const shadowRoot = this.attachShadow({ mode: 'open' });
 
@@ -161,6 +168,8 @@ export default class DrockSwiperElement extends HTMLElement {
                 this.moveToIndex(index);
         }
         else if (name.toLowerCase() === 'hidexmove') {
+            if (!this.__prevlink || !this.__nextlink)
+                return;
             this.__prevlink.setClassList({
                 'drock-swiper-hidden': this.hidexmove
             });

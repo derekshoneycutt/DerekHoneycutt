@@ -6,14 +6,50 @@ import showdown from 'showdown';
 import DOMPurify from 'dompurify';
 import './ServerTypeDefs';
 
-const markdown = '# Showdown!\n\n  [Sawtooth](/sawtooth.html)';
-const html = DOMPurify.sanitize(new showdown.Converter().makeHtml(markdown));
-$('#enterhere').setProperties({ innerHTML: html });
+/**
+ * Construct the home page based on fetched landings
+ * @param {Array} landings landings to show on the homepage
+ */
+function constructHomePage(landings) {
+    const homecontainer = $(['div', { class: 'landing-div' }]);
+    const homeswiper = $(['drock-swiper',
+        {
+            class: 'landing-swipe',
+            orientation: 'y',
+            hidexmove: true
+        },
+        ['div', { class: 'home-page' },
+            ['ul', { class: 'home-page-list' },
+                ...landings.map(l => {
+                    const ret = $(['li', { class: 'home-page-list-item' },
+                        ['a', { class: 'home-page-list-link' },
+                            ['div', { class: 'home-page-icons' },
+                                ['span', { class: 'home-page-icon-actual material-icons' }, l.icon]
+                            ],
+                            ['div', { class: 'home-page-listing' },
+                                ['div', { class: 'home-page-listing-title' }, l.title],
+                                ['div', { class: 'home-page-listing-subtitle' }, l.subtitle]
+                            ]
+                        ]
+                    ]);
+                    return ret;
+                })
+            ]
+        ]
+    ]);
+    homecontainer.append(homeswiper);
+
+    return {
+        container: homecontainer,
+        swiper: homeswiper
+    };
+}
 
 async function fetchhome() {
     let homefetch = await $_.RestFetch("/", "portfolio");
 
     if (homefetch.landings && homefetch.landings instanceof Array) {
+        //Fill the top bar
         /** @type {DrockTopBar} */
         const topbar = $('#drock-main-nav')[0];
         const tabs = [
@@ -23,6 +59,37 @@ async function fetchhome() {
                 .sort((a, b) => (a.order || 0) - (b.order || 0))
         ];
         topbar.fillTabs(tabs);
+
+
+        //create the pages
+        const pages = [
+            constructHomePage(homefetch.landings),
+            ...homefetch.landings
+                .map(l => {
+                    const container = $(['div', { class: 'landing-div' }]);
+                    const swiper = $(['drock-swiper', {
+                        class: 'landing-swipe',
+                        orientation: 'y',
+                        hidexmove: true
+                    }]);
+                    container.append(swiper);
+
+                    l.pages.forEach(p => {
+                        const div = $(['div']);
+                        const markdown = `# ${p.title}\n\n${p.subtitle}\n\n${p.text || '--'}`;
+                        const html = DOMPurify.sanitize(new showdown.Converter().makeHtml(markdown));
+                        div.innerHTML = html;
+                        swiper.append(div);
+                    });
+
+                    return {
+                        container: container,
+                        swiper: swiper
+                    };
+                })
+        ];
+        $("#swipe-base").appendChildren(
+            ...pages.map(p => p.container));
     }
 }
 
@@ -31,7 +98,6 @@ $(() => {
     $('#drock-contactfab').addEvents({
         click: () => console.log('Clicked contact!')
     });
-
 
     fetchhome();
 });
