@@ -2,6 +2,7 @@
 import DrockSwiperElement from './cmp/swiper';
 import DrockFab from './cmp/fab';
 import DrockTopBar from './cmp/drock/topbar';
+import { MDCRipple } from '@material/ripple';
 import showdown from 'showdown';
 import DOMPurify from 'dompurify';
 import './ServerTypeDefs';
@@ -67,11 +68,13 @@ function constructHomePage(landings, onlandingclick) {
             },
             ['div', { class: 'home-page drock-page-base' },
                 ['div', { class: 'drock-page-content' },
+                    ['div', { class: 'drock-page-background' }],
                     ['div',  { class: 'home-page-list' },
                         ...landings.map((l, index) => {
+                            let link;
                             const ret = $(['div', { class: 'home-page-list-item' },
-                                ['a', {
-                                    class: 'home-page-list-link',
+                                link = $(['a', {
+                                    class: 'home-page-list-link mdc-ripple-surface',
                                     href: `?landing=${index + 1}&page=0`,
                                     on: {
                                         click: e => {
@@ -89,8 +92,9 @@ function constructHomePage(landings, onlandingclick) {
                                         ['div', { class: 'home-page-listing-title' }, l.title],
                                         ['div', { class: 'home-page-listing-subtitle' }, l.subtitle]
                                     ]
-                                ]
+                                ])
                             ]);
+                            link.mdcRipple = new MDCRipple(link);
                             return ret;
                         })
                     ]   
@@ -120,7 +124,7 @@ function constructLanding(landing) {
 
     landing.pages.forEach(p => {
         let contentDiv;
-        const div = $(['div', { class: 'home-page drock-page-base' },
+        const div = $(['div', { class: 'drock-page-base' },
             contentDiv = $(['div', { class: 'drock-page-content' }])
         ]);
         const markdown = `# ${p.title}\n\n${p.subtitle}\n\n${p.text || '--'}`;
@@ -135,6 +139,57 @@ function constructLanding(landing) {
     };
 }
 
+function fillLandings(swipeBase, mainNav, homefetch) {
+    //Fill the top bar
+    const tabs = [
+        { icon: 'home', label: 'Home', active: true },
+        ...homefetch.landings
+            .map(l => ({ icon: l.icon, label: l.title, active: false, order: l.order }))
+            .sort((a, b) => (a.order || 0) - (b.order || 0))
+    ];
+    mainNav.fillTabs(tabs);
+
+    //create the pages
+    const pages = [
+        constructHomePage(homefetch.landings,
+            (index, e) => moveLanding(tabs, index + 1, 0, swipeBase, mainNav, true)),
+        ...homefetch.landings.map(constructLanding)
+    ];
+    $_.appendChildren(swipeBase, ...pages.map(p => p.container));
+
+    //Listen to swipe and navigation events
+    $_.addEvents(swipeBase, {
+        swipemove: e => {
+            if (e.target !== swipeBase || e.detail.index < 0)
+                return;
+            moveLanding(tabs, e.detail.index, 0, null, mainNav);
+        }
+    });
+    $_.addEvents(mainNav, {
+        tabbarchange: e => moveLanding(tabs, e.detail.index, 0, swipeBase, null)
+    });
+
+    //Timeout needed here because of delay in construction of custom elements
+        //This just moves the page to the appropriate place at startup
+    setTimeout(() => {
+        moveLanding(tabs, UrlHandler.landing, UrlHandler.page, swipeBase, mainNav, true);
+    }, 300);
+
+    //When the history changes (e.g. going back/forward), see if we can just navigate there!
+    window.onpopstate = event => {
+        if (event.state) {
+            UrlHandler.landing = event.state.landing;
+            UrlHandler.page = event.state.page;
+        }
+        else {
+            UrlHandler.landing = 0;
+            UrlHandler.page = 0;
+        }
+
+        moveLanding(tabs, UrlHandler.landing, UrlHandler.page, swipeBase, mainNav, true);
+    };
+}
+
 /** Fetch the Home object from the server, which tells us everything to build the initial site! */
 async function fetchhome() {
     let homefetch = await $_.RestFetch("/", "portfolio");
@@ -145,55 +200,11 @@ async function fetchhome() {
     const mainNav = $("#drock-main-nav")[0];
 
     if (homefetch.landings && homefetch.landings instanceof Array) {
-        //Fill the top bar
-        const tabs = [
-            { icon: 'home', label: 'Home', active: true },
-            ...homefetch.landings
-                .map(l => ({ icon: l.icon, label: l.title, active: false, order: l.order }))
-                .sort((a, b) => (a.order || 0) - (b.order || 0))
-        ];
-        mainNav.fillTabs(tabs);
-
-        //create the pages
-        const pages = [
-            constructHomePage(homefetch.landings,
-                (index, e) => moveLanding(tabs, index + 1, 0, swipeBase, mainNav, true)),
-            ...homefetch.landings.map(constructLanding)
-        ];
-        $_.appendChildren(swipeBase, ...pages.map(p => p.container));
-
-        $_.addEvents(swipeBase, {
-            swipemove: e => {
-                if (e.target !== swipeBase || e.detail.index < 0)
-                    return;
-                moveLanding(tabs, e.detail.index, 0, null, mainNav);
-            }
-        });
-        $_.addEvents(mainNav, {
-            tabbarchange: e => moveLanding(tabs, e.detail.index, 0, swipeBase, null)
-        });
-
-        setTimeout(() => {
-            moveLanding(tabs, UrlHandler.landing, UrlHandler.page, swipeBase, mainNav, true);
-        }, 300);
-
-        window.onpopstate = event => {
-            if (event.state) {
-                UrlHandler.landing = event.state.landing;
-                UrlHandler.page = event.state.page;
-            }
-            else {
-                UrlHandler.landing = 0;
-                UrlHandler.page = 0;
-            }
-
-            moveLanding(tabs, UrlHandler.landing, UrlHandler.page, swipeBase, mainNav, true);
-        };
+        fillLandings(swipeBase, mainNav, homefetch);
     }
 }
 
 $(() => {
-
     $('#drock-contactfab').addEvents({
         click: () => console.log('Clicked contact!')
     });

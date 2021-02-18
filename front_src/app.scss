@@ -1,4 +1,5 @@
 ﻿@use "@material/elevation";
+@use "@material/ripple";
 @import 'RobotoFont.scss';
 @import 'material-icons.scss';
 
@@ -127,9 +128,68 @@ body {
     overflow: auto;
 }
 
+.home-page .drock-page-content {
+    display: flex;
+    position: relative;
+}
+.home-page .drock-page-content .drock-page-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    z-index: 0;
+    background-image: url("../homescreen-min.jpg");
+    background-size: cover;
+    background-position-x: center;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+.home-page-list {
+    display: flex;
+    flex-direction: column;
+    margin: auto 0;
+    z-index: 1;
+}
+
+.home-page-list-item {
+    border-bottom: #bbb 1px solid;
+    overflow: hidden;
+}
+
 .home-page-list-link {
-    display: block;
+    @include ripple.surface;
+    @include ripple.radius-bounded;
+    @include ripple.states;
+    display: flex;
     cursor: pointer;
     color: var(--mdc-theme-on-surface, #000);
     text-decoration: none;
+    padding: 10rem;
+}
+
+.home-page-icons {
+    margin-right: 25rem;
+    display: flex;
+}
+.home-page-icon-actual {
+    margin: auto;
+}
+
+.home-page-listing {
+    display: flex;
+    flex-direction: column;
+}
+
+.home-page-listing-title {
+    font-size: 18rem;
+    margin: 5rem 0;
+}
+
+.home-page-listing-subtitle {
+    font-size: 12rem;
+    margin: 5rem 0;
 }
