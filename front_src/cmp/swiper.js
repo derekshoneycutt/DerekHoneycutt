@@ -16,7 +16,7 @@ export default class DrockSwiperElement extends HTMLElement {
         /**  Whether hover navigation should be allowed to be shown in the component */
         this.allowPopoverNav = true;
         /** Whether to allow overshooting a swipe and going into the next space */
-        this.allowOvershoot = true;
+        this.allowOvershoot = false;
 
         /** Whether the component is currently in a swipe operation */
         this.isSwiping = false;

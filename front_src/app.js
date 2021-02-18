@@ -58,7 +58,7 @@ function constructLanding(landing) {
     }]);
     container.append(swiper);
 
-    l.pages.forEach(p => {
+    landing.pages.forEach(p => {
         const div = $(['div']);
         const markdown = `# ${p.title}\n\n${p.subtitle}\n\n${p.text || '--'}`;
         const html = DOMPurify.sanitize(new showdown.Converter().makeHtml(markdown));
