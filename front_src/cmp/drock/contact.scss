@@ -1,0 +1,125 @@
+﻿@use "@material/floating-label/mdc-floating-label";
+@use "@material/line-ripple/mdc-line-ripple";
+@use "@material/notched-outline/mdc-notched-outline";
+@use "@material/textfield/mdc-text-field";
+@use "@material/icon-button/mdc-icon-button";
+@use "@material/button/mdc-button";
+@use "@material/ripple";
+@use "@material/elevation";
+@import '../../material-icons.scss';
+@import '../../RobotoFont.scss';
+
+:host {
+    all: initial;
+    display: block;
+    contain: layout;
+    font-family: Roboto, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+
+.drock-contact-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--mdc-theme-surface, #fff);
+}
+
+.drock-contact-topbar {
+    @include elevation.elevation(4);
+    height: var(--drock-navhead-height, 45rem);
+    min-height: var(--drock-navhead-height, 45rem);
+    max-height: var(--drock-navhead-height, 45rem);
+    display: flex;
+    align-items: center;
+    z-index: 4;
+}
+
+.drock-contact-topbar-back {
+
+}
+
+.contact-topbar-back-button {
+
+}
+
+
+.drock-contact-topbar-head {
+
+}
+.drock-contact-topbar-head-title {
+
+}
+
+
+.drock-contact-body {
+    background-color: var(--mdc-theme-primary-ultradark, darkgray);
+    z-index: 0;
+    flex: 1;
+}
+
+.drock-contact-viewbody {
+    @include elevation.elevation(2);
+    box-sizing: border-box;
+    background-color: #fff;
+    max-width: 800rem;
+    min-height: 100%;
+    padding: 20rem;
+    margin: 0 auto;
+    z-index: 2;
+    overflow: auto;
+}
+
+.drock-contact-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.drock-contact-content .mdc-text-field {
+    width: calc(100% - 20rem);
+    margin: 10rem;
+}
+
+.drock-contact-message .mdc-floating-label {
+    line-height: 20rem;
+}
+
+.drock-contact-message .mdc-text-field {
+    min-height: 140rem;
+}
+
+.drock-contact-msg-field {
+    line-height: 24rem !important;
+}
+
+.drock-contact-msg-field {
+    padding-top: 10rem !important;
+}
+
+.drock-contact-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.drock-contact-actions .mdc-button {
+    margin: 10rem;
+}
+
+.drock-contact-actions .mdc-button__label {
+    font-size: 16rem;
+}
+
+.mdc-floating-label {
+    font-size: 16rem;
+    line-height: 16rem;
+}
+
+.mdc-text-field__input {
+    font-size: 16rem;
+}

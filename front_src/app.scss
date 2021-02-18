@@ -91,7 +91,7 @@ body {
     position: relative;
 }
 
-#drock-topbar {
+#drock-topbar-container {
     position: relative;
     max-width: 100%;
     min-width: 100%;
@@ -103,11 +103,44 @@ body {
     min-width: 100%;
 }
 
-#drock-contact {
+#drock-contactfab-container {
     position: absolute;
     right: 45rem;
     bottom: 45rem;
     z-index: 6;
+}
+
+#drock-contact-dialog {
+    box-sizing: border-box;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 0rem;
+    width: 0rem;
+    margin: 65rem;
+    padding: 0;
+    overflow: hidden;
+    z-index: 12;
+    transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
+}
+
+#drock-contact-dialog.active {
+    @include elevation.elevation(12);
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+#drock-contact-dlg {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .drock-page-base {

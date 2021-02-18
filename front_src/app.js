@@ -2,6 +2,8 @@
 import DrockSwiperElement from './cmp/swiper';
 import DrockFab from './cmp/fab';
 import DrockTopBar from './cmp/drock/topbar';
+import DrockContact from './cmp/drock/contact';
+import DrockMainController from './MainController';
 import { MDCRipple } from '@material/ripple';
 import showdown from 'showdown';
 import DOMPurify from 'dompurify';
@@ -17,41 +19,6 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
     }
 });
 
-//Setup a URL Handler to deal with URL changes for navigation
-let params = new URLSearchParams(document.location.search.substring(1));
-var UrlHandler = {
-    landing: parseInt(params.get("landing"), 0) || 0,
-    page: parseInt(params.get("page"), 0) || 0
-};
-
-/**
- * Move the landing to a new position
- * @param {any} tabs Array of tabs currently shown
- * @param {number} landing Landing Index to move to
- * @param {number} page Page Index to move to
- * @param {DrockSwiperElement} swipeBase Swiping Base element to manipulate
- * @param {DrockTopBar} mainNav Main Navigation Top Bar Element
- * @param {Boolean} [force] Whether to force the update
- */
-function moveLanding(tabs, landing, page, swipeBase, mainNav, force = false) {
-    if (UrlHandler.landing !== landing) {
-        window.history.pushState({
-            landing: landing,
-            page: page
-        },
-            `Derek Honeycutt : ${tabs[landing].label}`,
-            `?landing=${landing}&page=${page}`);
-    }
-    window.document.title = `Derek Honeycutt : ${tabs[landing].label}`;
-
-    if (UrlHandler.landing !== landing || force) {
-        UrlHandler.landing = landing;
-        if (swipeBase)
-            swipeBase.moveToIndex(landing);
-        if (mainNav)
-            mainNav.moveToTabIndex(landing);
-    }
-}
 
 /**
  * Construct the home page based on fetched landings
@@ -139,77 +106,45 @@ function constructLanding(landing) {
     };
 }
 
-function fillLandings(swipeBase, mainNav, homefetch) {
+/**
+ * Fill the landings
+ * @param {DrockMainController} controller
+ */
+function fillLandings(controller) {
     //Fill the top bar
     const tabs = [
         { icon: 'home', label: 'Home', active: true },
-        ...homefetch.landings
+        ...controller.homefetch.landings
             .map(l => ({ icon: l.icon, label: l.title, active: false, order: l.order }))
             .sort((a, b) => (a.order || 0) - (b.order || 0))
     ];
-    mainNav.fillTabs(tabs);
 
     //create the pages
     const pages = [
-        constructHomePage(homefetch.landings,
-            (index, e) => moveLanding(tabs, index + 1, 0, swipeBase, mainNav, true)),
-        ...homefetch.landings.map(constructLanding)
+        constructHomePage(controller.homefetch.landings,
+            (index, e) => controller.moveLanding(index + 1, 0, true)),
+        ...controller.homefetch.landings.map(constructLanding)
     ];
-    $_.appendChildren(swipeBase, ...pages.map(p => p.container));
 
-    //Listen to swipe and navigation events
-    $_.addEvents(swipeBase, {
-        swipemove: e => {
-            if (e.target !== swipeBase || e.detail.index < 0)
-                return;
-            moveLanding(tabs, e.detail.index, 0, null, mainNav);
-        }
-    });
-    $_.addEvents(mainNav, {
-        tabbarchange: e => moveLanding(tabs, e.detail.index, 0, swipeBase, null)
-    });
-
-    //Timeout needed here because of delay in construction of custom elements
-        //This just moves the page to the appropriate place at startup
-    setTimeout(() => {
-        moveLanding(tabs, UrlHandler.landing, UrlHandler.page, swipeBase, mainNav, true);
-    }, 300);
-
-    //When the history changes (e.g. going back/forward), see if we can just navigate there!
-    window.onpopstate = event => {
-        if (event.state) {
-            UrlHandler.landing = event.state.landing;
-            UrlHandler.page = event.state.page;
-        }
-        else {
-            UrlHandler.landing = 0;
-            UrlHandler.page = 0;
-        }
-
-        moveLanding(tabs, UrlHandler.landing, UrlHandler.page, swipeBase, mainNav, true);
-    };
+    controller.prepareLandings(tabs, pages);
 }
 
-/** Fetch the Home object from the server, which tells us everything to build the initial site! */
-async function fetchhome() {
+/** Fetch the Home object from the server, which tells us everything to build the initial site!
+ * @param {DrockMainController} controller */
+async function fetchhome(controller) {
     let homefetch = await $_.RestFetch("/", "portfolio");
 
-    /** @type {DrockSwiperElement} */
-    const swipeBase = $("#swipe-base")[0];
-    /** @type {DrockTopBar} */
-    const mainNav = $("#drock-main-nav")[0];
+    controller.homefetch = homefetch;
 
     if (homefetch.landings && homefetch.landings instanceof Array) {
-        fillLandings(swipeBase, mainNav, homefetch);
+        fillLandings(controller);
     }
 }
 
 $(() => {
-    $('#drock-contactfab').addEvents({
-        click: () => console.log('Clicked contact!')
-    });
+    const controller = new DrockMainController();
+    controller.findElements();
+    controller.watchUrl();
 
-    fetchhome();
+    fetchhome(controller);
 });
-
-

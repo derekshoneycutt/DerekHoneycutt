@@ -9,13 +9,15 @@ const components = [
     { file: 'swiper', name: 'swiper' },
     { file: 'calendar', name: 'calendar' },
     { file: 'fab', name: 'fab' },
-    { file: 'drock/topbar', name: 'topbar' }
+    { file: 'drock/topbar', name: 'topbar' },
+    { file: 'drock/contact', name: 'contact' }
 ];
 
 const mainPartials = [
     'front_src/cmp/swiper.html',
     'front_src/cmp/fab.html',
-    'front_src/cmp/drock/topbar.html'
+    'front_src/cmp/drock/topbar.html',
+    'front_src/cmp/drock/contact.html'
 ];
 
 const sawtoothComponents = [
