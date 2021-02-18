@@ -34,6 +34,7 @@
     "construct-style-sheets-polyfill": "^2.4.16",
     "material-components-web": "^10.0.0",
     "material-icons": "^0.5.3",
-    "npm-check-updates": "^11.1.4"
+    "npm-check-updates": "^11.1.4",
+    "recaptcha-v3": "^1.8.0"
   }
 }

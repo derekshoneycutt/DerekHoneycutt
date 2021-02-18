@@ -43,6 +43,9 @@ export default class DrockContact extends HTMLElement {
             click: e => this.onClose()
         });
         this._sendButton = $(showChildren, '.drock-contact-send-btn');
+        this._sendButton.addEvents({
+            click: e => this.onSend()
+        });
 
 
 
@@ -76,10 +79,22 @@ export default class DrockContact extends HTMLElement {
     }
 
     onSend() {
+        if (`${this._nameField.value}`.trim() === '') {
+            return;
+        }
+
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!re.test(String(this._emailField.value).toLowerCase())) {
+            return;
+        }
+        if (`${this._msgField.value}`.trim() === '') {
+            return;
+        }
+
         this.dispatchEvent(new CustomEvent('send', {
             detail: {
-                name: this._nameField.value,
-                email: this._emailField.value,
+                from: this._nameField.value,
+                return: this._emailField.value,
                 message: this._msgField.value
             },
             bubbles: true,

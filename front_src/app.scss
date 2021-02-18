@@ -1,5 +1,7 @@
 ﻿@use "@material/elevation";
 @use "@material/ripple";
+@use "@material/snackbar/mdc-snackbar";
+@use "@material/icon-button/mdc-icon-button";
 @import 'RobotoFont.scss';
 @import 'material-icons.scss';
 
@@ -141,6 +143,20 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+}
+
+#drock-contact-snackbar .mdc-snackbar__surface {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    padding-left: 6rem;
+}
+
+#drock-contact-snackbar .mdc-snackbar__dismiss {
+    color: #fff;
+}
+
+#drock-contact-snackbar-label {
+    font-size: 18rem;
 }
 
 .drock-page-base {

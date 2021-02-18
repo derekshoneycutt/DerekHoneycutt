@@ -1,8 +1,11 @@
 ﻿import { Imogene as $, ImogeneExports as $_, ImogeneTemplate as $t } from './Imogene/Imogene';
+import { MDCSnackbar } from '@material/snackbar';
 
 /** Main controller class for managing the porfolio interface */
 export default class DrockMainController {
     constructor() {
+        this._allowContactSend = true;
+
         this.homefetch;
         this.tabs = [];
         this.pages = [];
@@ -13,8 +16,30 @@ export default class DrockMainController {
         this.contactDialog = null;
         this.contactEl = null;
         this.contactFab = null;
+        this.contactSnackbar = null;
+        this.contactMdcSnackbar = null;
 
         this.UrlHandler = { landing: 0, page: 0 };
+    }
+
+    async onSendEmail(evt) {
+        if (this._allowContactSend) {
+            if (this.homefetch && this.homefetch.postContact) {
+                this._allowContactSend = false;
+                const contactRet = await this.homefetch.postContact(evt.detail);
+                console.log(contactRet);
+                this.contactMdcSnackbar.open();
+                setTimeout(() => this._allowContactSend = true, 120000)
+            }
+
+            $_.setClassList(this.contactDialog, {
+                active: false
+            });
+            this.contactEl.clearFields();
+        }
+        else {
+            alert('Already sent me something. Please wait 2 minutes to send another message.')
+        }
     }
 
     /** Watch URL for changes and handle accordingly */
@@ -48,6 +73,8 @@ export default class DrockMainController {
         this.contactDialog = $("#drock-contact-dialog")[0];
         this.contactEl = $("#drock-contact-dlg")[0];
         this.contactFab = $('#drock-contactfab')[0];
+        this.contactSnackbar = $("#drock-contact-snackbar")[0];
+        this.contactMdcSnackbar = new MDCSnackbar(this.contactSnackbar);
 
         $_.addEvents(this.contactDialog, {
             requestclose: e => {
@@ -55,7 +82,8 @@ export default class DrockMainController {
                     active: false
                 });
                 this.contactEl.clearFields();
-            }
+            },
+            send: e => this.onSendEmail(e)
         });
 
         $_.addEvents(this.contactFab, {

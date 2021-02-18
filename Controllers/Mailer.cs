@@ -51,7 +51,9 @@ namespace DerekHoneycutt.Controllers
             {
                 client.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
-                await client.ConnectAsync(_smtpSettings.Server);
+                System.Diagnostics.Debug.Print($"'{_smtpSettings.Server}' => '{_smtpSettings.Username}'");
+
+                await client.ConnectAsync(_smtpSettings.Server, _smtpSettings.Port, true);
                 await client.AuthenticateAsync(_smtpSettings.Username, _smtpSettings.Password);
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true);

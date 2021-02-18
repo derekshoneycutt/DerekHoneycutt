@@ -27,6 +27,17 @@
         <div id="drock-contact-dialog">
             <drock-contact id="drock-contact-dlg"></drock-contact>
         </div>
+
+        <div id="drock-contact-snackbar" class="mdc-snackbar">
+            <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+                <div id="drock-contact-snackbar-label" class="mdc-snackbar__label" aria-atomic="false">
+                    Message sent.
+                </div>
+                <div class="mdc-snackbar__actions" aria-atomic="true">
+                    <button class="mdc-icon-button mdc-snackbar__dismiss material-icons" title="Dismiss">close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.cssFile %>">

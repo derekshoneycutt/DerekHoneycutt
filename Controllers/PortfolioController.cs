@@ -67,7 +67,7 @@ namespace DerekHoneycutt.Controllers
                     new RestModels.Link()
                     {
                         Rel = "self",
-                        Href = $"/portfolio/resumeexpjob/{rej.Id.ToString()}",
+                        Href = $"portfolio/resumeexpjob/{rej.Id.ToString()}",
                         Method= "GET",
                         PostData = null
                     }
@@ -97,7 +97,7 @@ namespace DerekHoneycutt.Controllers
                     new RestModels.Link()
                     {
                         Rel = "self",
-                        Href = $"/portfolio/school/{school.Id.ToString()}",
+                        Href = $"portfolio/school/{school.Id.ToString()}",
                         Method= "GET",
                         PostData = null
                     }
@@ -169,7 +169,7 @@ namespace DerekHoneycutt.Controllers
                     new RestModels.Link()
                     {
                         Rel = "self",
-                        Href = $"/portfolio/page/{page.Id.ToString()}",
+                        Href = $"portfolio/page/{page.Id.ToString()}",
                         Method= "GET",
                         PostData = null
                     }
@@ -200,7 +200,7 @@ namespace DerekHoneycutt.Controllers
                     new RestModels.Link()
                     {
                         Rel = "self",
-                        Href = $"/portfolio/landing/{landing.Id.ToString()}",
+                        Href = $"portfolio/landing/{landing.Id.ToString()}",
                         Method = "GET",
                         PostData = null
                     }
@@ -361,14 +361,14 @@ namespace DerekHoneycutt.Controllers
                     new RestModels.Link()
                     {
                         Rel = "self",
-                        Href = "/portfolio",
+                        Href = "portfolio",
                         Method = "GET",
                         PostData = null
                     },
                     new RestModels.Link()
                     {
                         Rel = "Contact",
-                        Href = "/portfolio/contact",
+                        Href = "portfolio/contact",
                         Method = "POST",
                         PostData = new RestModels.PostContact()
                         {
