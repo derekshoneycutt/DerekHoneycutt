@@ -15,8 +15,6 @@ export default class DrockSwiperElement extends HTMLElement {
         this.allowSwipe = true;
         /**  Whether hover navigation should be allowed to be shown in the component */
         this.allowPopoverNav = true;
-        /** Whether to allow overshooting a swipe and going into the next space */
-        this.allowOvershoot = false;
 
         /** Whether the component is currently in a swipe operation */
         this.isSwiping = false;
@@ -153,8 +151,17 @@ export default class DrockSwiperElement extends HTMLElement {
             this.__setAttribute('orientation', 'x');
     }
 
+    /** Whether to allow overshooting a swipe and going into the next space
+     * @type {Boolean} */
+    get allowOvershoot() {
+        return !!this.getAttribute("allowovershoot");
+    }
+    set allowOvershoot(value) {
+        this.__setAttribute("allowovershoot", !!value);
+    }
+
     static get observedAttributes() {
-        return ["index", "hidexmove", "orientation"];
+        return ["index", "hidexmove", "orientation", "allowovershoot"];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

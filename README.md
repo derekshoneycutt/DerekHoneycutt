@@ -76,6 +76,7 @@ The following properties are available:
  - `index` : Sets the child that is currently in view, according to its index, starting at 0. Default value is 0.
  - `hidexmove` : Set to truthy value to hide the hover-over buttons to move in the x axis. Should always be true if orientation is `y`. Default value is falsey.
  - `orientation` : Set to `x` to enable swiping on the x axis, and `y` to enable swiping on the y axis instead. Default value is `x`
+ - `allowovershoot` : If the property is set (e.g. the attribute is included in the HTML at all), allows swiping to overshoot, dragging into empty space before snapping back. Otherwise, dragging at ends is static and prevented.
 
 Additionally, the following methods are enabled on the swiping element:
 
