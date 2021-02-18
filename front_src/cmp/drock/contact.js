@@ -79,7 +79,7 @@ export default class DrockContact extends HTMLElement {
     }
 
     onSend() {
-        if (`${this._nameField.value}`.trim() === '') {
+        /*if (`${this._nameField.value}`.trim() === '') {
             return;
         }
 
@@ -99,13 +99,13 @@ export default class DrockContact extends HTMLElement {
             },
             bubbles: true,
             composed: true
-        }));
+        }));*/
     }
 
     clearFields() {
-        this._emailField.value = '';
+        /*this._emailField.value = '';
         this._nameField.value = '';
-        this._msgField.value = '';
+        this._msgField.value = '';*/
     }
 }
 window.customElements.define('drock-contact', DrockContact);

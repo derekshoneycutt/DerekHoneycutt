@@ -13,13 +13,14 @@ export default class DrockMainController {
         this.swipeBase = null;
         this.mainNav = null;
 
+        this.contactDialogOpen = false;
         this.contactDialog = null;
         this.contactEl = null;
         this.contactFab = null;
         this.contactSnackbar = null;
         this.contactMdcSnackbar = null;
 
-        this.UrlHandler = { landing: 0, page: 0 };
+        this.UrlHandler = { landing: 0, page: 0, contact: false };
     }
 
     async onSendEmail(evt) {
@@ -48,22 +49,68 @@ export default class DrockMainController {
         let params = new URLSearchParams(document.location.search.substring(1));
         this.UrlHandler.landing = parseInt(params.get("landing"), 0) || 0;
         this.UrlHandler.page = parseInt(params.get("page"), 0) || 0;
+        this.UrlHandler.contact = !!params.get("contact");
+        if (this.UrlHandler.contact) {
+            this.launchContactDlg(false);
+        }
+        else {
+            this.closeContactDlg(false);
+        }
 
         //When the history changes (e.g. going back/forward), see if we can just navigate there!
         window.onpopstate = event => {
             if (event.state) {
                 this.UrlHandler.landing = event.state.landing;
                 this.UrlHandler.page = event.state.page;
+                this.UrlHandler.contact = event.state.contact;
             }
             else {
                 this.UrlHandler.landing = 0;
                 this.UrlHandler.page = 0;
+                this.UrlHandler.contact = false;
             }
 
-            this.moveLanding(this.UrlHandler.landing, this.UrlHandler.page, true);
+            this.moveLanding(this.UrlHandler.landing, this.UrlHandler.page, this.UrlHandler.contact, true);
+
+            if (this.UrlHandler.contact) {
+                this.launchContactDlg(false);
+            }
+            else {
+                this.closeContactDlg(false);
+            }
         };
 
         return this;
+    }
+
+    launchContactDlg(pushHistory = true) {
+        if (!this.contactDialogOpen) {
+            this.contactDialogOpen = true;
+            $_.setClassList(this.contactDialog, {
+                active: true
+            });
+            if (pushHistory) {
+                window.history.pushState({
+                    landing: this.UrlHandler.landing,
+                    page: this.UrlHandler.page,
+                    contact: true
+                },
+                    `Derek Honeycutt : ${this.tabs[this.UrlHandler.landing].label}`,
+                    `?landing=${this.UrlHandler.landing}&page=${this.UrlHandler.page}&contact=true`);
+            }
+        }
+    }
+
+    closeContactDlg(popHistory = true) {
+        if (this.contactDialogOpen) {
+            this.contactDialogOpen = false;
+            $_.setClassList(this.contactDialog, {
+                active: false
+            });
+            this.contactEl.clearFields();
+            if (popHistory)
+                window.history.back();
+        }
     }
 
     /** Fill the elements in the controller based on those in the document */
@@ -78,19 +125,14 @@ export default class DrockMainController {
 
         $_.addEvents(this.contactDialog, {
             requestclose: e => {
-                $_.setClassList(this.contactDialog, {
-                    active: false
-                });
-                this.contactEl.clearFields();
+                this.closeContactDlg();
             },
             send: e => this.onSendEmail(e)
         });
 
         $_.addEvents(this.contactFab, {
             click: () => {
-                $_.setClassList(this.contactDialog, {
-                    active: true
-                });
+                this.launchContactDlg();
             }
         });
 
@@ -114,17 +156,17 @@ export default class DrockMainController {
             swipemove: e => {
                 if (e.target !== this.swipeBase || e.detail.index < 0)
                     return;
-                this.moveLanding(e.detail.index, 0);
+                this.moveLanding(e.detail.index, 0, false);
             }
         });
         $_.addEvents(this.mainNav, {
-            tabbarchange: e => this.moveLanding(e.detail.index, 0)
+            tabbarchange: e => this.moveLanding(e.detail.index, 0, false)
         });
 
         //Timeout needed here because of delay in construction of custom elements
         //This just moves the page to the appropriate place at startup
         setTimeout(() => {
-            this.moveLanding(this.UrlHandler.landing, this.UrlHandler.page, true);
+            this.moveLanding(this.UrlHandler.landing, this.UrlHandler.page, this.UrlHandler.contact, true);
         }, 300);
 
         return this;
@@ -134,9 +176,10 @@ export default class DrockMainController {
      * Move the landing to a new position
      * @param {number} landing Landing Index to move to
      * @param {number} page Page Index to move to
+     * @param {Boolean} contact Whether the contact dialog is shown
      * @param {Boolean} [force] Whether to force the update
      */
-    moveLanding(landing, page, force = false) {
+    moveLanding(landing, page, contact, force = false) {
         if ((this.swipeBase === null && this.mainNav === null) || (this.tabs.length < 1))
             return;
 
@@ -147,10 +190,11 @@ export default class DrockMainController {
         if (this.UrlHandler.landing !== uselanding) {
             window.history.pushState({
                 landing: uselanding,
-                page: page
+                page: page,
+                contact: contact
             },
                 `Derek Honeycutt : ${this.tabs[uselanding].label}`,
-                `?landing=${uselanding}&page=${page}`);
+                `?landing=${uselanding}&page=${page}${contact ? '&contact=true' : ''}`);
         }
         window.document.title = `Derek Honeycutt : ${this.tabs[uselanding].label}`;
 
