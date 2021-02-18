@@ -45,6 +45,33 @@ function constructHomePage(landings) {
     };
 }
 
+/**
+ * Construct a landing, including its pages
+ * @param {any} landing
+ */
+function constructLanding(landing) {
+    const container = $(['div', { class: 'landing-div' }]);
+    const swiper = $(['drock-swiper', {
+        class: 'landing-swipe',
+        orientation: 'y',
+        hidexmove: true
+    }]);
+    container.append(swiper);
+
+    l.pages.forEach(p => {
+        const div = $(['div']);
+        const markdown = `# ${p.title}\n\n${p.subtitle}\n\n${p.text || '--'}`;
+        const html = DOMPurify.sanitize(new showdown.Converter().makeHtml(markdown));
+        div.innerHTML = html;
+        swiper.append(div);
+    });
+
+    return {
+        container: container,
+        swiper: swiper
+    };
+}
+
 async function fetchhome() {
     let homefetch = await $_.RestFetch("/", "portfolio");
 
@@ -64,29 +91,7 @@ async function fetchhome() {
         //create the pages
         const pages = [
             constructHomePage(homefetch.landings),
-            ...homefetch.landings
-                .map(l => {
-                    const container = $(['div', { class: 'landing-div' }]);
-                    const swiper = $(['drock-swiper', {
-                        class: 'landing-swipe',
-                        orientation: 'y',
-                        hidexmove: true
-                    }]);
-                    container.append(swiper);
-
-                    l.pages.forEach(p => {
-                        const div = $(['div']);
-                        const markdown = `# ${p.title}\n\n${p.subtitle}\n\n${p.text || '--'}`;
-                        const html = DOMPurify.sanitize(new showdown.Converter().makeHtml(markdown));
-                        div.innerHTML = html;
-                        swiper.append(div);
-                    });
-
-                    return {
-                        container: container,
-                        swiper: swiper
-                    };
-                })
+            ...homefetch.landings.map(constructLanding)
         ];
         $("#swipe-base").appendChildren(
             ...pages.map(p => p.container));
