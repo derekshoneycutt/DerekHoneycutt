@@ -1,4 +1,5 @@
-﻿@import 'RobotoFont.scss';
+﻿@use "@material/elevation";
+@import 'RobotoFont.scss';
 @import 'material-icons.scss';
 
 :root {
@@ -108,6 +109,27 @@ body {
     z-index: 6;
 }
 
+.drock-page-base {
+    background-color: var(--mdc-theme-primary-ultradark, darkgray);
+}
+
+.drock-page-content {
+    @include elevation.elevation(2);
+    box-sizing: border-box;
+    background-color: #fff;
+    max-width: 800rem;
+    min-height: 100%;
+    padding: 20rem;
+    margin: 0 auto;
+}
+
 .home-page {
     overflow: auto;
+}
+
+.home-page-list-link {
+    display: block;
+    cursor: pointer;
+    color: var(--mdc-theme-on-surface, #000);
+    text-decoration: none;
 }

@@ -20,9 +20,7 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
 let params = new URLSearchParams(document.location.search.substring(1));
 var UrlHandler = {
     landing: parseInt(params.get("landing"), 0) || 0,
-    startLanding: parseInt(params.get("landing"), 0) || 0,
-    page: parseInt(params.get("page"), 0) || 0,
-    startPage: parseInt(params.get("page"), 0) || 0
+    page: parseInt(params.get("page"), 0) || 0
 };
 
 /**
@@ -40,9 +38,10 @@ function moveLanding(tabs, landing, page, swipeBase, mainNav, force = false) {
             landing: landing,
             page: page
         },
-            `Derek Honeycutt: ${tabs[landing].title}`,
+            `Derek Honeycutt : ${tabs[landing].label}`,
             `?landing=${landing}&page=${page}`);
     }
+    window.document.title = `Derek Honeycutt : ${tabs[landing].label}`;
 
     if (UrlHandler.landing !== landing || force) {
         UrlHandler.landing = landing;
@@ -57,7 +56,7 @@ function moveLanding(tabs, landing, page, swipeBase, mainNav, force = false) {
  * Construct the home page based on fetched landings
  * @param {Array} landings landings to show on the homepage
  */
-function constructHomePage(landings) {
+function constructHomePage(landings, onlandingclick) {
     let homeswiper;
     const homecontainer = $(['div', { class: 'landing-div' },
         homeswiper = $(['drock-swiper',
@@ -66,22 +65,35 @@ function constructHomePage(landings) {
                 orientation: 'y',
                 hidexmove: true
             },
-            ['div', { class: 'home-page' },
-                ['ul', { class: 'home-page-list' },
-                    ...landings.map(l => {
-                        const ret = $(['li', { class: 'home-page-list-item' },
-                            ['a', { class: 'home-page-list-link' },
-                                ['div', { class: 'home-page-icons' },
-                                    ['span', { class: 'home-page-icon-actual material-icons' }, l.icon]
-                                ],
-                                ['div', { class: 'home-page-listing' },
-                                    ['div', { class: 'home-page-listing-title' }, l.title],
-                                    ['div', { class: 'home-page-listing-subtitle' }, l.subtitle]
+            ['div', { class: 'home-page drock-page-base' },
+                ['div', { class: 'drock-page-content' },
+                    ['div',  { class: 'home-page-list' },
+                        ...landings.map((l, index) => {
+                            const ret = $(['div', { class: 'home-page-list-item' },
+                                ['a', {
+                                    class: 'home-page-list-link',
+                                    href: `?landing=${index + 1}&page=0`,
+                                    on: {
+                                        click: e => {
+                                            if (onlandingclick) {
+                                                e.preventDefault();
+                                                onlandingclick(index, e);
+                                            }
+                                        }
+                                    }
+                                },
+                                    ['div', { class: 'home-page-icons' },
+                                        ['span', { class: 'home-page-icon-actual material-icons' }, l.icon]
+                                    ],
+                                    ['div', { class: 'home-page-listing' },
+                                        ['div', { class: 'home-page-listing-title' }, l.title],
+                                        ['div', { class: 'home-page-listing-subtitle' }, l.subtitle]
+                                    ]
                                 ]
-                            ]
-                        ]);
-                        return ret;
-                    })
+                            ]);
+                            return ret;
+                        })
+                    ]   
                 ]
             ]
         ])
@@ -107,10 +119,13 @@ function constructLanding(landing) {
     container.append(swiper);
 
     landing.pages.forEach(p => {
-        const div = $(['div']);
+        let contentDiv;
+        const div = $(['div', { class: 'home-page drock-page-base' },
+            contentDiv = $(['div', { class: 'drock-page-content' }])
+        ]);
         const markdown = `# ${p.title}\n\n${p.subtitle}\n\n${p.text || '--'}`;
         const html = DOMPurify.sanitize(new showdown.Converter().makeHtml(markdown));
-        div.innerHTML = html;
+        contentDiv.innerHTML = html;
         swiper.append(div);
     });
 
@@ -141,7 +156,8 @@ async function fetchhome() {
 
         //create the pages
         const pages = [
-            constructHomePage(homefetch.landings),
+            constructHomePage(homefetch.landings,
+                (index, e) => moveLanding(tabs, index + 1, 0, swipeBase, mainNav, true)),
             ...homefetch.landings.map(constructLanding)
         ];
         $_.appendChildren(swipeBase, ...pages.map(p => p.container));
@@ -157,11 +173,9 @@ async function fetchhome() {
             tabbarchange: e => moveLanding(tabs, e.detail.index, 0, swipeBase, null)
         });
 
-        if (UrlHandler.landing !== 0 || UrlHandler.page !== 0) {
-            setTimeout(() => {
-                moveLanding(tabs, UrlHandler.landing, UrlHandler.page, swipeBase, mainNav, true);
-            }, 300);
-        }
+        setTimeout(() => {
+            moveLanding(tabs, UrlHandler.landing, UrlHandler.page, swipeBase, mainNav, true);
+        }, 300);
 
         window.onpopstate = event => {
             if (event.state) {
@@ -169,8 +183,8 @@ async function fetchhome() {
                 UrlHandler.page = event.state.page;
             }
             else {
-                UrlHandler.landing = UrlHandler.startLanding;
-                UrlHandler.page = UrlHandler.startPage;
+                UrlHandler.landing = 0;
+                UrlHandler.page = 0;
             }
 
             moveLanding(tabs, UrlHandler.landing, UrlHandler.page, swipeBase, mainNav, true);
