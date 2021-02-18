@@ -1,5 +1,6 @@
 ﻿@use "@material/elevation";
 @use "@material/ripple";
+@use "@material/fab/mdc-fab";
 @import '../material-icons.scss';
 @import '../RobotoFont.scss';
 
@@ -42,40 +43,24 @@
     transition: transform var(--drock-swiper-slottranslength, 0.3s) ease-in-out;
 }
 
-.drock-swiper-nav {
-    @extend .material-icons;
-    @include elevation.elevation(6);
-    @include ripple.surface;
-    @include ripple.radius-bounded;
-    @include ripple.states;
-    overflow: hidden;
-    font-size: 35rem;
-    position: absolute;
-    width: 40rem;
-    height: 40rem;
-    top: calc(50% - 20rem);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--mdc-theme-primary-ultralight, #fff);
-    color: var(--mdc-theme-primary-ultradark, #666);
-    z-index: 10;
-    cursor: pointer;
-    border-radius: 50%;
-    user-select: none;
-    transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
-
-    &:active {
-        @include elevation.elevation(3);
-    }
-}
-
 .drock-swiper-prev {
+    position: absolute;
+    top: calc(50% - 20rem);
     left: -50rem;
+    user-select: none;
+    cursor: pointer;
+    transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
+    z-index: 10;
 }
 
 .drock-swiper-next {
+    position: absolute;
+    top: calc(50% - 20rem);
     right: -50rem;
+    user-select: none;
+    cursor: pointer;
+    transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
+    z-index: 10;
 }
 
 .drock-swiper-prev.drock-swiper-shownav {
@@ -88,4 +73,16 @@
 
 .drock-swiper-hidden {
     display: none !important;
+}
+
+@media screen and (orientation: portrait) {
+    .drock-swiper-prev, drock-swiper-next {
+        display: none !important;
+    }
+}
+
+@media screen and (orientation: landscape) and (max-height: 600px) {
+    .drock-swiper-prev, drock-swiper-next {
+        display: none !important;
+    }
 }

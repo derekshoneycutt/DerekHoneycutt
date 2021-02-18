@@ -2,7 +2,7 @@
 import { MDCRipple } from '@material/ripple';
 
 /** Component for showing a MDC-based Floating Action Button */
-export class DrockFab extends HTMLElement {
+export default class DrockFab extends HTMLElement {
     constructor() {
         super();
     }

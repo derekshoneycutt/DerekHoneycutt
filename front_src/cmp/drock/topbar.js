@@ -8,7 +8,7 @@ import { MDCRipple } from '@material/ripple';
   * @property {boolean} [active] Whether this is an active tab or not */
 
 /** Component for showing the topbar of my portfolio */
-export class DrockTopBar extends HTMLElement {
+export default class DrockTopBar extends HTMLElement {
     constructor() {
         super();
 
@@ -75,10 +75,18 @@ export class DrockTopBar extends HTMLElement {
         ]);
     }
 
+    /**
+     * Event triggered when the tabbar changes
+     * @param {any} event
+     */
     onTabbarActivate(event) {
-        //if (event.detail.index === 5)
-        //    window.location.href = "https://subaruvagabond.com/";
-        console.log(`Activated: ${event.detail.index}`);
+        this.dispatchEvent(new CustomEvent('tabbarchange', {
+            detail: {
+                index: event.detail.index
+            },
+            bubbles: true,
+            composed: true
+        }));
     }
 
     /**
@@ -101,6 +109,16 @@ export class DrockTopBar extends HTMLElement {
         });
 
         this._constructed = true;
+    }
+
+    /**
+     * Move the tabbar to the given index
+     * @param {number} index Index of the tab to move the TabBar to
+     */
+    moveToTabIndex(index) {
+        this._tabBar.forEach(tb => {
+            tb.mdcTabBar.activateTab(index);
+        });
     }
 }
 window.customElements.define('drock-topbar', DrockTopBar);

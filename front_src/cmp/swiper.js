@@ -63,7 +63,10 @@ export default class DrockSwiperElement extends HTMLElement {
         /** Link to move previous
          *  @type {HTMLAnchorElement} */
         this.__prevlink = $(showChildren, '.drock-swiper-prev');
-        //const prevripple = new MDCRipple(this.__prevlink[0]);
+        this.__prevlink.forEach(f => {
+            const fabRipple = new MDCRipple(f);
+            f.mdcRipple = fabRipple;
+        });
         this.__prevlink.addEvents({
             click: e => {
                 this.movePrevious();
@@ -76,7 +79,10 @@ export default class DrockSwiperElement extends HTMLElement {
         /** Link to move next
          * @type {HTMLAnchorElement} */
         this.__nextlink = $(showChildren, '.drock-swiper-next');
-        //const nextripple = new MDCRipple(this.__nextlink[0]);
+        this.__nextlink.forEach(f => {
+            const fabRipple = new MDCRipple(f);
+            f.mdcRipple = fabRipple;
+        });
         this.__nextlink.addEvents({
             click: e => {
                 this.moveNext(e);
@@ -331,6 +337,8 @@ export default class DrockSwiperElement extends HTMLElement {
      */
     onSwipeEnd(evt, didend) {
         if (this.isSwiping) {
+            this.isSwiping = false;
+
             if (evt.cancelable && didend && this.crossedBoundary)
                 evt.preventDefault();
 
@@ -357,7 +365,6 @@ export default class DrockSwiperElement extends HTMLElement {
             }
             this.moveToIndex(moveTo);
 
-            this.isSwiping = false;
             this.start = null;
             this.allowPopoverNav = true;
             this.updateNavShown();

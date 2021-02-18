@@ -2,12 +2,14 @@
 <template id="drock-swiper">
     <link rel="stylesheet" href="/cmpcss/swiper.css"/>
     <div class="drock-swiper-container">
-        <a class="drock-swiper-nav drock-swiper-prev">
-            navigate_before
-        </a>
-        <a class="drock-swiper-nav drock-swiper-next">
-            navigate_next
-        </a>
+        <button class="mdc-fab mdc-fab--mini drock-swiper-prev" aria-label="Previous">
+            <div class="mdc-fab__ripple"></div>
+            <span class="mdc-fab__icon material-icons">navigate_before</span>
+        </button>
+        <button class="mdc-fab mdc-fab--mini drock-swiper-next" aria-label="Previous">
+            <div class="mdc-fab__ripple"></div>
+            <span class="mdc-fab__icon material-icons">navigate_next</span>
+        </button>
         <slot></slot>
     </div>
 </template>
