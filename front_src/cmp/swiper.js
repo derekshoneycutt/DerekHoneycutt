@@ -46,6 +46,13 @@ export default class DrockSwiperElement extends HTMLElement {
         this.crossedBoundary = false;
         /** Marks if user appears to have begun scrolling in opposing axis, blocking swiping actions */
         this.beganScroll = false;
+
+        /** Marks whether currently scrolling with the mouse wheel */
+        this.isWheeling = false;
+        /** Current position of scrolling with the mouse wheel */
+        this.wheelPosition = 0;
+        /** Current timeout to handle when mouse wheeling has ended */
+        this.wheelTimeout = null;
     }
 
     connectedCallback() {
@@ -112,6 +119,7 @@ export default class DrockSwiperElement extends HTMLElement {
         container[0].addEventListener('touchmove', e => this.onSwipeMove(e), true);
         container[0].addEventListener('touchend', e => this.onSwipeEnd(e, true), true);
         container[0].addEventListener('touchcancel', e => this.onSwipeEnd(e, false), true);
+        container[0].addEventListener('wheel', e => this.onWheel(e));
 
         /** @type {HTMLSlotElement} */
         const slot = $(container, 'slot');
@@ -369,6 +377,63 @@ export default class DrockSwiperElement extends HTMLElement {
             this.allowPopoverNav = true;
             this.updateNavShown();
         }
+    }
+
+    /**
+     * Event raised when the mouse wheel is used on the component
+     * @param {WheelEvent} evt event object sent with the event
+     */
+    onWheel(evt) {
+        const moveNumber = evt[`delta${this.orientation.toUpperCase()}`];
+        if (Math.abs(moveNumber) < 25 && !this.isWheeling)
+            return;
+
+        evt.preventDefault();
+
+        if (this.isWheeling) {
+            clearTimeout(this.wheelTimeout);
+            this.wheelPosition -= moveNumber;
+        }
+        else {
+            this.isWheeling = true;
+            this.wheelPosition = -1 * moveNumber;
+
+            const curroffset = this.getBoundingClientRect();
+            this.startMod.width = curroffset.width;
+            this.startMod.height = curroffset.height;
+            this.startMod.x = -1 * curroffset.width * this.__currIndex;
+            this.startMod.y = -1 * curroffset.height * this.__currIndex;
+
+            this.style.setProperty('--drock-swiper-slottranslength', '0');
+        }
+
+        const dimension = this.orientation === 'x' ? 'width' : 'height';
+        let use = this.startMod[this.orientation] + this.wheelPosition;
+        if (use < this.startMod[this.orientation] - this.startMod[dimension])
+            use = this.startMod[this.orientation] - this.startMod[dimension];
+        if (use > this.startMod[this.orientation] + this.startMod[dimension])
+            use = this.startMod[this.orientation] + this.startMod[dimension];
+        if (!this.allowOvershoot) {
+            if (use > 0)
+                use = 0;
+            if (use < (this.__childCount - 1) * this.startMod[dimension] * -1)
+                use = (this.__childCount - 1) * this.startMod[dimension] * -1;
+        }
+        this.style.setProperty(`--drock-swiper-positionoffset${this.orientation.toUpperCase()}`, `${use}px`);
+        this.wheelTimeout = setTimeout(() => {
+            clearTimeout(this.wheelTimeout);
+            this.wheelTimeout = null;
+            this.isWheeling = false;
+            this.style.setProperty('--drock-swiper-slottranslength', 'var(--drock-transitions-length, 0.3s)');
+
+            let dir = -1 * Math.sign(this.wheelPosition);
+            let doMove = this.__currIndex;
+            if (Math.abs(this.wheelPosition) > 50) {
+                doMove = this.__currIndex + dir;
+            }
+            this.wheelPosition = 0;
+            this.moveToIndex(doMove, true);
+        }, 150);
     }
 
     /** Update whether navigation buttons are shown overlaying the viewport */
