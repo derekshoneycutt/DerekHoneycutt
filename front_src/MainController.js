@@ -23,8 +23,12 @@ export default class DrockMainController {
         this.UrlHandler = { landing: 0, page: 0, contact: false };
     }
 
+    /**
+     * Event raised when sending email (NOTHING RIGHT NOW!)
+     * @param {any} evt
+     */
     async onSendEmail(evt) {
-        if (this._allowContactSend) {
+        /*if (this._allowContactSend) {
             if (this.homefetch && this.homefetch.postContact) {
                 this._allowContactSend = false;
                 const contactRet = await this.homefetch.postContact(evt.detail);
@@ -40,7 +44,7 @@ export default class DrockMainController {
         }
         else {
             alert('Already sent me something. Please wait 2 minutes to send another message.')
-        }
+        }*/
     }
 
     /** Watch URL for changes and handle accordingly */
@@ -83,6 +87,10 @@ export default class DrockMainController {
         return this;
     }
 
+    /**
+     * Launch the Contact dialog
+     * @param {Boolean} pushHistory whether to push the contact open state in the browser history
+     */
     launchContactDlg(pushHistory = true) {
         if (!this.contactDialogOpen) {
             this.contactDialogOpen = true;
@@ -101,6 +109,10 @@ export default class DrockMainController {
         }
     }
 
+    /**
+     * Close the Contact dialog, if it is not open
+     * @param {Boolean} popHistory Whether to pop the latest history state in the browser
+     */
     closeContactDlg(popHistory = true) {
         if (this.contactDialogOpen) {
             this.contactDialogOpen = false;

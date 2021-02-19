@@ -47,6 +47,7 @@
  * @property {string} [image]
  * @property {string} [orientation]
  * @property {string} [description]
+ * @property {string} [gitHub]
  * @property {string[]} [images]
  * @property {DrockServerResumeExpJob[]} [jobs]
  * @property {string} [competencies]
