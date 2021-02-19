@@ -200,7 +200,7 @@ export default class DrockMainController {
             uselanding = this.tabs.length - 1;
 
         if (this.UrlHandler.landing !== uselanding) {
-            window.history.pushState({
+            window.history.replaceState({
                 landing: uselanding,
                 page: page,
                 contact: contact
