@@ -385,7 +385,7 @@ export default class DrockSwiperElement extends HTMLElement {
      */
     onWheel(evt) {
         const moveNumber = evt[`delta${this.orientation.toUpperCase()}`];
-        if (Math.abs(moveNumber) < 25 && !this.isWheeling)
+        if (Math.abs(moveNumber) < 25 && !this.isWheeling || this.__childCount <= 1)
             return;
 
         evt.preventDefault();
