@@ -26,7 +26,8 @@ export default class DrockFab extends HTMLElement {
         });
         /** @type {HTMLSpanElement} */
         this.__iconEl = $(showChildren, '.mdc-fab__icon')[0];
-        this.__iconEl.innerHTML = this.icon;
+        $_.emptyAndReplace(this.__iconEl, this.icon);
+
         /* * @type {HTMLSlotElement} */
         //const slotEl = $(showChildren, 'slot')[0];
 
@@ -52,7 +53,7 @@ export default class DrockFab extends HTMLElement {
             case 'icon':
                 this.icon = newValue;
                 if (this.__iconEl)
-                    this.__iconEl.innerHTML = value || 'add';
+                    $_.emptyAndReplace(this.__iconEl, value || 'add');
                 break;
             default:
                 break;

@@ -63,7 +63,9 @@ namespace DerekHoneycutt.DbBusiness
         /// <param name="page">Resume Experience page to parse</param>
         /// <returns>A parsed Resume Experience page</returns>
         public static BusinessModels.ResumeExpPage ParseResumeExpPage(
-            DbModels.Page page, DbModels.ResumeExpPage resumeExpExt)
+            DbModels.DatabaseContext dbContext,
+            DbModels.Page page, DbModels.ResumeExpPage resumeExpExt,
+            ILogger log)
         {
             if (resumeExpExt == null)
                 throw new ArgumentException("Page must be Resume Experience to parse as such");
@@ -78,7 +80,11 @@ namespace DerekHoneycutt.DbBusiness
                 Image = page.Image,
                 Orientation = page.Orientation,
                 ResumeExpId = resumeExpExt.Id,
-                Jobs = resumeExpExt.Jobs.Select(j => ResumeExpJobs.ParseJob(j)).ToList()
+                Jobs = resumeExpExt.Jobs != null ?
+                            resumeExpExt.Jobs.Select(j => ResumeExpJobs.ParseJob(j)).ToList() :
+                            (from job in dbContext.ResumeExpJobs
+                             where job.PageId == resumeExpExt.Id
+                             select ResumeExpJobs.ParseJob(job)).ToList()
             };
         }
 
@@ -105,6 +111,32 @@ namespace DerekHoneycutt.DbBusiness
                 ResumeHeadId = resumeHeadExt.Id,
                 Description = resumeHeadExt.Description,
                 Competencies = resumeHeadExt.Competencies
+            };
+        }
+
+        /// <summary>
+        /// Parse a Resume GitHub page
+        /// </summary>
+        /// <param name="page">Resume GitHub page to parse</param>
+        /// <returns>A parsed Resume GitHub page</returns>
+        public static BusinessModels.GitHubPage ParseGitHubPage(
+            DbModels.Page page, DbModels.GitHubPage resumeHeadExt)
+        {
+            if (resumeHeadExt == null)
+                throw new ArgumentException("Page must be GitHub Page to parse as such");
+
+            return new BusinessModels.GitHubPage()
+            {
+                Id = page.Id,
+                Type = BusinessModels.PageTypes.ResumeHead,
+                Title = page.Title,
+                Subtitle = page.Subtitle,
+                Background = page.Background,
+                Image = page.Image,
+                Orientation = page.Orientation,
+                GitHubId = resumeHeadExt.Id,
+                GitHub = resumeHeadExt.GitHub,
+                Description = resumeHeadExt.Description
             };
         }
 
@@ -163,14 +195,17 @@ namespace DerekHoneycutt.DbBusiness
         /// </summary>
         /// <param name="page">Page to parse</param>
         /// <returns>A parsed page</returns>
-        public static BusinessModels.Page ParsePage(DbModels.Page page)
+        public static BusinessModels.Page ParsePage(
+            DbModels.DatabaseContext dbContext, DbModels.Page page, ILogger log)
         {
             if (page.ImageWallExt != null)
                 return ParseImageWallPage(page, page.ImageWallExt);
             if (page.ResumeExpExt != null)
-                return ParseResumeExpPage(page, page.ResumeExpExt);
+                return ParseResumeExpPage(dbContext, page, page.ResumeExpExt, log);
             if (page.ResumeHeadExt != null)
                 return ParseResumeHeadPage(page, page.ResumeHeadExt);
+            if (page.GitHubPageExt != null)
+                return ParseGitHubPage(page, page.GitHubPageExt);
             if (page.SchoolsExt != null)
                 return ParseSchoolsPage(page, page.SchoolsExt);
             if (page.TextBlockExt != null)
@@ -185,11 +220,11 @@ namespace DerekHoneycutt.DbBusiness
         /// <param name="inpages">The page to translate</param>
         /// <returns>Business model representing the page</returns>
         public static IEnumerable<BusinessModels.Page> ParsePages(
-            IEnumerable<DbModels.Page> inpages)
+            DbModels.DatabaseContext dbContext, IEnumerable<DbModels.Page> inpages, ILogger log)
         {
             return from page in inpages
                    orderby page.Order
-                   select ParsePage(page);
+                   select ParsePage(dbContext, page, log);
         }
 
         /// <summary>
@@ -218,7 +253,7 @@ namespace DerekHoneycutt.DbBusiness
                 throw new KeyNotFoundException();
             }
 
-            return ParsePage(page);
+            return ParsePage(dbContext, page, log);
         }
     }
 }

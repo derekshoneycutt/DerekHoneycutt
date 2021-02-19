@@ -58,6 +58,10 @@ namespace DerekHoneycutt.DbModels.Mappings
                 .WithOne(rhe => rhe.Page)
                 .HasForeignKey<DbModels.ResumeHeadPage>(rhe => rhe.PageId);
             builder
+                .HasOne(p => p.GitHubPageExt)
+                .WithOne(rhe => rhe.Page)
+                .HasForeignKey<DbModels.GitHubPage>(rhe => rhe.PageId);
+            builder
                 .HasOne(p => p.SchoolsExt)
                 .WithOne(se => se.Page)
                 .HasForeignKey<DbModels.SchoolsPage>(se => se.PageId);

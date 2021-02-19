@@ -37,9 +37,11 @@ namespace DerekHoneycutt.DbBusiness
                                                 page.ImageWallExt != null ?
                                                     Pages.ParseImageWallPage(page, page.ImageWallExt) :
                                                 page.ResumeExpExt != null ?
-                                                    Pages.ParseResumeExpPage(page, page.ResumeExpExt) :
+                                                    Pages.ParseResumeExpPage(dbContext, page, page.ResumeExpExt, log) :
                                                 page.ResumeHeadExt != null ?
                                                     Pages.ParseResumeHeadPage(page, page.ResumeHeadExt) :
+                                                page.GitHubPageExt != null ?
+                                                    Pages.ParseGitHubPage(page, page.GitHubPageExt) :
                                                 page.SchoolsExt != null ?
                                                     Pages.ParseSchoolsPage(page, page.SchoolsExt) :
                                                 page.TextBlockExt != null ?
@@ -82,7 +84,7 @@ namespace DerekHoneycutt.DbBusiness
                 Href = landing.Href,
                 Title = landing.Title,
                 Subtitle = landing.Subtitle,
-                Pages = Pages.ParsePages(landing.Pages).ToList()
+                Pages = Pages.ParsePages(dbContext, landing.Pages, log).ToList()
             };
         }
     }

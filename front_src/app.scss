@@ -2,6 +2,7 @@
 @use "@material/ripple";
 @use "@material/snackbar/mdc-snackbar";
 @use "@material/icon-button/mdc-icon-button";
+@use "@material/card/mdc-card";
 @import 'RobotoFont.scss';
 @import 'material-icons.scss';
 
@@ -161,28 +162,46 @@ body {
 
 .drock-page-base {
     background-color: var(--mdc-theme-primary-ultradark, darkgray);
+    display: flex;
+    padding: 0;
 }
 
 .drock-page-content {
     @include elevation.elevation(2);
     box-sizing: border-box;
     background-color: #fff;
-    max-width: 800rem;
     min-height: 100%;
     padding: 20rem;
-    margin: 0 auto;
+    margin: 0;
+    min-width: 100%;
+}
+
+.drock-page-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    z-index: 0;
+    //background-image: url("../homescreen-min.jpg");
+    background-size: cover;
+    background-position-x: center;
+    opacity: 0.2;
+    z-index: 0;
 }
 
 .home-page {
-    overflow: auto;
 }
 
 .home-page .drock-page-content {
     display: flex;
     position: relative;
+    overflow: auto;
 }
 .home-page .drock-page-content .drock-page-background {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100%;
@@ -241,4 +260,101 @@ body {
 .home-page-listing-subtitle {
     font-size: 12rem;
     margin: 5rem 0;
+}
+
+@media screen and (orientation: landscape) {
+    .drock-page-content {
+        padding: 50rem;
+    }
+
+    .drock-page-resumehead {
+        padding: 20rem;
+    }
+
+    .drock-resumehead-data {
+        padding: 0 30rem 100rem 50rem;
+    }
+
+    .drock-page-github {
+        padding: 20rem;
+    }
+
+    .drock-github-data {
+        padding: 0 30rem 100rem 50rem;
+    }
+}
+
+/*@media screen and (orientation: landscape) and (max-height: 600px) {
+    .drock-swiper-prev, drock-swiper-next {
+        display: none !important;
+    }
+}*/
+
+.drock-page-resumehead {
+    padding: 20rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.drock-resumehead-data {
+    margin: auto 0;
+    z-index: 1;
+}
+
+.drock-resumehead-body {
+    background: rgba(255,255,255,0.6);
+    padding: 10rem;
+}
+
+.drock-resumehead-title {
+    font-size: 18rem;
+    font-weight: bold;
+    border-bottom: 1px solid #bbb;
+    margin-bottom: 20rem;
+}
+.drock-resumehead-desc {
+    margin: 10rem 30rem 20rem 50rem;
+    font-size: 14rem;
+}
+
+.drock-page-github {
+    padding: 20rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.drock-github-head {
+    font-size: 18rem;
+    font-weight: bold;
+    border-bottom: 1px solid #bbb;
+    margin-bottom: 20rem;
+}
+
+.drock-github-data {
+    margin: auto 0;
+}
+
+.drock-github-card {
+    max-width: fit-content;
+    margin: 0 auto;
+}
+
+.drock-github-card-img {
+    text-align: center;
+    margin: 20rem 0 0 0;
+
+    img {
+        max-height: 80rem;
+    }
+}
+
+.drock-github-card-title {
+    font-size: 15rem;
+    font-weight: bold;
+    margin: 20rem;
+}
+
+.drock-github-card-desc {
+    margin: 0rem 30rem 20rem 35rem;
+    font-size: 13rem;
 }

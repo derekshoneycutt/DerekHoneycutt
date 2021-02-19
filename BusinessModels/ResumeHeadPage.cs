@@ -25,5 +25,15 @@ namespace DerekHoneycutt.BusinessModels
         /// Gets or Sets the competencies to display, separated by a pipe |
         /// </summary>
         public string Competencies { get; set; }
+
+        /// <summary>
+        /// GitHub repository to link to on the main resume page
+        /// </summary>
+        public string GitHub { get; set; }
+
+        /// <summary>
+        /// Description of GitHub repository to link to
+        /// </summary>
+        public string GitHubDescription { get; set; }
     }
 }

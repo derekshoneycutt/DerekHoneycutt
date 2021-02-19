@@ -72,6 +72,10 @@ namespace DerekHoneycutt.DbModels
         /// </summary>
         public ResumeHeadPage ResumeHeadExt { get; set; }
         /// <summary>
+        /// Gets or Sets a Resume GitHub extension for the page
+        /// </summary>
+        public GitHubPage GitHubPageExt { get; set; }
+        /// <summary>
         /// Gets or Sets a Schools extension for the page
         /// </summary>
         public SchoolsPage SchoolsExt { get; set; }

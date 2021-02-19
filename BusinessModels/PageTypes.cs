@@ -26,6 +26,11 @@ namespace DerekHoneycutt.BusinessModels
         public static string ResumeHead { get; } = "resumehead";
 
         /// <summary>
+        /// String describing the Resume GitHub Page type
+        /// </summary>
+        public static string GitHub { get; } = "github";
+
+        /// <summary>
         /// String describing the Schools Page type
         /// </summary>
         public static string Schools { get; } = "schools";

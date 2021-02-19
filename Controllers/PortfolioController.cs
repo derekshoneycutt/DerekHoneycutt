@@ -140,6 +140,15 @@ namespace DerekHoneycutt.Controllers
                     Competencies = rhpage.Competencies
                 };
             }
+            else if (page is BusinessModels.GitHubPage ghpage)
+            {
+                ret = new RestModels.GitHubPage()
+                {
+                    Type = BusinessModels.PageTypes.GitHub,
+                    GitHub = ghpage.GitHub,
+                    Description = ghpage.Description
+                };
+            }
             else if (page is BusinessModels.SchoolsPage spage)
             {
                 ret = new RestModels.SchoolsPage()

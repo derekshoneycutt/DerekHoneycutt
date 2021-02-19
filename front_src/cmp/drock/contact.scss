@@ -67,10 +67,9 @@
     @include elevation.elevation(2);
     box-sizing: border-box;
     background-color: #fff;
-    max-width: 800rem;
     min-height: 100%;
     padding: 20rem;
-    margin: 0 auto;
+    margin: 0;
     z-index: 2;
     overflow: auto;
     position: relative;

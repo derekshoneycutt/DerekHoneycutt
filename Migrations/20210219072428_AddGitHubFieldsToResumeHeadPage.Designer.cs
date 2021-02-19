@@ -3,41 +3,20 @@ using System;
 using DerekHoneycutt.DbModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DerekHoneycutt.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210219072428_AddGitHubFieldsToResumeHeadPage")]
+    partial class AddGitHubFieldsToResumeHeadPage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.3");
-
-            modelBuilder.Entity("DerekHoneycutt.DbModels.GitHubPage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("GitHub")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("PageId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PageId")
-                        .IsUnique();
-
-                    b.ToTable("GitHubPage");
-                });
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.ImageWallPage", b =>
                 {
@@ -211,6 +190,14 @@ namespace DerekHoneycutt.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("GitHub")
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GitHubDescription")
+                        .HasMaxLength(2048)
+                        .HasColumnType("TEXT");
+
                     b.Property<Guid>("PageId")
                         .HasColumnType("TEXT");
 
@@ -302,17 +289,6 @@ namespace DerekHoneycutt.Migrations
                         .IsUnique();
 
                     b.ToTable("TextBlockPages");
-                });
-
-            modelBuilder.Entity("DerekHoneycutt.DbModels.GitHubPage", b =>
-                {
-                    b.HasOne("DerekHoneycutt.DbModels.Page", "Page")
-                        .WithOne("GitHubPageExt")
-                        .HasForeignKey("DerekHoneycutt.DbModels.GitHubPage", "PageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Page");
                 });
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.ImageWallPage", b =>
@@ -410,8 +386,6 @@ namespace DerekHoneycutt.Migrations
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.Page", b =>
                 {
-                    b.Navigation("GitHubPageExt");
-
                     b.Navigation("ImageWallExt");
 
                     b.Navigation("ResumeExpExt");

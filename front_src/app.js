@@ -92,11 +92,55 @@ function constructLanding(landing) {
     landing.pages.forEach(p => {
         let contentDiv;
         const div = $(['div', { class: 'drock-page-base' },
-            contentDiv = $(['div', { class: 'drock-page-content' }])
+            contentDiv = $(['div', { class: `drock-page-content drock-page-${p.type}` }])
         ]);
-        const markdown = `# ${p.title}\n\n${p.subtitle}\n\n${p.text || '--'}`;
-        const html = DOMPurify.sanitize(new showdown.Converter().makeHtml(markdown));
-        contentDiv.innerHTML = html;
+        let markdown;
+        if (p.type === 'resumehead') {
+            let dataDiv = $(['div', { class: 'drock-resumehead-data' }]);
+            if (p.image) {
+                const bgDiv = $(['div', { class: 'drock-page-background' }]);
+                $_.setStyle(bgDiv, {
+                    'background-image': `url("${p.image}")`
+                });
+                contentDiv.append(bgDiv);
+            }
+            $_.appendChildren(dataDiv,
+                ['div', { class: 'drock-resumehead-body' },
+                    ['div', { class: 'drock-resumehead-title' }, p.title],
+                    ['div', { class: 'drock-resumehead-desc' }, p.description]
+                ]
+            );
+            contentDiv.append(dataDiv);
+        }
+        else if (p.type === 'github') {
+            contentDiv.append(
+                $(['div', { class: 'drock-github-data' },
+                    ['div', { class: 'drock-github-head' }, 'GitHub'],
+                    (() => {
+                        let githubCard = $(['div', { class: 'mdc-card drock-github-card' },
+                            ['a', {
+                                class: 'mdc-card__primary-action drock-github-content',
+                                tabindex: 0,
+                                href: `https://github.com/${p.gitHub}`,
+                                target: '_blank'
+                            },
+                                ['div', { class: 'drock-github-card-img' },
+                                    ['img', { src: 'GitHub-Mark-120px-plus.png' }]
+                                ],
+                                ['div', { class: 'drock-github-card-title' }, p.gitHub],
+                                ['div', { class: 'drock-github-card-desc' }, p.description]
+                            ]
+                        ]);
+                        githubCard.mdcRipple = new MDCRipple(githubCard);
+                        return githubCard;
+                    })()
+                ]));
+        }
+        else {
+            markdown = `# ${p.title}\n\n${p.subtitle}\n\n${p.text || p.description || '--'}`;
+            const html = DOMPurify.sanitize(new showdown.Converter().makeHtml(markdown));
+            contentDiv.innerHTML = html;
+        }
         swiper.append(div);
     });
 
@@ -122,7 +166,7 @@ function fillLandings(controller) {
     //create the pages
     const pages = [
         constructHomePage(controller.homefetch.landings,
-            (index, e) => controller.moveLanding(index + 1, 0, true)),
+            (index, e) => controller.moveLanding(index + 1, 0, false, true)),
         ...controller.homefetch.landings.map(constructLanding)
     ];
 
