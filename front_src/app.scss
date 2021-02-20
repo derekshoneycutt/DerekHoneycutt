@@ -24,6 +24,9 @@
     --mdc-theme-secondary-bg: #3d5afe;
     --mdc-theme-surface: #fff;
     --mdc-theme-surface-dark: #f3e5f5;
+    --mdc-theme-surface-darker: #E1BEE7;
+    --mdc-theme-surface-altdark: #E8EAF6;
+    --mdc-theme-surface-altdarker: #C5CAE9;
     --mdc-theme-on-surface: #000;
     --mdc-theme-background: #fff;
     --mdc-theme-error: #b00020;
@@ -190,6 +193,33 @@ body {
     background-position-x: center;
     opacity: 0.2;
     z-index: 0;
+}
+
+.drock-vert-dots {
+    position: absolute;
+    top: 50rem;
+    left: 25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
+}
+
+.drock-vert-dot {
+    @include elevation.elevation(6);
+    height: 10rem;
+    width: 10rem;
+    background-color: var(--mdc-theme-primary, red);
+    border-radius: 5rem;
+    margin-bottom: 10rem;
+    transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
+}
+
+.drock-vert-dot.active {
+    height: 20rem;
+    width: 20rem;
+    border-radius: 10rem;
+    transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
 }
 
 .home-page {

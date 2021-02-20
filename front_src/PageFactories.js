@@ -68,7 +68,8 @@ export function constructHomePage(controller, landings, onlandingclick) {
 
     return {
         container: homecontainer,
-        swiper: homeswiper
+        swiper: homeswiper,
+        dots: []
     };
 }
 
@@ -161,6 +162,26 @@ export function constructLanding(controller, landingIndex, landing) {
         }
     }]);
     container.append(swiper);
+    let dots = [];
+    if (landing.pages.length > 1) {
+        dots = landing.pages.map((p, i) => {
+            return $(['a', {
+                class: `drock-vert-dot ${i === 0 ? 'active' : ''}`,
+                href: `?landing=${landingIndex}&page=${i}`,
+                title: p.title,
+                on: {
+                    click: e => {
+                        e.preventDefault();
+                        controller.moveLanding(landingIndex, i, false);
+                    }
+                }
+            }]);
+        });
+        const navDots = $(['div', { class: 'drock-vert-dots' },
+            ...dots
+        ])
+        container.append(navDots);
+    }
 
     landing.pages.forEach(p => {
         let contentDiv;
@@ -199,6 +220,7 @@ export function constructLanding(controller, landingIndex, landing) {
 
     return {
         container: container,
-        swiper: swiper
+        swiper: swiper,
+        dots: dots
     };
 }

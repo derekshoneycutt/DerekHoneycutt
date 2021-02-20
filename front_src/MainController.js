@@ -222,8 +222,12 @@ export default class DrockMainController {
         }
         if (landingUpdated || this.UrlHandler.page !== usepage || force) {
             this.UrlHandler.page = usepage;
-            if (this.pages && this.pages[uselanding] && this.pages[uselanding].swiper)
+
+            if (this.pages[uselanding]) {
                 this.pages[uselanding].swiper.moveToIndex(usepage);
+                this.pages[uselanding].dots.forEach(
+                    (d, i) => $_.setClassList(d, { active: i === usepage }));
+            }
         }
     }
 }
