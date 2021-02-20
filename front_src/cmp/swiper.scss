@@ -74,14 +74,52 @@
     display: none !important;
 }
 
+.drock-swiper-upprev {
+    @include ripple.surface;
+    @include ripple.radius-bounded;
+    @include ripple.states;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: 45rem;
+    max-height: 45rem;
+    min-width: 100%;
+    background: rgba(0,0,0,0.01);
+    user-select: none;
+    cursor: pointer;
+    z-index: 10;
+    overflow: hidden;
+    border: none;
+}
+
+.drock-swiper-downnext {
+    @include ripple.surface;
+    @include ripple.radius-bounded;
+    @include ripple.states;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: 45rem;
+    max-height: 45rem;
+    min-width: 100%;
+    background: rgba(0,0,0,0.01);
+    user-select: none;
+    cursor: pointer;
+    z-index: 10;
+    overflow: hidden;
+    border: none;
+}
+
 @media screen and (orientation: portrait) {
-    .drock-swiper-prev, drock-swiper-next {
+    .drock-swiper-prev, .drock-swiper-next {
         display: none !important;
     }
 }
 
 @media screen and (orientation: landscape) and (max-height: 600px) {
-    .drock-swiper-prev, drock-swiper-next {
+    .drock-swiper-prev, .drock-swiper-next {
         display: none !important;
     }
 }

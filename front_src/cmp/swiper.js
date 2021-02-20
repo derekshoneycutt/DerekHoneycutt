@@ -83,6 +83,21 @@ export default class DrockSwiperElement extends HTMLElement {
         this.__prevlink.setClassList({
             'drock-swiper-hidden': this.hidexmove
         });
+
+        this.__uplink = $(showChildren, '.drock-swiper-upprev');
+        this.__uplink.forEach(b => {
+            b.mdcRipple = new MDCRipple(b);
+        });
+        this.__uplink.addEvents({
+            click: e => {
+                this.movePrevious();
+                e.preventDefault();
+            }
+        });
+        this.__uplink.setClassList({
+            'drock-swiper-hidden': true
+        });
+
         /** Link to move next
          * @type {HTMLAnchorElement} */
         this.__nextlink = $(showChildren, '.drock-swiper-next');
@@ -98,6 +113,20 @@ export default class DrockSwiperElement extends HTMLElement {
         });
         this.__nextlink.setClassList({
             'drock-swiper-hidden': this.hidexmove
+        });
+
+        this.__downlink = $(showChildren, '.drock-swiper-downnext');
+        this.__downlink.forEach(b => {
+            b.mdcRipple = new MDCRipple(b);
+        });
+        this.__downlink.addEvents({
+            click: e => {
+                this.moveNext(e);
+                e.preventDefault();
+            }
+        });
+        this.__downlink.setClassList({
+            'drock-swiper-hidden': true
         });
 
         /** @type {HTMLDivElement} */
@@ -148,6 +177,13 @@ export default class DrockSwiperElement extends HTMLElement {
         this.__setAttribute('hidexmove', !!value);
     }
 
+    get hideymove() {
+        return !!this.getAttribute('hideymove') || false;
+    }
+    set hideymove(value) {
+        this.__setAttribute('hideymove', !!value);
+    }
+
     /**
      * Describes the current orientation of the swiper (x vs y)
      * @type {String} 
@@ -175,7 +211,7 @@ export default class DrockSwiperElement extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ["index", "hidexmove", "orientation", "allowovershoot"];
+        return ["index", "hidexmove", "hideymove", "orientation", "allowovershoot"];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -196,6 +232,16 @@ export default class DrockSwiperElement extends HTMLElement {
             });
             this.__nextlink.setClassList({
                 'drock-swiper-hidden': this.hidexmove
+            });
+        }
+        else if (name.toLowerCase() === 'hideymove') {
+            if (!this.__uplink || !this.__downlink)
+                return;
+            this.__uplink.setClassList({
+                'drock-swiper-hidden': this.hideymove
+            });
+            this.__downlink.setClassList({
+                'drock-swiper-hidden': this.hideymove
             });
         }
         else if (name.toLowerCase() === 'orientation') {
@@ -438,6 +484,23 @@ export default class DrockSwiperElement extends HTMLElement {
 
     /** Update whether navigation buttons are shown overlaying the viewport */
     updateNavShown() {
+        if (this.hideymove) {
+            this.__uplink.setClassList({
+                'drock-swiper-hidden': true
+            });
+            this.__downlink.setClassList({
+                'drock-swiper-hidden': true
+            });
+        }
+        else {
+            this.__uplink.setClassList({
+                'drock-swiper-hidden': (this.__currIndex < 1)
+            });
+            this.__downlink.setClassList({
+                'drock-swiper-hidden': (this.__currIndex >= this.__childCount - 1)
+            });
+        }
+
         if (!this.allowPopoverNav || this.__lastMouse === undefined) {
             this.__prevlink[0].classList.toggle('drock-swiper-shownav', false);
             this.__nextlink[0].classList.toggle('drock-swiper-shownav', false);
