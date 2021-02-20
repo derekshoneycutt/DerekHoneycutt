@@ -537,6 +537,9 @@ export default class DrockSwiperElement extends HTMLElement {
         if (index < 0)
             useIndex = 0;
 
+        if (this.__currIndex === useIndex)
+            return;
+
         if (!animate)
             this.style.setProperty('--drock-swiper-slottranslength', '0');
 

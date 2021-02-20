@@ -32,7 +32,6 @@ export default class DrockMainController {
             if (this.homefetch && this.homefetch.postContact) {
                 this._allowContactSend = false;
                 const contactRet = await this.homefetch.postContact(evt.detail);
-                console.log(contactRet);
                 this.contactMdcSnackbar.open();
                 setTimeout(() => this._allowContactSend = true, 120000)
             }
