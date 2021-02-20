@@ -3,6 +3,7 @@ import showdown from 'showdown';
 import DOMPurify from 'dompurify';
 import { MDCRipple } from '@material/ripple';
 import './ServerTypeDefs';
+import DrockMainController from './MainController';
 
 // Make all purified links open in a new window
 DOMPurify.addHook('afterSanitizeAttributes', function (node) {
@@ -15,9 +16,11 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
 
 /**
  * Construct the home page based on fetched landings
+ * @param {DrockMainController} controller Controller object
  * @param {Array} landings landings to show on the homepage
+ * @param {(number, Event) => void} onlandingclick Event to call when a landing is clicked on
  */
-export function constructHomePage(landings, onlandingclick) {
+export function constructHomePage(controller, landings, onlandingclick) {
     let homeswiper;
     const homecontainer = $(['div', { class: 'landing-div' },
         homeswiper = $(['drock-swiper',
@@ -141,14 +144,21 @@ function createResumeExpPage(page, contentDiv) {
 
 /**
  * Construct a landing, including its pages
- * @param {any} landing
+ * @param {DrockMainController} controller Controller object
+ * @param {number} landingIndex index of the landing being constructed
+ * @param {DrockServerLanding} landing landing to construct in html
  */
-export function constructLanding(landing) {
+export function constructLanding(controller, landingIndex, landing) {
     const container = $(['div', { class: 'landing-div' }]);
     const swiper = $(['drock-swiper', {
         class: 'landing-swipe',
         orientation: 'y',
-        hidexmove: true
+        hidexmove: true,
+        on: {
+            swipemove: e => {
+                controller.moveLanding(landingIndex, e.detail.index, false);
+            }
+        }
     }]);
     container.append(swiper);
 

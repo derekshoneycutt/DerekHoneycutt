@@ -23,9 +23,9 @@ function fillLandings(controller) {
 
     //create the pages
     const pages = [
-        pageFactories.constructHomePage(controller.homefetch.landings,
+        pageFactories.constructHomePage(controller, controller.homefetch.landings,
             (index, e) => controller.moveLanding(index + 1, 0, false, true)),
-        ...controller.homefetch.landings.map(pageFactories.constructLanding)
+        ...controller.homefetch.landings.map((l, i) => pageFactories.constructLanding(controller, i + 1, l))
     ];
 
     controller.prepareLandings(tabs, pages);
