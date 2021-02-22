@@ -4,6 +4,8 @@ import { MDCRipple } from '@material/ripple';
 /** Offset pixels to break into swiping actions */
 const barrierOffset = 50;
 
+const preventDefault = e => e.preventDefault();
+
 /** Element that handles swiping */
 export default class DrockSwiperElement extends HTMLElement {
     constructor() {
@@ -18,6 +20,13 @@ export default class DrockSwiperElement extends HTMLElement {
 
         /** Whether the component is currently in a swipe operation */
         this.isSwiping = false;
+
+        /** Whether the swipe originated inside the scrollwith child */
+        this._swipeInScroll = false;
+        /** If applicable, the child elements being scrolled with */
+        this._childScroll = null;
+        /** Whether a child scroller has been allowed to scroll & it is time to swipe! */
+        this._allowedScroll = false;
 
         /** Current index being displayed */
         this.__currIndex = 0;
@@ -148,7 +157,7 @@ export default class DrockSwiperElement extends HTMLElement {
         container[0].addEventListener('touchmove', e => this.onSwipeMove(e), true);
         container[0].addEventListener('touchend', e => this.onSwipeEnd(e, true), true);
         container[0].addEventListener('touchcancel', e => this.onSwipeEnd(e, false), true);
-        container[0].addEventListener('wheel', e => this.onWheel(e));
+        //container[0].addEventListener('wheel', e => this.onWheel(e));
 
         /** @type {HTMLSlotElement} */
         const slot = $(container, 'slot');
@@ -317,6 +326,19 @@ export default class DrockSwiperElement extends HTMLElement {
     }
 
     /**
+     * Reset the minmax structure based on a given point
+     * @param {({x, y})} detailPoint
+     */
+    resetMinMax(detailPoint) {
+        this.minmax = {
+            min: detailPoint[this.orientation],
+            max: detailPoint[this.orientation],
+            pivot: detailPoint[this.orientation],
+            subpivot: detailPoint[this.orientation] + 1 //because fun (Start out as if heading R)
+        };
+    }
+
+    /**
      * Event to handle when swiping begins
      * @param {MouseEvent} e event object for beginning swiping
      */
@@ -333,15 +355,34 @@ export default class DrockSwiperElement extends HTMLElement {
         this.startMod.x = -1 * curroffset.width * this.__currIndex;
         this.startMod.y = -1 * curroffset.height * this.__currIndex;
         this.isSwiping = true;
-        this.minmax = {
-            min: detailPoint[this.orientation],
-            max: detailPoint[this.orientation],
-            pivot: detailPoint[this.orientation],
-            subpivot: detailPoint[this.orientation] + 1 //because fun (Start out as if heading R)
-        };
+        this.resetMinMax(detailPoint);
         this.crossedBoundary = false;
         this.beganScroll = false;
         this.allowPopoverNav = false;
+
+        //Handle children that scroll, if applicable (one at a time: find it?)
+        this._allowedScroll = false;
+        const scrollwith = $(this, '.drock-swiper-scrollwith');
+        let scrollChildren = [];
+        scrollwith.forEach(sw => {
+            const divCoords = sw.getBoundingClientRect();
+
+            if (detailPoint.x >= divCoords.left &&
+                detailPoint.x <= divCoords.right &&
+                detailPoint.y >= divCoords.top &&
+                detailPoint.y <= divCoords.bottom) {
+                scrollChildren.push(sw);
+            }
+        });
+        if (scrollChildren.length === 1) {
+            this._swipeInScroll = true;
+            this._childScroll = scrollChildren[0];
+        }
+        else {
+            this._swipeInScroll = false;
+            this._childScroll = null;
+        }
+
         this.updateNavShown();
         this.style.setProperty('--drock-swiper-slottranslength', '0');
     }
@@ -353,10 +394,38 @@ export default class DrockSwiperElement extends HTMLElement {
     onSwipeMove(evt) {
         const antiorient = this.orientation === 'x' ? 'y' : 'x';
         const dimension = this.orientation === 'x' ? 'width' : 'height';
+        const capFirst = s => s.charAt(0).toUpperCase() + s.slice(1);
 
         if (this.isSwiping && !this.beganScroll) {
             const detailPoint = this.getGesturePointFromEvent(evt);
             this.updateminmax(detailPoint[this.orientation]);
+
+            const moved = detailPoint[this.orientation] - this.start[this.orientation];
+            //Check for a synced up scroller and handle it
+            if (this._swipeInScroll && this._childScroll && !this._allowedScroll) {
+                if (this._childScroll[`scroll${capFirst(dimension)}`] >
+                    this._childScroll[`client${capFirst(dimension)}`]) {
+                    //We have a scroller we need to keep in check!
+                    const scrollprop = this.orientation === 'x' ? 'scrollLeft' : 'scrollTop';
+                    if (moved < 1 &&
+                        this._childScroll[`client${capFirst(dimension)}`] +
+                        this._childScroll[scrollprop]
+                        < this._childScroll[`scroll${capFirst(dimension)}`]) {
+                        //scrolling down, don't go!
+                        return;
+                    }
+                    else if (moved > 1 && this._childScroll[scrollprop] > 0) {
+                        //scrolling up, don't go!
+                        return;
+                    }
+
+                    //make the start point now from here, if scrolling is happy!
+                    this.start = detailPoint;
+                    this.resetMinMax(detailPoint);
+                    this._allowedScroll = true;
+                    this._childScroll.addEventListener('touchmove', preventDefault);
+                }
+            }
 
             //If not crossed previously, test if we have now and only continue if so
             if (!this.crossedBoundary) {
@@ -365,7 +434,9 @@ export default class DrockSwiperElement extends HTMLElement {
                     this.beganScroll = true;
                     return;
                 }
-                if (Math.abs(detailPoint[this.orientation] - this.start[this.orientation]) > barrierOffset)
+
+                //Now check if we're far enough to start the swipe!
+                if (Math.abs(moved) > barrierOffset)
                     this.crossedBoundary = true;
                 else return;
             }
@@ -392,6 +463,13 @@ export default class DrockSwiperElement extends HTMLElement {
     onSwipeEnd(evt, didend) {
         if (this.isSwiping) {
             this.isSwiping = false;
+
+            if (this._allowedScroll) {
+                this._childScroll.removeEventListener('touchmove', preventDefault);
+            }
+            this._swipeInScroll = false;
+            this._childScroll = null;
+            this._allowedScroll = false;
 
             if (evt.cancelable && didend && this.crossedBoundary)
                 evt.preventDefault();

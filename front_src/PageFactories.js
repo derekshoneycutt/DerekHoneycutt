@@ -21,55 +21,45 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
  * @param {(number, Event) => void} onlandingclick Event to call when a landing is clicked on
  */
 export function constructHomePage(controller, landings, onlandingclick) {
-    let homeswiper;
-    const homecontainer = $(['div', { class: 'landing-div' },
-        homeswiper = $(['drock-swiper',
-            {
-                class: 'landing-swipe',
-                orientation: 'y',
-                hidexmove: true
-            },
-            ['div', { class: 'home-page drock-page-base' },
-                ['div', { class: 'drock-page-content' },
-                    ['div', { class: 'drock-page-background' }],
-                    ['div', { class: 'home-page-list' },
-                        ...landings.map((l, index) => {
-                            let link;
-                            const ret = $(['div', { class: 'home-page-list-item' },
-                                link = $(['a', {
-                                    class: 'home-page-list-link mdc-ripple-surface',
-                                    href: `?landing=${index + 1}&page=0`,
-                                    on: {
-                                        click: e => {
-                                            if (onlandingclick) {
-                                                e.preventDefault();
-                                                onlandingclick(index, e);
-                                            }
+    const homecontainer = $(['div', { class: 'landing-div home-landing-div' },
+        ['div', { class: 'home-page drock-page-base' },
+            ['div', { class: 'drock-page-content drock-swiper-scrollwith' },
+                ['div', { class: 'drock-page-background' }],
+                ['div', { class: 'home-page-list' },
+                    ...landings.map((l, index) => {
+                        let link;
+                        const ret = $(['div', { class: 'home-page-list-item' },
+                            link = $(['a', {
+                                class: 'home-page-list-link mdc-ripple-surface',
+                                href: `?landing=${index + 1}&page=0`,
+                                on: {
+                                    click: e => {
+                                        if (onlandingclick) {
+                                            e.preventDefault();
+                                            onlandingclick(index, e);
                                         }
                                     }
-                                },
-                                    ['div', { class: 'home-page-icons' },
-                                        ['span', { class: 'home-page-icon-actual material-icons' }, l.icon]
-                                    ],
-                                    ['div', { class: 'home-page-listing' },
-                                        ['div', { class: 'home-page-listing-title' }, l.title],
-                                        ['div', { class: 'home-page-listing-subtitle' }, l.subtitle]
-                                    ]
-                                ])
-                            ]);
-                            link.mdcRipple = new MDCRipple(link);
-                            return ret;
-                        })
-                    ]
+                                }
+                            },
+                                ['div', { class: 'home-page-icons' },
+                                    ['span', { class: 'home-page-icon-actual material-icons' }, l.icon]
+                                ],
+                                ['div', { class: 'home-page-listing' },
+                                    ['div', { class: 'home-page-listing-title' }, l.title],
+                                    ['div', { class: 'home-page-listing-subtitle' }, l.subtitle]
+                                ]
+                            ])
+                        ]);
+                        link.mdcRipple = new MDCRipple(link);
+                        return ret;
+                    })
                 ]
             ]
-        ])
+        ]
     ]);
 
     return {
-        container: homecontainer,
-        swiper: homeswiper,
-        dots: []
+        container: homecontainer
     };
 }
 
@@ -79,7 +69,7 @@ export function constructHomePage(controller, landings, onlandingclick) {
  * @param {HTMLDivElement} contentDiv content div to add the page to
  */
 function createResumeHeadPage(page, contentDiv) {
-    let dataDiv = $(['div', { class: 'drock-resumehead-data' }]);
+    let dataDiv = $(['div', { class: 'drock-page-data drock-resumehead-data' }]);
     $_.appendChildren(dataDiv,
         ['div', { class: 'drock-resumehead-body' },
             ['div', { class: 'drock-resumehead-title' }, page.title],
@@ -96,7 +86,7 @@ function createResumeHeadPage(page, contentDiv) {
  */
 function createGitHubPage(page, contentDiv) {
     contentDiv.append(
-        $(['div', { class: 'drock-github-data' },
+        $(['div', { class: 'drock-page-data drock-github-data' },
             ['div', { class: 'drock-github-body' },
                 ['div', { class: 'drock-github-head' }, 'GitHub'],
                 (() => {
@@ -128,7 +118,7 @@ function createGitHubPage(page, contentDiv) {
  */
 function createResumeExpPage(page, contentDiv) {
     let dataDiv = $(['div', { class: 'drock-resumeexp-data' },
-        ['div', { class: 'drock-resumeexp-body' },
+        ['div', { class: 'drock-page-data drock-resumeexp-body' },
             ['div', { class: 'drock-resumeexp-title' }, page.title],
             ['div', { class: 'drock-resumeexp-jobs' },
                 ...page.jobs.map(j => {
@@ -144,6 +134,26 @@ function createResumeExpPage(page, contentDiv) {
 }
 
 /**
+ * Create a Text Block Page
+ * @param {DrockServerPage} page The server-page to construct the HTML from
+ * @param {HTMLDivElement} contentDiv content div to add the page to
+ */
+function createTextBlockPage(page, contentDiv) {
+    let dataDiv = $(['div', { class: 'drock-page-data drock-textblock-data' }]);
+    const html = DOMPurify.sanitize(new showdown.Converter().makeHtml(page.text));
+    $_.appendChildren(dataDiv,
+        ['div', { class: 'drock-textblock-body' },
+            ['div', { class: 'drock-textblock-title' }, page.title],
+            ['div', {
+                class: 'drock-textblock-text',
+                innerHTML: html
+            }]
+        ]
+    );
+    contentDiv.append(dataDiv);
+}
+
+/**
  * Construct a landing, including its pages
  * @param {DrockMainController} controller Controller object
  * @param {number} landingIndex index of the landing being constructed
@@ -151,53 +161,35 @@ function createResumeExpPage(page, contentDiv) {
  */
 export function constructLanding(controller, landingIndex, landing) {
     const container = $(['div', { class: 'landing-div' }]);
-    const swiper = $(['drock-swiper', {
-        class: 'landing-swipe',
-        orientation: 'y',
-        hidexmove: true,
-        on: {
-            swipemove: e => {
-                controller.moveLanding(landingIndex, e.detail.index, false);
-            }
-        }
-    }]);
-    container.append(swiper);
-    let dots = [];
-    if (landing.pages.length > 1) {
-        dots = landing.pages.map((p, i) => {
-            return $(['a', {
-                class: `drock-vert-dot ${i === 0 ? 'active' : ''}`,
-                href: `?landing=${landingIndex}&page=${i}`,
-                title: p.title,
-                on: {
-                    click: e => {
-                        e.preventDefault();
-                        controller.moveLanding(landingIndex, i, false);
-                    }
-                }
-            }]);
-        });
-        const navDots = $(['div', { class: 'drock-vert-dots' },
-            ...dots
-        ])
-        container.append(navDots);
-    }
 
-    landing.pages.forEach(p => {
+    const pages = landing.pages.length;
+    landing.pages.forEach((p, i) => {
+        const zindex = pages - i;
         let contentDiv;
-        const div = $(['div', { class: 'drock-page-base' },
-            contentDiv = $(['div', { class: `drock-page-content drock-page-${p.type}` }])
+        const div = $(['div', {
+            class: 'drock-page-base'
+        },
+            contentDiv = $(['div', {
+                class: `drock-page-content drock-page-${p.type}`,
+                style: {
+                    'z-index': zindex
+                }
+            }])
         ]);
-        if (p.background) {
-            $_.setStyle(contentDiv, {
-                'background-color': p.background
-            });
-        }
-        if (p.image) {
+        if (p.background || p.image) {
             const bgDiv = $(['div', { class: 'drock-page-background' }]);
-            $_.setStyle(bgDiv, {
-                'background-image': `url("${p.image}")`
-            });
+            if (p.background) {
+                $_.setStyle(bgDiv, {
+                    'background-color': p.background,
+                    opacity: 1
+                });
+            }
+            if (p.image) {
+                $_.setStyle(bgDiv, {
+                    'background-image': `url("${p.image}")`,
+                    opacity: '0.2'
+                });
+            }
             contentDiv.append(bgDiv);
         }
         let markdown;
@@ -210,17 +202,35 @@ export function constructLanding(controller, landingIndex, landing) {
         else if (p.type === 'resumeexp') {
             createResumeExpPage(p, contentDiv);
         }
+        else if (p.type === 'textblock') {
+            createTextBlockPage(p, contentDiv);
+        }
         else {
             markdown = `# ${p.title}\n\n${p.subtitle}\n\n${p.text || p.description || '--'}`;
             const html = DOMPurify.sanitize(new showdown.Converter().makeHtml(markdown));
             contentDiv.innerHTML = html;
         }
-        swiper.append(div);
+        p.pageBaseDiv = div;
+        p.contentDiv = contentDiv;
+        container.append(div);
     });
 
+    if (landing.pages.length > 1) {
+        const scrollIndicator = $(['div', { class: 'landing-div-scrollmore' },
+            ['span', { class: 'landing-div-scrollmore-icon material-icons' }, 'expand_more'],
+            ['span', { class: 'landing-div-scrollmore-desc' }, 'Scroll for more']
+        ]);
+        container.append(scrollIndicator);
+        $_.addEvents(container, {
+            scroll: e => {
+                $_.setClassList(scrollIndicator, {
+                    hidden: (container.scrollTop >= (container.scrollHeight - (container.offsetHeight * 1.75)))
+                });
+            }
+        });
+    }
+
     return {
-        container: container,
-        swiper: swiper,
-        dots: dots
+        container: container
     };
 }

@@ -161,6 +161,7 @@ namespace DerekHoneycutt.Controllers
             {
                 ret = new RestModels.TextBlockPage()
                 {
+                    Type = BusinessModels.PageTypes.TextBlock,
                     Text = tbpage.Text
                 };
             }

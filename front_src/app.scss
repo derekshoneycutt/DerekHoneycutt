@@ -95,6 +95,12 @@ body {
 
 .landing-div {
     position: relative;
+    overflow-y: auto;
+    perspective: 1px;
+}
+
+.home-landing-div {
+    overflow: hidden;
 }
 
 #drock-topbar-container {
@@ -167,10 +173,14 @@ body {
     background-color: var(--mdc-theme-primary-ultradark, darkgray);
     display: flex;
     padding: 0;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
 }
 
 .drock-page-content {
-    @include elevation.elevation(2);
+    @include elevation.elevation(1);
     box-sizing: border-box;
     background-color: #fff;
     min-height: 100%;
@@ -180,70 +190,99 @@ body {
 }
 
 .drock-page-background {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
     padding: 0;
     margin: 0;
-    z-index: 0;
     //background-image: url("../homescreen-min.jpg");
     background-size: cover;
     background-position-x: center;
     opacity: 0.2;
     z-index: 0;
+    transform: translateZ(-5px) scale(6.1);
 }
 
-.drock-vert-dots {
-    position: absolute;
-    top: 50rem;
-    left: 25rem;
+.drock-page-data {
+    transform: translateZ(-1px) scale(2);
+    z-index: 1;
+}
+
+.landing-div-scrollmore {
+    @include elevation.elevation(3);
+    position: sticky;
+    left: calc(50% - 75rem);
+    max-width: 150rem;
+    max-height: 50rem;
+    bottom: 50rem;
+    z-index: 1000;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
-}
-
-.drock-vert-dot {
-    @include elevation.elevation(6);
-    height: 10rem;
-    width: 10rem;
-    background-color: var(--mdc-theme-primary, red);
+    text-align: center;
+    padding: 5rem;
+    opacity: 1;
     border-radius: 5rem;
-    margin-bottom: 10rem;
+    backdrop-filter: blur(2px);
+    transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
+}
+.landing-div-scrollmore::before {
+    content: " ";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius:5rem;
+    background-color: var(--mdc-theme-primary-dark, darkgrey);
+    opacity: 0.2;
+}
+.landing-div-scrollmore-icon {
+    font-size: 24rem;
     transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
 }
 
-.drock-vert-dot.active {
-    height: 20rem;
-    width: 20rem;
-    border-radius: 10rem;
+.landing-div-scrollmore.hidden {
+    max-height: 0;
+    font-size: 0;
+    padding: 0;
+}
+.landing-div-scrollmore.hidden .landing-div-scrollmore-icon {
+    font-size: 0;
     transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
+}
+
+@media screen and (max-height: 600px) {
+    .landing-div-scrollmore {
+        display: none;
+    }
+
 }
 
 .home-page {
+    position: relative;
+    min-height: 100%;
+    max-height: 100%;
+    height: 100%;
+}
+
+.drock-page-content {
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position-x: center;
 }
 
 .home-page .drock-page-content {
     display: flex;
-    position: relative;
     overflow: auto;
 }
+
 .home-page .drock-page-content .drock-page-background {
     position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    z-index: 0;
     background-image: url("../homescreen-min.jpg");
-    background-size: cover;
-    background-position-x: center;
-    opacity: 0.2;
-    z-index: 0;
 }
 
 .home-page-list {
@@ -297,36 +336,21 @@ body {
         padding: 50rem;
     }
 
-    .drock-page-resumehead {
+    .drock-page-content {
         padding: 20rem;
     }
 
-    .drock-resumehead-data {
-        padding: 0 30rem 100rem 50rem;
-    }
-
-    .drock-page-github {
-        padding: 20rem;
-    }
-
-    .drock-github-data {
-        padding: 0 30rem 100rem 50rem;
-    }
-
-    .drock-page-resumeexp {
-        padding: 20rem;
-    }
-
-    .drock-resumeexp-data {
+    .drock-page-data {
         padding: 0 30rem 100rem 50rem;
     }
 }
 
-/*@media screen and (orientation: landscape) and (max-height: 600px) {
-    .drock-swiper-prev, drock-swiper-next {
-        display: none !important;
+@media screen and (max-height: 600px) {
+
+    .drock-page-data {
+        transform: translateZ(-0.25px) scale(1.25);
     }
-}*/
+}
 
 .drock-page-resumehead {
     padding: 20rem;
@@ -340,7 +364,6 @@ body {
 }
 
 .drock-resumehead-body {
-    //@include elevation.elevation(1);
     background: rgba(255,255,255,0.6);
     padding: 10rem;
 }
@@ -371,10 +394,10 @@ body {
 
 .drock-github-data {
     margin: auto 0;
+    z-index: 1;
 }
 
 .drock-github-body {
-    //@include elevation.elevation(1);
     background: rgba(255,255,255,0.6);
     padding: 10rem;
 }
@@ -418,7 +441,6 @@ body {
 }
 
 .drock-resumeexp-body {
-    //@include elevation.elevation(1);
     background: rgba(255,255,255,0.6);
     padding: 10rem;
 }
@@ -446,4 +468,32 @@ body {
 
 .drock-resumeexp-job-dates {
     margin-left: 15rem;
+}
+
+.drock-page-textblock {
+    padding: 20rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.drock-textblock-data {
+    margin: auto 0;
+    z-index: 1;
+}
+
+.drock-textblock-body {
+    background: rgba(255,255,255,0.6);
+    padding: 10rem;
+}
+
+.drock-textblock-title {
+    font-size: 18rem;
+    font-weight: bold;
+    border-bottom: 1px solid #bbb;
+    margin-bottom: 20rem;
+}
+
+.drock-textblock-text {
+    margin: 10rem 30rem 20rem 50rem;
+    font-size: 14rem;
 }

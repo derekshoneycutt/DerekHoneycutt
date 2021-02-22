@@ -198,18 +198,12 @@ export default class DrockMainController {
         if (landing > this.tabs.length - 1)
             uselanding = this.tabs.length - 1;
 
-        const maxPage = uselanding === 0 ? 0 : this.homefetch.landings[uselanding - 1].pages.length - 1;
-        let usepage = page;
-        if (page > maxPage)
-            usepage = maxPage;
-
         window.history.replaceState({
             landing: uselanding,
-            page: usepage,
             contact: contact
         },
             `Derek Honeycutt : ${this.tabs[uselanding].label}`,
-            `?landing=${uselanding}&page=${usepage}${contact ? '&contact=true' : ''}`);
+            `?landing=${uselanding}${contact ? '&contact=true' : ''}`);
         window.document.title = `Derek Honeycutt : ${this.tabs[uselanding].label}`;
 
         const landingUpdated = (this.UrlHandler.landing !== uselanding);
@@ -219,15 +213,6 @@ export default class DrockMainController {
                 this.swipeBase.moveToIndex(uselanding);
             if (this.mainNav)
                 this.mainNav.moveToTabIndex(uselanding);
-        }
-        if (landingUpdated || this.UrlHandler.page !== usepage || force) {
-            this.UrlHandler.page = usepage;
-
-            if (this.pages[uselanding]) {
-                this.pages[uselanding].swiper.moveToIndex(usepage);
-                this.pages[uselanding].dots.forEach(
-                    (d, i) => $_.setClassList(d, { active: i === usepage }));
-            }
         }
     }
 }
