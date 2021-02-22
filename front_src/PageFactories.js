@@ -23,7 +23,7 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
 export function constructHomePage(controller, landings, onlandingclick) {
     const homecontainer = $(['div', { class: 'landing-div home-landing-div' },
         ['div', { class: 'home-page drock-page-base' },
-            ['div', { class: 'drock-page-content drock-swiper-scrollwith' },
+            ['div', { class: 'drock-page-content' },
                 ['div', { class: 'drock-page-background' }],
                 ['div', { class: 'home-page-list' },
                     ...landings.map((l, index) => {
@@ -117,8 +117,8 @@ function createGitHubPage(page, contentDiv) {
  * @param {HTMLDivElement} contentDiv content div to add the page to
  */
 function createResumeExpPage(page, contentDiv) {
-    let dataDiv = $(['div', { class: 'drock-resumeexp-data' },
-        ['div', { class: 'drock-page-data drock-resumeexp-body' },
+    let dataDiv = $(['div', { class: 'drock-page-data drock-resumeexp-data' },
+        ['div', { class: 'drock-resumeexp-body' },
             ['div', { class: 'drock-resumeexp-title' }, page.title],
             ['div', { class: 'drock-resumeexp-jobs' },
                 ...page.jobs.map(j => {
@@ -165,17 +165,12 @@ export function constructLanding(controller, landingIndex, landing) {
     const pages = landing.pages.length;
     landing.pages.forEach((p, i) => {
         const zindex = pages - i;
-        let contentDiv;
         const div = $(['div', {
-            class: 'drock-page-base'
-        },
-            contentDiv = $(['div', {
-                class: `drock-page-content drock-page-${p.type}`,
-                style: {
-                    'z-index': zindex
-                }
-            }])
-        ]);
+            class: 'drock-page-base',
+            style: {
+                'z-index': zindex
+            }
+        }]);
         if (p.background || p.image) {
             const bgDiv = $(['div', { class: 'drock-page-background' }]);
             if (p.background) {
@@ -190,28 +185,27 @@ export function constructLanding(controller, landingIndex, landing) {
                     opacity: '0.2'
                 });
             }
-            contentDiv.append(bgDiv);
+            div.append(bgDiv);
         }
         let markdown;
         if (p.type === 'resumehead') {
-            createResumeHeadPage(p, contentDiv);
+            createResumeHeadPage(p, div);
         }
         else if (p.type === 'github') {
-            createGitHubPage(p, contentDiv);
+            createGitHubPage(p, div);
         }
         else if (p.type === 'resumeexp') {
-            createResumeExpPage(p, contentDiv);
+            createResumeExpPage(p, div);
         }
         else if (p.type === 'textblock') {
-            createTextBlockPage(p, contentDiv);
+            createTextBlockPage(p, div);
         }
         else {
             markdown = `# ${p.title}\n\n${p.subtitle}\n\n${p.text || p.description || '--'}`;
             const html = DOMPurify.sanitize(new showdown.Converter().makeHtml(markdown));
-            contentDiv.innerHTML = html;
+            div.innerHTML = html;
         }
         p.pageBaseDiv = div;
-        p.contentDiv = contentDiv;
         container.append(div);
     });
 

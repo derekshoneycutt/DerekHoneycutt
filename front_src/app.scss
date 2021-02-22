@@ -96,6 +96,7 @@ body {
 .landing-div {
     position: relative;
     overflow-y: auto;
+    overflow-x: hidden;
     perspective: 1px;
 }
 
@@ -170,8 +171,13 @@ body {
 }
 
 .drock-page-base {
-    background-color: var(--mdc-theme-primary-ultradark, darkgray);
+    @include elevation.elevation(1);
+    background-color: var(--mdc-theme-surface, #fff);
     display: flex;
+    flex-direction: column;
+    position: relative;
+    transform-style: preserve-3d;
+    overflow: hidden;
     padding: 0;
     width: 100%;
     min-width: 100%;
@@ -180,7 +186,6 @@ body {
 }
 
 .drock-page-content {
-    @include elevation.elevation(1);
     box-sizing: border-box;
     background-color: #fff;
     min-height: 100%;
@@ -208,6 +213,12 @@ body {
 .drock-page-data {
     transform: translateZ(-1px) scale(2);
     z-index: 1;
+    padding: 45rem 10rem;
+
+    /* In firefox, it works if I _don't_ parallax this one */
+    @-moz-document url-prefix() {
+        transform: unset;
+    }
 }
 
 .landing-div-scrollmore {
@@ -277,6 +288,7 @@ body {
 
 .home-page .drock-page-content {
     display: flex;
+    flex-direction: column;
     overflow: auto;
 }
 
@@ -341,11 +353,11 @@ body {
     }
 
     .drock-page-data {
-        padding: 0 30rem 100rem 50rem;
+        padding: 30rem 30rem 100rem 50rem;
     }
 }
 
-@media screen and (max-height: 600px) {
+@media screen and (max-height: 450px) {
 
     .drock-page-data {
         transform: translateZ(-0.25px) scale(1.25);
