@@ -594,6 +594,7 @@ body {
 .drock-image-list {
     @include image-list.standard-columns(3);
     @include image-list.shape-radius(8rem, true);
+    @include image-list.aspect(1.33333);
 
     .mdc-image-list__label {
         font-size: 10rem;
