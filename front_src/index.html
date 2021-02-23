@@ -4,7 +4,20 @@
     <meta charset="utf-8" />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="Description" content="Derek Honeycutt's personal portfolio. Software developer, student, photographer, orienteer/adventurer, Subaru Vagabond travel blogger">
+    <meta name="Description" content="<%= htmlWebpackPlugin.options.description %>">
+    <meta property="og:url" content="<%= htmlWebpackPlugin.options.url %>" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:profile:first_name" content="<%= htmlWebpackPlugin.options.first_name %>" />
+    <meta property="og:profile:last_name" content="<%= htmlWebpackPlugin.options.last_name %>" />
+    <meta property="og:title" content="<%= htmlWebpackPlugin.options.title %>" />
+    <meta property="og:description" content="<%= htmlWebpackPlugin.options.description %>" />
+    <meta property="og:image" content="<%= htmlWebpackPlugin.options.url %>homescreen-min.jpg" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@subaruvagabond">
+    <meta name="twitter:creator" content="@subaruvagabond">
+    <meta name="twitter:title" content="<%= htmlWebpackPlugin.options.title %>">
+    <meta name="twitter:description" content="<%= htmlWebpackPlugin.options.description %>">
+    <meta name="twitter:image" content="<%= htmlWebpackPlugin.options.url %>homescreen-min.jpg">
 </head>
 <body class="mdc-typography drock-body">
 

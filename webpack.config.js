@@ -122,6 +122,10 @@ module.exports = [
             new HtmlWebpackPlugin({
                 hash: true,
                 title: 'Derek Honeycutt',
+                first_name: 'Derek',
+                last_name: 'Honeycutt',
+                description: 'Derek Honeycutt\'s personal portfolio. Software developer, student, photographer, hiker, Subaru Vagabond travel blogger',
+                url: 'https://derekhoneycuttportfolio.azurewebsites.net/',
                 cssFile: 'bundle.css',
                 template: './front_src/index.html',
                 filename: 'index.html'
