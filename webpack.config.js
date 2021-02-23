@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPartialsPlugin = require('html-webpack-partials-plugin');
 
+const UserConfig = require('./webpack.user_config').UserConfig;
+
 const buildMode = 'production';
 
 const components = [
@@ -121,11 +123,16 @@ module.exports = [
         plugins: [
             new HtmlWebpackPlugin({
                 hash: true,
-                title: 'Derek Honeycutt',
+                /*title: 'Derek Honeycutt',
                 first_name: 'Derek',
                 last_name: 'Honeycutt',
                 description: 'Derek Honeycutt\'s personal portfolio. Software developer, student, photographer, hiker, Subaru Vagabond travel blogger',
-                url: 'https://derekhoneycuttportfolio.azurewebsites.net/',
+                url: 'https://derekhoneycuttportfolio.azurewebsites.net/',*/
+                title: UserConfig.title,
+                first_name: UserConfig.first_name,
+                last_name: UserConfig.last_name,
+                description: UserConfig.description,
+                url: UserConfig.url,
                 cssFile: 'bundle.css',
                 template: './front_src/index.html',
                 filename: 'index.html'

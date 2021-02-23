@@ -28,3 +28,4 @@
 *.suo
 /Properties/PublishProfiles
 /Properties/ServiceDependencies/DerekHoneycuttPortfolio - Web Deploy
+/webpack.user_config.js
