@@ -15,11 +15,15 @@ namespace DerekHoneycutt.DbModels.Mappings
         public void Configure(EntityTypeBuilder<DbModels.Landing> builder)
         {
             //Index
-            builder.HasKey(l => l.Id);
-            builder.Property(l => l.Id)
-                .IsRequired(true);
+            builder.HasKey(l => l.Index);
+            builder.Property(l => l.Index)
+                .HasColumnType("INTEGER");
 
             //Other properties
+            builder.Property(l => l.Id)
+                .IsRequired(true);
+            builder.HasIndex(l => l.Id)
+                .IsUnique();
             builder.Property(l => l.Href)
                 .HasMaxLength(Consts.MaxLinkLength)
                 .IsRequired(false);
@@ -40,6 +44,7 @@ namespace DerekHoneycutt.DbModels.Mappings
                 .HasMany(l => l.Pages)
                 .WithOne(p => p.Landing)
                 .HasForeignKey(p => p.LandingId)
+                .HasPrincipalKey(l => l.Id)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

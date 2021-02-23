@@ -1,8 +1,8 @@
 ﻿import { Imogene as $, ImogeneExports as $_, ImogeneTemplate as $t } from '../Imogene/Imogene';
-import SawSplashScreen from './cmp/splashscreen';
 import SawBaseElement from './cmp/sawbase';
-import DrockSwiperElement from '../cmp/swiper';
 import SawWeekElement from './cmp/Views/week';
+import DrockSplashScreen from '../cmp/splashscreen';
+import DrockSwiperElement from '../cmp/swiper';
 import { getDummyHome } from './DummyData';
 
 /**
@@ -25,8 +25,8 @@ function makeweek(days) {
 }
 
 $(() => {
-    /** @type {SawSplashScreen[]} */
-    //const splash = $('saw-splash');
+    /** @type {DrockSplashScreen[]} */
+    //const splash = $('drock-splash');
 
     /** @type {SawBaseElement[]} */
     const appbase = $('saw-base');

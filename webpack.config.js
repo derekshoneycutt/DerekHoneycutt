@@ -9,6 +9,7 @@ const components = [
     { file: 'swiper', name: 'swiper' },
     { file: 'calendar', name: 'calendar' },
     { file: 'fab', name: 'fab' },
+    { file: 'splashscreen', name: 'splashscreen' },
     { file: 'drock/topbar', name: 'topbar' },
     { file: 'drock/contact', name: 'contact' }
 ];
@@ -16,6 +17,7 @@ const components = [
 const mainPartials = [
     'front_src/cmp/swiper.html',
     'front_src/cmp/fab.html',
+    'front_src/cmp/splashscreen.html',
     'front_src/cmp/drock/topbar.html',
     'front_src/cmp/drock/contact.html'
 ];
@@ -24,18 +26,17 @@ const sawtoothComponents = [
     { file: 'Core/mdciconbutton', name: 'mdciconbutton' },
     { file: 'Views/dayhead', name: 'dayhead' },
     { file: 'Views/week', name: 'week' },
-    { file: 'sawbase', name: 'sawbase' },
-    { file: 'splashscreen', name: 'splashscreen' }
+    { file: 'sawbase', name: 'sawbase' }
 ];
 
 const sawtoothPartials = [
     'front_src/cmp/calendar.html',
     'front_src/cmp/swiper.html',
+    'front_src/cmp/splashscreen.html',
     'front_src/sawtooth/cmp/Core/mdciconbutton.html',
     'front_src/sawtooth/cmp/Views/dayhead.html',
     'front_src/sawtooth/cmp/Views/week.html',
-    'front_src/sawtooth/cmp/sawbase.html',
-    'front_src/sawtooth/cmp/splashscreen.html'
+    'front_src/sawtooth/cmp/sawbase.html'
 ];
 
 function getCSSExportRule(name) {

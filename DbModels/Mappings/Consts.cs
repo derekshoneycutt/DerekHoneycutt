@@ -28,7 +28,7 @@ namespace DerekHoneycutt.DbModels.Mappings
         /// </summary>
         public static int MaxLinkLength => m_MaxLinkLength;
 
-        private static int m_MaxTextLength = 2048;
+        private static int m_MaxTextLength = 4096;
         /// <summary>
         /// Maximum length for basic text columns
         /// </summary>

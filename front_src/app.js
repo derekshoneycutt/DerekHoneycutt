@@ -1,6 +1,7 @@
 ﻿import { Imogene as $, ImogeneExports as $_, ImogeneTemplate as $t } from './Imogene/Imogene';
 import DrockSwiperElement from './cmp/swiper';
 import DrockFab from './cmp/fab';
+import DrockSplashScreen from './cmp/splashscreen';
 import DrockTopBar from './cmp/drock/topbar';
 import DrockContact from './cmp/drock/contact';
 import DrockMainController from './MainController';
@@ -41,6 +42,8 @@ async function fetchhome(controller) {
     if (homefetch.landings && homefetch.landings instanceof Array) {
         fillLandings(controller);
     }
+
+    controller.hideSplash();
 }
 
 $(() => {

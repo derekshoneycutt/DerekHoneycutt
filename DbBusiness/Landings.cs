@@ -21,35 +21,38 @@ namespace DerekHoneycutt.DbBusiness
         public static async Task<ICollection<BusinessModels.Landing>> GetAll(
             DbModels.DatabaseContext dbContext, ILogger log)
         {
-            var models = await (from landing in dbContext.Landings
-                                orderby landing.Order
-                                select new BusinessModels.Landing()
-                                {
-                                    Id = landing.Id,
-                                    Href = landing.Href,
-                                    Title = landing.Title,
-                                    Subtitle = landing.Subtitle,
-                                    Icon = landing.Icon,
-                                    Order = landing.Order,
-                                    Pages = (from page in landing.Pages
-                                             orderby page.Order
-                                             select 
-                                                page.ImageWallExt != null ?
-                                                    Pages.ParseImageWallPage(dbContext, page, page.ImageWallExt, log) :
-                                                page.ResumeExpExt != null ?
-                                                    Pages.ParseResumeExpPage(dbContext, page, page.ResumeExpExt, log) :
-                                                page.ResumeHeadExt != null ?
-                                                    Pages.ParseResumeHeadPage(page, page.ResumeHeadExt) :
-                                                page.GitHubPageExt != null ?
-                                                    Pages.ParseGitHubPage(page, page.GitHubPageExt) :
-                                                page.SchoolsExt != null ?
-                                                    Pages.ParseSchoolsPage(dbContext, page, page.SchoolsExt, log) :
-                                                page.TextBlockExt != null ?
-                                                    Pages.ParseTextBlockPage(page, page.TextBlockExt) :
-                                                    Pages.ParseEmptyPage(page)).ToList()
-                                }).ToListAsync();
+            var dbModels = await (from landing in dbContext.Landings
+                                  orderby landing.Order
+                                  select landing).ToListAsync();
 
-            return models;
+            var ret = new List<BusinessModels.Landing>(dbModels.Count);
+
+            foreach (var landing in dbModels)
+            {
+                var pages = (from page in landing.Pages
+                             orderby page.Order
+                             select page).ToList();
+
+                var newLanding = new BusinessModels.Landing()
+                {
+                    Id = landing.Id,
+                    Href = landing.Href,
+                    Title = landing.Title,
+                    Subtitle = landing.Subtitle,
+                    Icon = landing.Icon,
+                    Order = landing.Order,
+                    Pages = new List<BusinessModels.Page>(pages.Count)
+                };
+
+                foreach (var page in pages)
+                {
+                    newLanding.Pages.Add(Pages.ParsePage(page));
+                }
+
+                ret.Add(newLanding);
+            }
+
+            return ret;
         }
 
         /// <summary>

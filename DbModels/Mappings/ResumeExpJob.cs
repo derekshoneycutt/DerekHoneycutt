@@ -15,11 +15,15 @@ namespace DerekHoneycutt.DbModels.Mappings
         public void Configure(EntityTypeBuilder<DbModels.ResumeExpJob> builder)
         {
             //Index
-            builder.HasKey(rej => rej.Id);
-            builder.Property(rej => rej.Id)
-                .IsRequired(true);
+            builder.HasKey(rej => rej.Index);
+            builder.Property(rej => rej.Index)
+                .HasColumnType("INTEGER");
 
             //Other properties
+            builder.Property(rej => rej.Id)
+                .IsRequired(true);
+            builder.HasIndex(rej => rej.Id)
+                .IsUnique();
             builder.Property(rej => rej.PageId)
                 .IsRequired(true);
             builder.Property(rej => rej.Title)

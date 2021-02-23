@@ -15,11 +15,15 @@ namespace DerekHoneycutt.DbModels.Mappings
         public void Configure(EntityTypeBuilder<DbModels.TextBlockPage> builder)
         {
             //Index
-            builder.HasKey(tbp => tbp.Id);
-            builder.Property(tbp => tbp.Id)
-                .IsRequired(true);
+            builder.HasKey(tbp => tbp.Index);
+            builder.Property(tbp => tbp.Index)
+                .HasColumnType("INTEGER");
 
             //Other properties
+            builder.Property(tbp => tbp.Id)
+                .IsRequired(true);
+            builder.HasIndex(tbp => tbp.Id)
+                .IsUnique();
             builder.Property(tbp => tbp.PageId)
                 .IsRequired(true);
             builder.Property(tbp => tbp.Text)

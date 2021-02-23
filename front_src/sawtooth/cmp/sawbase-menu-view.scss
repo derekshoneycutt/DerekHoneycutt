@@ -2,21 +2,21 @@
 @use "@material/list";
 
 @mixin saw-sidebar-menu-view-dropout-shown {
-    height: var(--saw-views-dropout-height, 250rem);
+    height: var(--saw-views-dropout-height, 250px);
 
     .saw-sidebar-menu-view-list .mdc-list-item {
-        padding-left: var(--saw-listitem-padding-left, 32rem);
-        padding-right: var(--saw-listitem-padding-right, 16rem);
-        height: var(--saw-nav-listitem-height, 48rem);
+        padding-left: var(--saw-listitem-padding-left, 32px);
+        padding-right: var(--saw-listitem-padding-right, 16px);
+        height: var(--saw-nav-listitem-height, 48px);
 
         .mdc-list-item__graphic {
-            width: var(--saw-std-icon-size, 24rem);
-            height: var(--saw-std-icon-size, 24rem);
-            font-size: var(--saw-std-icon-size, 24rem);
+            width: var(--saw-std-icon-size, 24px);
+            height: var(--saw-std-icon-size, 24px);
+            font-size: var(--saw-std-icon-size, 24px);
         }
 
         .mdc-list-item__text {
-            font-size: 16rem;
+            font-size: 16px;
         }
     }
 }
@@ -30,10 +30,10 @@
 .saw-sidebar-menu-view-dropout {
     @include elevation.elevation(6);
     background-color: var(--mdc-theme-surface, #fff);
-    height: 0rem;
+    height: 0;
     max-width: var(--saw-views-dropout-width, 100%);
     min-width: var(--saw-views-dropout-width, 100%);
-    border-radius: var(--saw-std-surface-border-radius, 2rem);
+    border-radius: var(--saw-std-surface-border-radius, 2px);
     position: absolute;
     left: 0;
     bottom: 0;
@@ -48,23 +48,23 @@
 .saw-sidebar-menu-view-list {
     @include list.core-styles;
     margin: 0;
-    padding: 5rem 0;
+    padding: 5px 0;
 
     .mdc-list-item {
-        padding-left: 0rem;
-        padding-right: 0rem;
-        height: 0rem;
+        padding-left: 0;
+        padding-right: 0;
+        height: 0;
         transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
 
         .mdc-list-item__graphic {
-            width: 0rem;
-            height: 0rem;
-            font-size: 0rem;
+            width: 0;
+            height: 0;
+            font-size: 0;
             transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
         }
 
         .mdc-list-item__text {
-            font-size: 0rem;
+            font-size: 0;
             transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
         }
     }
@@ -87,7 +87,7 @@
 
         &:focus-within {
             order: 0;
-            padding: 0rem;
+            padding: 0;
         }
     }
     
@@ -98,9 +98,9 @@
     }
 
     .saw-sidebar-menu-view:focus-within .saw-sidebar-menu-view-dropout {
-        max-width: var(--saw-views-dropout-comp-width, 200rem);
-        min-width: var(--saw-views-dropout-comp-width, 200rem);
-        margin-left: 130rem;
+        max-width: var(--saw-views-dropout-comp-width, 200px);
+        min-width: var(--saw-views-dropout-comp-width, 200px);
+        margin-left: 130px;
     }
 
 
@@ -115,15 +115,15 @@
 
             ~ .saw-body .saw-sidebar-menu-view {
                 order: 2;
-                padding: 5rem 0rem;
+                padding: 5px 0;
             }
 
             ~ .saw-body .saw-sidebar-menu-view-dropout {
                 @include elevation.elevation(2);
                 @include saw-sidebar-menu-view-dropout-shown;
-                max-width: var(--saw-views-dropout-comp-width-expanded, 235rem);
-                min-width: var(--saw-views-dropout-comp-width-expanded, 235rem);
-                margin-left: -25rem;
+                max-width: var(--saw-views-dropout-comp-width-expanded, 235px);
+                min-width: var(--saw-views-dropout-comp-width-expanded, 235px);
+                margin-left: -25px;
                 transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
             }
 

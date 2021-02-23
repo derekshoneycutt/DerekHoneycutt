@@ -10,6 +10,8 @@ export default class DrockMainController {
         this.tabs = [];
         this.pages = [];
 
+        this.splashScreen = null;
+
         this.swipeBase = null;
         this.mainNav = null;
 
@@ -128,6 +130,7 @@ export default class DrockMainController {
 
     /** Fill the elements in the controller based on those in the document */
     findElements() {
+        this.splashScreen = $('drock-splash')[0];
         this.swipeBase = $("#swipe-base")[0];
         this.mainNav = $("#drock-main-nav")[0];
         this.contactDialog = $("#drock-contact-dialog")[0];
@@ -157,7 +160,6 @@ export default class DrockMainController {
                 $_.setClassList(this.imgDialog, {
                     active: false
                 });
-                window.history.back();
             }
         });
 
@@ -239,5 +241,12 @@ export default class DrockMainController {
         $_.setClassList(this.imgDialog, {
             active: true
         });
+    }
+
+    /** Hides the splash screen, if it is present */
+    hideSplash() {
+        if (this.splashScreen) {
+            this.splashScreen.pauseAndFade();
+        }
     }
 }

@@ -4,20 +4,21 @@
 
 @mixin saw-add-button-fab {
     .mdc-fab {
-        height: var(--saw-addbutton-size, 56rem);
-        width: var(--saw-addbutton-size, 56rem);
+        height: var(--saw-addbutton-size, 56px);
+        width: var(--saw-addbutton-size, 56px);
 
         .mdc-fab__icon {
-            width: var(--saw-std-icon-size, 24rem);
-            height: var(--saw-std-icon-size, 24rem);
-            font-size: var(--saw-std-icon-size, 24rem);
+            width: var(--saw-std-icon-size, 24px);
+            height: var(--saw-std-icon-size, 24px);
+            font-size: var(--saw-std-icon-size, 24px);
         }
     }
 }
 
 @mixin saw-add-button-hidedrawer-hide {
-    top: calc(var(--saw-addbutton-size, 56rem) / 2);
-    left: calc(var(--saw-addbutton-size, 56rem) / 2);
+    top: calc(var(--saw-addbutton-size, 56px) / 2);
+    top: calc(var(--saw-addbutton-size, 56px) / 2);
+    left: calc(var(--saw-addbutton-size, 56px) / 2);
     width: 0;
     height: 0;
 
@@ -26,17 +27,17 @@
         width: 0;
 
         .mdc-fab__icon {
-            font-size: 0rem;
+            font-size: 0;
         }
     }
 }
 
 @mixin saw-add-button-hidedrawer-shown {
     @include saw-add-button-fab;
-    top: 0rem;
-    left: 0rem;
-    width: var(--saw-addbutton-size, 56rem);
-    height: var(--saw-addbutton-size, 56rem);
+    top: 0;
+    left: 0;
+    width: var(--saw-addbutton-size, 56px);
+    height: var(--saw-addbutton-size, 56px);
 
 
     .mdc-fab__icon {
@@ -45,25 +46,25 @@
 }
 
 @mixin saw-add-button-drawer-showbase {
-    min-width: var(--saw-addbutton-drawer-width, 200rem);
-    max-width: var(--saw-addbutton-drawer-width, 200rem);
-    min-height: var(--saw-addbutton-drawer-height, 145rem);
-    max-height: var(--saw-addbutton-drawer-height, 145rem);
+    min-width: var(--saw-addbutton-drawer-width, 200px);
+    max-width: var(--saw-addbutton-drawer-width, 200px);
+    min-height: var(--saw-addbutton-drawer-height, 145px);
+    max-height: var(--saw-addbutton-drawer-height, 145px);
 }
 
 @mixin saw-add-button-drawer-list-item-shown {
-    padding-left: var(--saw-listitem-padding-left, 32rem);
-    padding-right: var(--saw-listitem-padding-right, 16rem);
-    height: var(--saw-nav-listitem-height, 48rem);
+    padding-left: var(--saw-listitem-padding-left, 32px);
+    padding-right: var(--saw-listitem-padding-right, 16px);
+    height: var(--saw-nav-listitem-height, 48px);
 
     .mdc-list-item__graphic {
-        width: var(--saw-std-icon-size, 24rem);
-        height: var(--saw-std-icon-size, 24rem);
-        font-size: var(--saw-std-icon-size, 24rem);
+        width: var(--saw-std-icon-size, 24px);
+        height: var(--saw-std-icon-size, 24px);
+        font-size: var(--saw-std-icon-size, 24px);
     }
 
     .mdc-list-item__text {
-        font-size: 16rem;
+        font-size: 16px;
     }
 }
 
@@ -72,7 +73,7 @@
 .saw-add-button {
     @include saw-add-button-fab;
     position: absolute;
-    bottom: var(--saw-addbutton-portrait-bottom, 20rem);
+    bottom: var(--saw-addbutton-portrait-bottom, 20px);
     left: var(--saw-addbutton-portrait-left, 50%);
     transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
     z-index: 11;
@@ -102,10 +103,10 @@
 .saw-add-button-drawer {
     @include elevation.elevation(4);
     background-color: var(--mdc-theme-secondary-ultralight, #eee);
-    border-radius: var(--saw-std-surface-border-radius, 2rem);
+    border-radius: var(--saw-std-surface-border-radius, 2px);
     position: absolute;
-    bottom: calc(var(--saw-addbutton-size, 48rem) / 2);
-    right: calc(var(--saw-addbutton-size, 48rem) / 2);
+    bottom: calc(var(--saw-addbutton-size, 48px) / 2);
+    right: calc(var(--saw-addbutton-size, 48px) / 2);
     min-width: 0;
     max-width: 0;
     min-height: 0;
@@ -125,22 +126,22 @@
 }
 
 .saw-add-button-drawer-list .mdc-list-item {
-    padding-left: 0rem;
-    padding-right: 0rem;
-    height: 0rem;
+    padding-left: 0;
+    padding-right: 0;
+    height: 0;
     transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
     user-select: none;
 
     .mdc-list-item__graphic {
-        width: 0rem;
-        height: 0rem;
-        font-size: 0rem;
+        width: 0;
+        height: 0;
+        font-size: 0;
         transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
         --mdc-theme-text-icon-on-background: var(--mdc-theme-secondary-ultradark, #000);
     }
 
     .mdc-list-item__text {
-        font-size: 0rem;
+        font-size: 0;
         transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
         color: var(--mdc-theme-secondary-ultradark, #000);
     }
@@ -157,8 +158,8 @@
 
     .saw-add-button-drawer {
         @include saw-add-button-drawer-showbase;
-        padding: 4rem 0 calc((var(--saw-addbutton-size, 48rem) / 2) + 9rem) 0;
-        right: calc(-1 * ((var(--saw-addbutton-drawer-width, 200rem) - var(--saw-addbutton-size, 56rem)) / 2));
+        padding: 4px 0 calc((var(--saw-addbutton-size, 48px) / 2) + 9px) 0;
+        right: calc(-1 * ((var(--saw-addbutton-drawer-width, 200px) - var(--saw-addbutton-size, 56px)) / 2));
     }
 
     .saw-add-button-drawer-list .mdc-list-item {
@@ -172,19 +173,19 @@
     .saw-add-button {
         position: absolute;
         bottom: var(--saw-addbutton-landscape-bottom, 100%);
-        left: var(--saw-addbutton-landscape-left, 22.8rem);
+        left: var(--saw-addbutton-landscape-left, 22.8px);
     }
 
     .saw-add-button-drawer {
-        top: calc(var(--saw-addbutton-size, 48rem) / 2);
-        left: calc((var(--saw-addbutton-size, 48rem) / 2) - 5rem);
+        top: calc(var(--saw-addbutton-size, 48px) / 2);
+        left: calc((var(--saw-addbutton-size, 48px) / 2) - 5px);
         bottom: unset;
         right: unset;
     }
 
     .saw-add-button:focus-within .saw-add-button-drawer {
         right: unset;
-        padding: 5rem 0 4rem 0;
+        padding: 5px 0 4px 0;
     }
 
     @media screen and (min-height: 600px) {
@@ -195,7 +196,7 @@
         #saw-base-expanded:checked {
 
             ~ .saw-body .saw-add-button {
-                left: calc(var(--saw-sidebar-size-expandoffset, 207rem) + var(--saw-addbutton-landscape-left, 22.8rem));
+                left: calc(var(--saw-sidebar-size-expandoffset, 207px) + var(--saw-addbutton-landscape-left, 22.8px));
                 z-index: 13;
                 transition-delay: 0s;
             }
@@ -212,9 +213,9 @@
             ~ .saw-body .saw-add-button-drawer {
                 @include elevation.elevation(2);
                 @include saw-add-button-drawer-showbase;
-                top: -15rem;
-                left: calc(-1 * (var(--saw-addbutton-drawer-width, 200rem) - 15rem));
-                padding: 5rem 0 4rem 0;
+                top: -15px;
+                left: calc(-1 * (var(--saw-addbutton-drawer-width, 200px) - 15px));
+                padding: 5px 0 4px 0;
                 transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
             }
 

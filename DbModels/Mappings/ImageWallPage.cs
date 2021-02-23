@@ -15,11 +15,15 @@ namespace DerekHoneycutt.DbModels.Mappings
         public void Configure(EntityTypeBuilder<DbModels.ImageWallPage> builder)
         {
             //Index
-            builder.HasKey(p => p.Id);
+            builder.HasKey(p => p.Index);
+            builder.Property(p => p.Index)
+                .HasColumnType("INTEGER");
+
+            //Other properties
             builder.Property(p => p.Id)
                 .IsRequired(true);
-
-            //Other Properties
+            builder.HasIndex(p => p.Id)
+                .IsUnique();
             builder.Property(p => p.PageId)
                 .IsRequired(true);
             builder.Property(p => p.Description)
@@ -30,7 +34,8 @@ namespace DerekHoneycutt.DbModels.Mappings
             builder
                 .HasMany(p => p.Images)
                 .WithOne(i => i.Page)
-                .HasForeignKey(i => i.PageId);
+                .HasForeignKey(i => i.PageId)
+                .HasPrincipalKey(iwp => iwp.Id);
         }
     }
 }

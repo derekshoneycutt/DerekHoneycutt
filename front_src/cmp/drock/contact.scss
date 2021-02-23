@@ -32,9 +32,9 @@
 
 .drock-contact-topbar {
     @include elevation.elevation(4);
-    height: var(--drock-navhead-height, 45rem);
-    min-height: var(--drock-navhead-height, 45rem);
-    max-height: var(--drock-navhead-height, 45rem);
+    height: var(--drock-navhead-height, 45px);
+    min-height: var(--drock-navhead-height, 45px);
+    max-height: var(--drock-navhead-height, 45px);
     display: flex;
     align-items: center;
     z-index: 4;
@@ -68,7 +68,7 @@
     box-sizing: border-box;
     background-color: #fff;
     min-height: 100%;
-    padding: 20rem;
+    padding: 20px;
     margin: 0;
     z-index: 2;
     overflow: auto;
@@ -88,24 +88,24 @@
 }
 
 .drock-contact-content .mdc-text-field {
-    width: calc(100% - 20rem);
-    margin: 10rem;
+    width: calc(100% - 20px);
+    margin: 10px;
 }
 
 .drock-contact-message .mdc-floating-label {
-    line-height: 20rem;
+    line-height: 20px;
 }
 
 .drock-contact-message .mdc-text-field {
-    min-height: 140rem;
+    min-height: 140px;
 }
 
 .drock-contact-msg-field {
-    line-height: 24rem !important;
+    line-height: 24px !important;
 }
 
 .drock-contact-msg-field {
-    padding-top: 10rem !important;
+    padding-top: 10px !important;
 }
 
 .drock-contact-actions {
@@ -115,18 +115,18 @@
 }
 
 .drock-contact-actions .mdc-button {
-    margin: 10rem;
+    margin: 10px;
 }
 
 .drock-contact-actions .mdc-button__label {
-    font-size: 16rem;
+    font-size: 16px;
 }
 
 .mdc-floating-label {
-    font-size: 16rem;
-    line-height: 16rem;
+    font-size: 16px;
+    line-height: 16px;
 }
 
 .mdc-text-field__input {
-    font-size: 16rem;
+    font-size: 16px;
 }

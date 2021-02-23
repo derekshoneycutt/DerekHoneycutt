@@ -15,11 +15,15 @@ namespace DerekHoneycutt.DbModels.Mappings
         public void Configure(EntityTypeBuilder<DbModels.GitHubPage> builder)
         {
             //Index
-            builder.HasKey(rhp => rhp.Id);
-            builder.Property(rhp => rhp.Id)
-                .IsRequired(true);
+            builder.HasKey(rhp => rhp.Index);
+            builder.Property(rhp => rhp.Index)
+                .HasColumnType("INTEGER");
 
             //Other properties
+            builder.Property(rhp => rhp.Id)
+                .IsRequired(true);
+            builder.HasIndex(rhp => rhp.Id)
+                .IsUnique();
             builder.Property(rhp => rhp.PageId)
                 .IsRequired(true);
             builder.Property(rhp => rhp.GitHub)

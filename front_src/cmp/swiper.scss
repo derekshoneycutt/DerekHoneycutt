@@ -44,8 +44,8 @@
 
 .drock-swiper-prev {
     position: absolute;
-    top: calc(50% - 20rem);
-    left: -50rem;
+    top: calc(50% - 20px);
+    left: -50px;
     user-select: none;
     cursor: pointer;
     transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
@@ -54,8 +54,8 @@
 
 .drock-swiper-next {
     position: absolute;
-    top: calc(50% - 20rem);
-    right: -50rem;
+    top: calc(50% - 20px);
+    right: -50px;
     user-select: none;
     cursor: pointer;
     transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
@@ -63,11 +63,11 @@
 }
 
 .drock-swiper-prev.drock-swiper-shownav {
-    left: 10rem;
+    left: 10px;
 }
 
 .drock-swiper-next.drock-swiper-shownav {
-    right: 10rem;
+    right: 10px;
 }
 
 .drock-swiper-hidden {
@@ -82,8 +82,8 @@
     top: 0;
     left: 0;
     right: 0;
-    min-height: 45rem;
-    max-height: 45rem;
+    min-height: 45px;
+    max-height: 45px;
     min-width: 100%;
     background: rgba(0,0,0,0.01);
     user-select: none;
@@ -101,8 +101,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    min-height: 45rem;
-    max-height: 45rem;
+    min-height: 45px;
+    max-height: 45px;
     min-width: 100%;
     background: rgba(0,0,0,0.01);
     user-select: none;

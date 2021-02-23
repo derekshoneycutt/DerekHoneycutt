@@ -27,14 +27,13 @@ namespace DerekHoneycutt
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionChoice = Configuration.GetValue("UseConnection", "SqliteConn") ?? "";
-            Action<DbContextOptionsBuilder> optsBuilder = null;
+            var connectionString = Configuration.GetConnectionString(connectionChoice);
             if (connectionChoice.StartsWith("Sqlite"))
-                optsBuilder = opt =>
-                    opt.UseSqlite(Configuration.GetConnectionString(connectionChoice));
+                services.AddDbContext<DbModels.DatabaseContext>(opt =>
+                    opt.UseSqlite(connectionString));
             else
-                optsBuilder = opt =>
-                    opt.UseSqlServer(Configuration.GetConnectionString(connectionChoice));
-            services.AddDbContext<DbModels.DatabaseContext>(optsBuilder);
+                services.AddDbContext<DbModels.DatabaseContext>(opt =>
+                    opt.UseLazyLoadingProxies().UseSqlServer(connectionString));
 
             var smtpSettings = Configuration.GetSection("SmtpSettings");
             services.Configure<BusinessModels.SmtpSettings>(smtpSettings);
@@ -84,7 +83,7 @@ namespace DerekHoneycutt
                 {
                     var headers = context.Context.Response.Headers;
 
-                    headers.Add("Cache-Control", "max-age=0");
+                    headers.Add("Cache-Control", "no-cache");
                 }
             });
 

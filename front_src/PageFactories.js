@@ -95,7 +95,8 @@ function createGitHubPage(page, contentDiv) {
                             class: 'mdc-card__primary-action drock-github-content',
                             tabindex: 0,
                             href: `https://github.com/${page.gitHub}`,
-                            target: '_blank'
+                            target: '_blank',
+                            rel: 'noopener'
                         },
                             ['div', { class: 'drock-github-card-img' },
                                 ['img', { src: 'GitHub-Mark-120px-plus.png' }]

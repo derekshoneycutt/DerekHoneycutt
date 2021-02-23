@@ -11,6 +11,11 @@ namespace DerekHoneycutt.DbModels
     public class ResumeExpJob
     {
         /// <summary>
+        /// Gets or Sets the internal index (should let DB make this)
+        /// </summary>
+        public int? Index { get; set; }
+
+        /// <summary>
         /// Gets or Sets a unique identifier of the job
         /// </summary>
         public Guid Id { get; set; }
@@ -22,7 +27,7 @@ namespace DerekHoneycutt.DbModels
         /// <summary>
         /// Gets or Sets the page Resume Experience extension this job is shown on
         /// </summary>
-        public ResumeExpPage Page { get; set; }
+        public virtual ResumeExpPage Page { get; set; }
 
         /// <summary>
         /// Gets or Sets the title of the job

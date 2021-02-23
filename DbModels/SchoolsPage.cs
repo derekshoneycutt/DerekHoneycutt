@@ -11,6 +11,11 @@ namespace DerekHoneycutt.DbModels
     public class SchoolsPage
     {
         /// <summary>
+        /// Gets or Sets the internal index (should let DB make this)
+        /// </summary>
+        public int? Index { get; set; }
+
+        /// <summary>
         /// Gets or Sets a unique identifier of the schools page extension
         /// </summary>
         public Guid Id { get; set; }
@@ -22,11 +27,11 @@ namespace DerekHoneycutt.DbModels
         /// <summary>
         /// Gets or Sets the page this extends
         /// </summary>
-        public Page Page { get; set; }
+        public virtual Page Page { get; set; }
 
         /// <summary>
         /// Gets or Sets a collection of the schools associated to this extension
         /// </summary>
-        public ICollection<School> Schools { get; set; }
+        public virtual ICollection<School> Schools { get; set; }
     }
 }

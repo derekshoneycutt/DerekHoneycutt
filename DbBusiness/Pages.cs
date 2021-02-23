@@ -37,13 +37,11 @@ namespace DerekHoneycutt.DbBusiness
         /// <param name="page">Image wall page to parse</param>
         /// <returns>A parsed Image Wall page</returns>
         public static BusinessModels.ImageWallPage ParseImageWallPage(
-            DbModels.DatabaseContext dbContext,
-            DbModels.Page page, DbModels.ImageWallPage imageWallExt,
-            ILogger log)
+            DbModels.Page page)
         {
-            if (imageWallExt == null)
-                throw new ArgumentException("Page must be Image Wall to parse as such");
-
+            var images = (from image in page.ImageWallExt.Images
+                          orderby image.Order
+                          select image).ToList();
             return new BusinessModels.ImageWallPage()
             {
                 Id = page.Id,
@@ -53,14 +51,15 @@ namespace DerekHoneycutt.DbBusiness
                 Background = page.Background,
                 Image = null,
                 Orientation = page.Orientation,
-                ImageWallId = imageWallExt.Id,
-                Description = imageWallExt.Description,
-                Images = //imageWallExt.Images != null ?
-                            //imageWallExt.Images.Select(i => Images.Parse(i)).ToList() :
-                            (from img in dbContext.Images
-                             where img.PageId == imageWallExt.Id
-                             orderby img.Order
-                             select Images.Parse(img)).ToList()
+                ImageWallId = page.ImageWallExt.Id,
+                Description = page.ImageWallExt.Description,
+                Images = (from image in images
+                          select new BusinessModels.Image()
+                          {
+                              Id = image.Id,
+                              Source = image.Source,
+                              Description = image.Description
+                          }).ToList()
             };
         }
 
@@ -70,13 +69,10 @@ namespace DerekHoneycutt.DbBusiness
         /// <param name="page">Resume Experience page to parse</param>
         /// <returns>A parsed Resume Experience page</returns>
         public static BusinessModels.ResumeExpPage ParseResumeExpPage(
-            DbModels.DatabaseContext dbContext,
-            DbModels.Page page, DbModels.ResumeExpPage resumeExpExt,
-            ILogger log)
+            DbModels.Page page)
         {
-            if (resumeExpExt == null)
-                throw new ArgumentException("Page must be Resume Experience to parse as such");
-
+            var jobs = (from job in page.ResumeExpExt.Jobs
+                        select job).ToList();
             return new BusinessModels.ResumeExpPage()
             {
                 Id = page.Id,
@@ -84,14 +80,20 @@ namespace DerekHoneycutt.DbBusiness
                 Title = page.Title,
                 Subtitle = page.Subtitle,
                 Background = page.Background,
-                Image = page.Image,
+                Image = null,
                 Orientation = page.Orientation,
-                ResumeExpId = resumeExpExt.Id,
-                Jobs = resumeExpExt.Jobs != null ?
-                            resumeExpExt.Jobs.Select(j => ResumeExpJobs.ParseJob(j)).ToList() :
-                            (from job in dbContext.ResumeExpJobs
-                             where job.PageId == resumeExpExt.Id
-                             select ResumeExpJobs.ParseJob(job)).ToList()
+                ResumeExpId = page.ResumeExpExt.Id,
+                Jobs = (from job in jobs
+                        select new BusinessModels.ResumeExpJob()
+                        {
+                            Id = job.Id,
+                            Title = job.Title,
+                            Description = job.Description,
+                            Employer = job.Employer,
+                            EmployerCity = job.EmployerCity,
+                            StartDate = job.StartDate,
+                            EndDate = job.EndDate
+                        }).ToList()
             };
         }
 
@@ -101,11 +103,8 @@ namespace DerekHoneycutt.DbBusiness
         /// <param name="page">Resume Head page to parse</param>
         /// <returns>A parsed Resume Head page</returns>
         public static BusinessModels.ResumeHeadPage ParseResumeHeadPage(
-            DbModels.Page page, DbModels.ResumeHeadPage resumeHeadExt)
+            DbModels.Page page)
         {
-            if (resumeHeadExt == null)
-                throw new ArgumentException("Page must be Resume Head to parse as such");
-
             return new BusinessModels.ResumeHeadPage()
             {
                 Id = page.Id,
@@ -115,9 +114,9 @@ namespace DerekHoneycutt.DbBusiness
                 Background = page.Background,
                 Image = page.Image,
                 Orientation = page.Orientation,
-                ResumeHeadId = resumeHeadExt.Id,
-                Description = resumeHeadExt.Description,
-                Competencies = resumeHeadExt.Competencies
+                ResumeHeadId = page.ResumeHeadExt.Id,
+                Description = page.ResumeHeadExt.Description,
+                Competencies = page.ResumeHeadExt.Competencies
             };
         }
 
@@ -127,23 +126,20 @@ namespace DerekHoneycutt.DbBusiness
         /// <param name="page">Resume GitHub page to parse</param>
         /// <returns>A parsed Resume GitHub page</returns>
         public static BusinessModels.GitHubPage ParseGitHubPage(
-            DbModels.Page page, DbModels.GitHubPage resumeHeadExt)
+            DbModels.Page page)
         {
-            if (resumeHeadExt == null)
-                throw new ArgumentException("Page must be GitHub Page to parse as such");
-
             return new BusinessModels.GitHubPage()
             {
                 Id = page.Id,
-                Type = BusinessModels.PageTypes.ResumeHead,
+                Type = BusinessModels.PageTypes.GitHub,
                 Title = page.Title,
                 Subtitle = page.Subtitle,
                 Background = page.Background,
                 Image = page.Image,
                 Orientation = page.Orientation,
-                GitHubId = resumeHeadExt.Id,
-                GitHub = resumeHeadExt.GitHub,
-                Description = resumeHeadExt.Description
+                GitHubId = page.GitHubPageExt.Id,
+                Description = page.GitHubPageExt.Description,
+                GitHub = page.GitHubPageExt.GitHub
             };
         }
 
@@ -153,29 +149,34 @@ namespace DerekHoneycutt.DbBusiness
         /// <param name="page">Schools page to parse</param>
         /// <returns>A parsed Schools page</returns>
         public static BusinessModels.SchoolsPage ParseSchoolsPage(
-            DbModels.DatabaseContext dbContext,
-            DbModels.Page page, DbModels.SchoolsPage schoolsExt,
-            ILogger log)
+            DbModels.Page page)
         {
-            if (schoolsExt == null)
-                throw new ArgumentException("Page must be Schools to parse as such");
-
+            var schools = (from school in page.SchoolsExt.Schools
+                           select school).ToList();
             return new BusinessModels.SchoolsPage()
             {
                 Id = page.Id,
-                Type = BusinessModels.PageTypes.Schools,
+                Type = BusinessModels.PageTypes.ResumeExp,
                 Title = page.Title,
                 Subtitle = page.Subtitle,
                 Background = page.Background,
-                Image = page.Image,
+                Image = null,
                 Orientation = page.Orientation,
-                SchoolsId = schoolsExt.Id,
-                Schools = (schoolsExt.Schools != null) ?
-                            schoolsExt.Schools.Select(j => Schools.Parse(j)).ToList() :
-                            (from school in dbContext.Schools
-                             where school.PageId == schoolsExt.Id
-                             orderby school.Order
-                             select Schools.Parse(school)).ToList()
+                SchoolsId = page.SchoolsExt.Id,
+                Schools = (from school in schools
+                           orderby school.Order
+                           select new BusinessModels.School()
+                           {
+                               Id = school.Id,
+                               Name = school.Name,
+                               City = school.City,
+                               Program = school.Program,
+                               StartDate = school.StartDate,
+                               EndDate = school.EndDate,
+                               GPA = school.GPA,
+                               Other = school.Other,
+                               Order = school.Order
+                           }).ToList()
             };
         }
 
@@ -185,11 +186,8 @@ namespace DerekHoneycutt.DbBusiness
         /// <param name="page">Text Block page to parse</param>
         /// <returns>A parsed Text Block page</returns>
         public static BusinessModels.TextBlockPage ParseTextBlockPage(
-            DbModels.Page page, DbModels.TextBlockPage textBlockExt)
+            DbModels.Page page)
         {
-            if (page.TextBlockExt == null)
-                throw new ArgumentException("Page must be TextBlock to parse as such");
-
             return new BusinessModels.TextBlockPage()
             {
                 Id = page.Id,
@@ -199,8 +197,8 @@ namespace DerekHoneycutt.DbBusiness
                 Background = page.Background,
                 Image = page.Image,
                 Orientation = page.Orientation,
-                TextBlockId = textBlockExt.Id,
-                Text = textBlockExt.Text
+                TextBlockId = page.TextBlockExt.Id,
+                Text = page.TextBlockExt.Text
             };
         }
 
@@ -210,22 +208,36 @@ namespace DerekHoneycutt.DbBusiness
         /// <param name="page">Page to parse</param>
         /// <returns>A parsed page</returns>
         public static BusinessModels.Page ParsePage(
-            DbModels.DatabaseContext dbContext, DbModels.Page page, ILogger log)
+            DbModels.Page page)
         {
-            if (page.ImageWallExt != null)
-                return ParseImageWallPage(dbContext, page, page.ImageWallExt, log);
-            if (page.ResumeExpExt != null)
-                return ParseResumeExpPage(dbContext, page, page.ResumeExpExt, log);
-            if (page.ResumeHeadExt != null)
-                return ParseResumeHeadPage(page, page.ResumeHeadExt);
-            if (page.GitHubPageExt != null)
-                return ParseGitHubPage(page, page.GitHubPageExt);
-            if (page.SchoolsExt != null)
-                return ParseSchoolsPage(dbContext, page, page.SchoolsExt, log);
-            if (page.TextBlockExt != null)
-                return ParseTextBlockPage(page, page.TextBlockExt);
-
-            return ParseEmptyPage(page);
+            if (String.Equals(page.Type, BusinessModels.PageTypes.ResumeHead))
+            {
+                return ParseResumeHeadPage(page);
+            }
+            else if (String.Equals(page.Type, BusinessModels.PageTypes.ResumeExp))
+            {
+                return ParseResumeExpPage(page);
+            }
+            else if (String.Equals(page.Type, BusinessModels.PageTypes.Schools))
+            {
+                return ParseSchoolsPage(page);
+            }
+            else if (String.Equals(page.Type, BusinessModels.PageTypes.ImageWall))
+            {
+                return ParseImageWallPage(page);
+            }
+            else if (String.Equals(page.Type, BusinessModels.PageTypes.TextBlock))
+            {
+                return ParseTextBlockPage(page);
+            }
+            else if (String.Equals(page.Type, BusinessModels.PageTypes.GitHub))
+            {
+                return ParseGitHubPage(page);
+            }
+            else
+            {
+                return ParseEmptyPage(page);
+            }
         }
 
         /// <summary>
@@ -236,9 +248,10 @@ namespace DerekHoneycutt.DbBusiness
         public static IEnumerable<BusinessModels.Page> ParsePages(
             DbModels.DatabaseContext dbContext, IEnumerable<DbModels.Page> inpages, ILogger log)
         {
-            return from page in inpages
-                   orderby page.Order
-                   select ParsePage(dbContext, page, log);
+            var pages = (from page in inpages
+                         orderby page.Order
+                         select page).ToList();
+            return pages.Select(p => ParsePage(p)).ToList();
         }
 
         /// <summary>
@@ -267,7 +280,7 @@ namespace DerekHoneycutt.DbBusiness
                 throw new KeyNotFoundException();
             }
 
-            return ParsePage(dbContext, page, log);
+            return ParsePage(page);
         }
     }
 }

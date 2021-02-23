@@ -38,27 +38,27 @@
 }
 
 .drock-nav-head {
-    height: var(--drock-navhead-height, 45rem);
-    min-height: var(--drock-navhead-height, 45rem);
-    max-height: var(--drock-navhead-height, 45rem);
+    height: var(--drock-navhead-height, 45px);
+    min-height: var(--drock-navhead-height, 45px);
+    max-height: var(--drock-navhead-height, 45px);
     display: flex;
     align-items: center;
 }
 
 .drock-nav-head-title {
-    font-size: 20rem;
-    margin-left: 22.4rem;
+    font-size: 20px;
+    margin-left: 22.4px;
 }
 
 .drock-nav-tabs {
-    margin-left: 35rem;
-    max-width: calc(100% - 35rem);
+    margin-left: 35px;
+    max-width: calc(100% - 35px);
 }
 
 .mdc-tab-scroller {
-    max-height: 72rem;
+    max-height: 72px;
 }
 
 .mdc-tab__text-label {
-    font-size: 8rem;
+    font-size: 8px;
 }

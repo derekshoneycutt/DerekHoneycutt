@@ -3,35 +3,41 @@ using System;
 using DerekHoneycutt.DbModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DerekHoneycutt.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210223014806_AddImagesTable")]
-    partial class AddImagesTable
+    [Migration("20210223174949_ResetMigrations")]
+    partial class ResetMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.3");
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.3")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.GitHubPage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GitHub")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Index")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("PageId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -43,26 +49,33 @@ namespace DerekHoneycutt.Migrations
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.Image", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int?>("Index")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .HasMaxLength(2048)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("Order")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("PageId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Source")
                         .IsRequired()
                         .HasMaxLength(350)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(350)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Index");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.HasIndex("PageId");
 
@@ -71,18 +84,25 @@ namespace DerekHoneycutt.Migrations
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.ImageWallPage", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int?>("Index")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .HasMaxLength(2048)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("PageId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("Index");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.HasIndex("PageId")
                         .IsUnique();
@@ -92,73 +112,87 @@ namespace DerekHoneycutt.Migrations
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.Landing", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int?>("Index")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Href")
                         .HasMaxLength(350)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(350)");
 
                     b.Property<string>("Icon")
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("Order")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Subtitle")
                         .HasMaxLength(350)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(350)");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Index");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.ToTable("Landings");
                 });
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.Page", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int?>("Index")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Background")
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Image")
                         .HasMaxLength(350)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(350)");
 
                     b.Property<Guid>("LandingId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("Order")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Orientation")
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Subtitle")
                         .HasMaxLength(350)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(350)");
 
                     b.Property<string>("Title")
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Index");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.HasIndex("LandingId");
 
@@ -167,39 +201,46 @@ namespace DerekHoneycutt.Migrations
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.ResumeExpJob", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int?>("Index")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .HasMaxLength(2048)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Employer")
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("EmployerCity")
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("EndDate")
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("PageId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("StartDate")
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Index");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.HasIndex("PageId");
 
@@ -208,14 +249,21 @@ namespace DerekHoneycutt.Migrations
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.ResumeExpPage", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int?>("Index")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("PageId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("Index");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.HasIndex("PageId")
                         .IsUnique();
@@ -225,22 +273,29 @@ namespace DerekHoneycutt.Migrations
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.ResumeHeadPage", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int?>("Index")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Competencies")
                         .HasMaxLength(2048)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Description")
                         .HasMaxLength(2048)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("PageId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("Index");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.HasIndex("PageId")
                         .IsUnique();
@@ -250,45 +305,52 @@ namespace DerekHoneycutt.Migrations
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.School", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int?>("Index")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("City")
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("EndDate")
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<decimal?>("GPA")
                         .HasColumnType("decimal(8,6)");
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int?>("Order")
                         .HasColumnType("integer");
 
                     b.Property<string>("Other")
                         .HasMaxLength(2048)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<Guid>("PageId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Program")
                         .HasMaxLength(350)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(350)");
 
                     b.Property<string>("StartDate")
                         .HasMaxLength(150)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(150)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Index");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.HasIndex("PageId");
 
@@ -297,14 +359,21 @@ namespace DerekHoneycutt.Migrations
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.SchoolsPage", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int?>("Index")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("PageId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("Index");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.HasIndex("PageId")
                         .IsUnique();
@@ -314,18 +383,25 @@ namespace DerekHoneycutt.Migrations
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.TextBlockPage", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int?>("Index")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("PageId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Text")
                         .HasMaxLength(2048)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(2048)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Index");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.HasIndex("PageId")
                         .IsUnique();
@@ -338,6 +414,7 @@ namespace DerekHoneycutt.Migrations
                     b.HasOne("DerekHoneycutt.DbModels.Page", "Page")
                         .WithOne("GitHubPageExt")
                         .HasForeignKey("DerekHoneycutt.DbModels.GitHubPage", "PageId")
+                        .HasPrincipalKey("DerekHoneycutt.DbModels.Page", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -349,6 +426,7 @@ namespace DerekHoneycutt.Migrations
                     b.HasOne("DerekHoneycutt.DbModels.ImageWallPage", "Page")
                         .WithMany("Images")
                         .HasForeignKey("PageId")
+                        .HasPrincipalKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -360,6 +438,7 @@ namespace DerekHoneycutt.Migrations
                     b.HasOne("DerekHoneycutt.DbModels.Page", "Page")
                         .WithOne("ImageWallExt")
                         .HasForeignKey("DerekHoneycutt.DbModels.ImageWallPage", "PageId")
+                        .HasPrincipalKey("DerekHoneycutt.DbModels.Page", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -371,6 +450,7 @@ namespace DerekHoneycutt.Migrations
                     b.HasOne("DerekHoneycutt.DbModels.Landing", "Landing")
                         .WithMany("Pages")
                         .HasForeignKey("LandingId")
+                        .HasPrincipalKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -382,6 +462,7 @@ namespace DerekHoneycutt.Migrations
                     b.HasOne("DerekHoneycutt.DbModels.ResumeExpPage", "Page")
                         .WithMany("Jobs")
                         .HasForeignKey("PageId")
+                        .HasPrincipalKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -393,6 +474,7 @@ namespace DerekHoneycutt.Migrations
                     b.HasOne("DerekHoneycutt.DbModels.Page", "Page")
                         .WithOne("ResumeExpExt")
                         .HasForeignKey("DerekHoneycutt.DbModels.ResumeExpPage", "PageId")
+                        .HasPrincipalKey("DerekHoneycutt.DbModels.Page", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -404,6 +486,7 @@ namespace DerekHoneycutt.Migrations
                     b.HasOne("DerekHoneycutt.DbModels.Page", "Page")
                         .WithOne("ResumeHeadExt")
                         .HasForeignKey("DerekHoneycutt.DbModels.ResumeHeadPage", "PageId")
+                        .HasPrincipalKey("DerekHoneycutt.DbModels.Page", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -415,6 +498,7 @@ namespace DerekHoneycutt.Migrations
                     b.HasOne("DerekHoneycutt.DbModels.SchoolsPage", "Page")
                         .WithMany("Schools")
                         .HasForeignKey("PageId")
+                        .HasPrincipalKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -426,6 +510,7 @@ namespace DerekHoneycutt.Migrations
                     b.HasOne("DerekHoneycutt.DbModels.Page", "Page")
                         .WithOne("SchoolsExt")
                         .HasForeignKey("DerekHoneycutt.DbModels.SchoolsPage", "PageId")
+                        .HasPrincipalKey("DerekHoneycutt.DbModels.Page", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -437,6 +522,7 @@ namespace DerekHoneycutt.Migrations
                     b.HasOne("DerekHoneycutt.DbModels.Page", "Page")
                         .WithOne("TextBlockExt")
                         .HasForeignKey("DerekHoneycutt.DbModels.TextBlockPage", "PageId")
+                        .HasPrincipalKey("DerekHoneycutt.DbModels.Page", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

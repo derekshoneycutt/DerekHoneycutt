@@ -18,9 +18,9 @@
     user-select: none;
 
     .mdc-icon-button {
-        font-size: var(--saw-std-icon-size, 24rem);
-        width: calc(var(--saw-std-icon-size, 24rem) * 2);
-        height: calc(var(--saw-std-icon-size, 24rem) * 2);
-        padding: calc(var(--saw-std-icon-size, 24rem) / 2);
+        font-size: var(--saw-std-icon-size, 24rpx);
+        width: calc(var(--saw-std-icon-size, 24px) * 2);
+        height: calc(var(--saw-std-icon-size, 24px) * 2);
+        padding: calc(var(--saw-std-icon-size, 24px) / 2);
     }
 }

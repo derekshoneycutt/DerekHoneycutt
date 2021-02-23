@@ -11,6 +11,11 @@ namespace DerekHoneycutt.DbModels
     public class ImageWallPage
     {
         /// <summary>
+        /// Gets or Sets the internal index (should let DB make this)
+        /// </summary>
+        public int? Index { get; set; }
+
+        /// <summary>
         /// Gets or Sets a unique identifier for the extension
         /// </summary>
         public Guid Id { get; set; }
@@ -22,7 +27,7 @@ namespace DerekHoneycutt.DbModels
         /// <summary>
         /// Gets or Sets the page this extends
         /// </summary>
-        public Page Page { get; set; }
+        public virtual Page Page { get; set; }
 
 
         /// <summary>
@@ -33,6 +38,6 @@ namespace DerekHoneycutt.DbModels
         /// <summary>
         /// Gets or Sets the collection of images to show
         /// </summary>
-        public ICollection<Image> Images { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
     }
 }

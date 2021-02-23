@@ -302,7 +302,7 @@ export default class SawBaseElement extends HTMLElement {
 
         $_.setStyle(this, {
             '--saw-sidebar-currexpansion': this._expansionCheckbox[0].checked ?
-                'var(--saw-sidebar-size-expandoffset, 0rem)' : '0rem'
+                'var(--saw-sidebar-size-expandoffset, 0)' : '0'
         });
 
         let expandEvent = new CustomEvent('expanded', {

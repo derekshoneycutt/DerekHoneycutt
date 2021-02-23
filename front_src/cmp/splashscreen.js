@@ -1,7 +1,7 @@
-﻿import { Imogene as $, ImogeneExports as $_ } from '../../Imogene/Imogene';
+﻿import { Imogene as $, ImogeneExports as $_ } from '../Imogene/Imogene';
 
 /** Splash screen component showing an image and disappearing */
-export default class SawSplashScreen extends HTMLElement {
+export default class DrockSplashScreen extends HTMLElement {
     constructor() {
         super();
 
@@ -10,13 +10,13 @@ export default class SawSplashScreen extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: 'open' });
 
         /** @type {HTMLTemplateElement} */
-        const template = $('#saw-splashscreen')[0];
+        const template = $('#drock-splashscreen')[0];
         const showChildren = template.content.cloneNode(true);
-        $_.setProperties($(showChildren, '.saw-splashscreen-img'), {
+        $_.setProperties($(showChildren, '.drock-splashscreen-img'), {
             src: this._src
         });
         /** @type {HTMLDivElement} */
-        this._shadowParent = $(showChildren, '.saw-splashscreen-parent');
+        this._shadowParent = $(showChildren, '.drock-splashscreen-parent');
         shadowRoot.appendChild(showChildren);
     }
 
@@ -62,4 +62,4 @@ export default class SawSplashScreen extends HTMLElement {
         this.remove();
     }
 }
-window.customElements.define('saw-splash', SawSplashScreen);
+window.customElements.define('drock-splash', DrockSplashScreen);

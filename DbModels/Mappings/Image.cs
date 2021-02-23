@@ -12,11 +12,15 @@ namespace DerekHoneycutt.DbModels.Mappings
         public void Configure(EntityTypeBuilder<DbModels.Image> builder)
         {
             //Index
-            builder.HasKey(i => i.Id);
-            builder.Property(i => i.Id)
-                .IsRequired(true);
+            builder.HasKey(i => i.Index);
+            builder.Property(i => i.Index)
+                .HasColumnType("INTEGER");
 
             //Other properties
+            builder.Property(i => i.Id)
+                .IsRequired(true);
+            builder.HasIndex(i => i.Id)
+                .IsUnique();
             builder.Property(i => i.PageId)
                 .IsRequired(true);
             builder.Property(i => i.Source)

@@ -26,3 +26,5 @@
 /OTHERS/searchicd10/SearchIcd10/obj
 *.user
 *.suo
+/Properties/PublishProfiles
+/Properties/ServiceDependencies/DerekHoneycuttPortfolio - Web Deploy

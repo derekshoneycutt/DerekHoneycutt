@@ -52,50 +52,50 @@
     --saw-transitions-length: 0.25s;
     --saw-sidebar-expand-delay: 0.15s;
 
-    --saw-std-icon-size: 24rem;
-    --saw-std-surface-border-radius: 2rem;
+    --saw-std-icon-size: 24px;
+    --saw-std-surface-border-radius: 2px;
     --saw-std-focus-outline: 1px dotted #808080;
 
-    --saw-topbar-height: 45rem;
-    --saw-topbar-landscape-offset: 19rem;
+    --saw-topbar-height: 45px;
+    --saw-topbar-landscape-offset: 19px;
 
-    --saw-sidebar-size: 48rem;
-    --saw-sidebar-size-expanded: 255rem;
-    --saw-sidebar-size-expandoffset: 207rem;
-    --saw-sidebar-body-offset: calc(var(--saw-addbutton-size, 56rem) + 19rem);
-    --saw-sidebar-body-offset-expanded: calc(var(--saw-addbutton-drawer-height, 145rem) + 10rem);
+    --saw-sidebar-size: 48px;
+    --saw-sidebar-size-expanded: 255px;
+    --saw-sidebar-size-expandoffset: 207px;
+    --saw-sidebar-body-offset: calc(var(--saw-addbutton-size, 56px) + 19px);
+    --saw-sidebar-body-offset-expanded: calc(var(--saw-addbutton-drawer-height, 145px) + 10px);
 
-    --saw-listitem-padding-left: 32rem;
-    --saw-listitem-padding-right: 16rem;
-    --saw-nav-listitem-height: 48rem;
+    --saw-listitem-padding-left: 32px;
+    --saw-listitem-padding-right: 16px;
+    --saw-nav-listitem-height: 48px;
 
-    --saw-addbutton-size: 56rem;
-    --saw-addbutton-cutoutradius: calc((var(--saw-addbutton-size, 56rem) / 2) + 4rem);
-    --saw-addbutton-portrait-left: calc(50% - (var(--saw-addbutton-size, 56rem) / 2));
-    --saw-addbutton-portrait-bottom: 20rem;
-    --saw-addbutton-landscape-left: 22.8rem;
-    --saw-addbutton-landscape-bottom: calc(100% - 104.2rem);
-    --saw-addbutton-drawer-height: 145rem;
-    --saw-addbutton-drawer-width: 200rem;
-    --saw-addbutton-space: 7rem;
-    --saw-addbutton-space-landscape: 6rem;
-    --saw-addbutton-cutout-border-radius: 6rem;
+    --saw-addbutton-size: 56px;
+    --saw-addbutton-cutoutradius: calc((var(--saw-addbutton-size, 56px) / 2) + 4px);
+    --saw-addbutton-portrait-left: calc(50% - (var(--saw-addbutton-size, 56px) / 2));
+    --saw-addbutton-portrait-bottom: 20px;
+    --saw-addbutton-landscape-left: 22.8px;
+    --saw-addbutton-landscape-bottom: calc(100% - 104.2px);
+    --saw-addbutton-drawer-height: 145px;
+    --saw-addbutton-drawer-width: 200px;
+    --saw-addbutton-space: 7px;
+    --saw-addbutton-space-landscape: 6px;
+    --saw-addbutton-cutout-border-radius: 6px;
     
-    --saw-calendar-dropout-comp-width: 215rem;
-    --saw-calendar-dropout-comp-height: 250rem;
-    --saw-calendar-dropout-width: max(var(--saw-calendar-dropout-comp-width, 215rem), calc(100% - 20rem));
-    --saw-calendar-dropout-height: 275rem;
-    --saw-calendar-todaychip-height: 25.6rem;
+    --saw-calendar-dropout-comp-width: 215px;
+    --saw-calendar-dropout-comp-height: 250px;
+    --saw-calendar-dropout-width: max(var(--saw-calendar-dropout-comp-width, 215px), calc(100% - 20px));
+    --saw-calendar-dropout-height: 275px;
+    --saw-calendar-todaychip-height: 25.6px;
     
-    --saw-views-dropout-comp-width: 200rem;
-    --saw-views-dropout-comp-width-expanded: 235rem;
-    --saw-views-dropout-width: max(var(--saw-views-dropout-comp-width, 200rem), 100%);
-    --saw-views-dropout-height: 300rem;
+    --saw-views-dropout-comp-width: 200px;
+    --saw-views-dropout-comp-width-expanded: 235px;
+    --saw-views-dropout-width: max(var(--saw-views-dropout-comp-width, 200px), 100%);
+    --saw-views-dropout-height: 300px;
 
-    --saw-sidebar-currexpansion: 0rem;
+    --saw-sidebar-currexpansion: 0;
 
-    /* Make 1rem = 1px when default font-size is 16px */
-    font-size: 6.25%;
+    /* Make 1px = 1px when default font-size is 16px */
+    //font-size: 6.25%;
 }
 
 body {
@@ -107,7 +107,7 @@ body {
     font-family: Roboto, sans-serif;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    font-size: 16rem;
+    //font-size: 16rem;
 }
 
 saw-base {
@@ -118,7 +118,7 @@ saw-base {
     right: 0;
 }
 
-saw-splash {
+drock-splash {
     position: absolute;
     top: 0;
     bottom: 0;

@@ -11,6 +11,11 @@ namespace DerekHoneycutt.DbModels
     public class Image
     {
         /// <summary>
+        /// Gets or Sets the internal index (should let DB make this)
+        /// </summary>
+        public int? Index { get; set; }
+
+        /// <summary>
         /// Gets or Sets a unique identifier of the image
         /// </summary>
         public Guid Id { get; set; }
@@ -22,7 +27,7 @@ namespace DerekHoneycutt.DbModels
         /// <summary>
         /// Gets or Sets the page Images extension this will be shown on
         /// </summary>
-        public ImageWallPage Page { get; set; }
+        public virtual ImageWallPage Page { get; set; }
 
         /// <summary>
         /// Source of the image to display

@@ -11,6 +11,11 @@ namespace DerekHoneycutt.DbModels
     public class Page
     {
         /// <summary>
+        /// Gets or Sets the internal index (should let DB make this)
+        /// </summary>
+        public int? Index { get; set; }
+
+        /// <summary>
         /// Gets or Sets a unique identifier of the page
         /// </summary>
         public Guid Id { get; set; }
@@ -22,7 +27,7 @@ namespace DerekHoneycutt.DbModels
         /// <summary>
         /// Ges or Sets the landing section this page belongs to
         /// </summary>
-        public Landing Landing { get; set; }
+        public virtual Landing Landing { get; set; }
 
         /// <summary>
         /// Gets or Sets an Order index to order the page
@@ -62,26 +67,26 @@ namespace DerekHoneycutt.DbModels
         /// <summary>
         /// Gets or Sets an Image Wall extension for the page
         /// </summary>
-        public ImageWallPage ImageWallExt { get; set; }
+        public virtual ImageWallPage ImageWallExt { get; set; }
         /// <summary>
         /// Gets or Sets a Resume Experience extension for the page
         /// </summary>
-        public ResumeExpPage ResumeExpExt { get; set; }
+        public virtual ResumeExpPage ResumeExpExt { get; set; }
         /// <summary>
         /// Gets or Sets a Resume Head extension for the page
         /// </summary>
-        public ResumeHeadPage ResumeHeadExt { get; set; }
+        public virtual ResumeHeadPage ResumeHeadExt { get; set; }
         /// <summary>
         /// Gets or Sets a Resume GitHub extension for the page
         /// </summary>
-        public GitHubPage GitHubPageExt { get; set; }
+        public virtual GitHubPage GitHubPageExt { get; set; }
         /// <summary>
         /// Gets or Sets a Schools extension for the page
         /// </summary>
-        public SchoolsPage SchoolsExt { get; set; }
+        public virtual SchoolsPage SchoolsExt { get; set; }
         /// <summary>
         /// Gets or Sets a Text Block extension for the page
         /// </summary>
-        public TextBlockPage TextBlockExt { get; set; }
+        public virtual TextBlockPage TextBlockExt { get; set; }
     }
 }

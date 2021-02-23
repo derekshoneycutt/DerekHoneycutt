@@ -15,11 +15,15 @@ namespace DerekHoneycutt.DbModels.Mappings
         public void Configure(EntityTypeBuilder<DbModels.ResumeExpPage> builder)
         {
             //Index
-            builder.HasKey(rep => rep.Id);
-            builder.Property(rep => rep.Id)
-                .IsRequired(true);
+            builder.HasKey(rep => rep.Index);
+            builder.Property(rep => rep.Index)
+                .HasColumnType("INTEGER");
 
             //Other properties
+            builder.Property(rep => rep.Id)
+                .IsRequired(true);
+            builder.HasIndex(rep => rep.Id)
+                .IsUnique();
             builder.Property(rep => rep.PageId)
                 .IsRequired(true);
 
@@ -27,7 +31,8 @@ namespace DerekHoneycutt.DbModels.Mappings
             builder
                 .HasMany(rep => rep.Jobs)
                 .WithOne(rej => rej.Page)
-                .HasForeignKey(rej => rej.PageId);
+                .HasForeignKey(rej => rej.PageId)
+                .HasPrincipalKey(rep => rep.Id);
         }
     }
 }

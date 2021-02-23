@@ -1,9 +1,9 @@
 ﻿@use "@material/elevation";
 
 .saw-topbar {
-    height: var(--saw-topbar-height, 45rem);
-    min-height: var(--saw-topbar-height, 45rem);
-    max-height: var(--saw-topbar-height, 45rem);
+    height: var(--saw-topbar-height, 45px);
+    min-height: var(--saw-topbar-height, 45px);
+    max-height: var(--saw-topbar-height, 45px);
     position: relative;
     user-select: none;
     z-index: 10;
@@ -54,7 +54,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 16rem;
+    left: 16px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -62,8 +62,8 @@
 }
 
 #saw-toptitle {
-    font-size: 20rem;
-    margin-left: 22.4rem;
+    font-size: 20px;
+    margin-left: 22.4px;
     user-select: none;
 }
 
@@ -71,7 +71,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 24rem;
+    right: 24px;
     transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
     display: flex;
     align-items: center;
@@ -88,25 +88,25 @@
 @media screen and (orientation: landscape) {
 
     .saw-topbar-background-start {
-        min-width: var(--saw-topbar-landscape-offset, 19rem);
-        max-width: var(--saw-topbar-landscape-offset, 19rem);
+        min-width: var(--saw-topbar-landscape-offset, 19px);
+        max-width: var(--saw-topbar-landscape-offset, 19px);
     }
 
     .saw-topbar-background-belowadd {
-        min-width: calc(var(--saw-addbutton-size, 56rem) - 15rem);
-        max-width: calc(var(--saw-addbutton-size, 56rem) - 15rem);
+        min-width: calc(var(--saw-addbutton-size, 56px) - 15px);
+        max-width: calc(var(--saw-addbutton-size, 56px) - 15px);
         z-index: 0;
         background: 
-            radial-gradient(circle at 31rem calc(100% + 31.2rem), 
-                transparent calc(var(--saw-addbutton-cutoutradius, 32rem) - 0.1rem),
-                var(--mdc-theme-surface, #fff) var(--saw-addbutton-cutoutradius, 32rem));
+            radial-gradient(circle at 31px calc(100% + 31.2px), 
+                transparent calc(var(--saw-addbutton-cutoutradius, 32px) - 0.1px),
+                var(--mdc-theme-surface, #fff) var(--saw-addbutton-cutoutradius, 32px));
     }
 
     .saw-topbar-background-end {
     }
 
     .saw-topbar-left {
-        left: var(--saw-topbar-landscape-offset, 19rem);
+        left: var(--saw-topbar-landscape-offset, 19px);
     }
 
     @media screen and (min-height: 600px) {
@@ -123,13 +123,13 @@
         #saw-base-expanded:checked {
 
             ~ .saw-topbar .saw-topbar-background-start {
-                min-width: calc(var(--saw-sidebar-size-expandoffset, 207rem) + var(--saw-topbar-landscape-offset, 19rem));
-                max-width: calc(var(--saw-sidebar-size-expandoffset, 207rem) + var(--saw-topbar-landscape-offset, 19rem));
+                min-width: calc(var(--saw-sidebar-size-expandoffset, 207px) + var(--saw-topbar-landscape-offset, 19px));
+                max-width: calc(var(--saw-sidebar-size-expandoffset, 207px) + var(--saw-topbar-landscape-offset, 19px));
                 transition-delay: 0s;
             }
 
             ~ .saw-topbar .saw-topbar-left {
-                left: calc(var(--saw-sidebar-size-expandoffset, 207rem) + var(--saw-topbar-landscape-offset, 19rem));
+                left: calc(var(--saw-sidebar-size-expandoffset, 207px) + var(--saw-topbar-landscape-offset, 19px));
                 transition-delay: 0s;
             }
 

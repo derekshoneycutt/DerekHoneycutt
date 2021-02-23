@@ -2,22 +2,22 @@
 @use "@material/chips/mdc-chips";
 
 @mixin saw-sidebar-menu-calendar-comp-shown {
-    padding: 0rem 10rem 0rem 8rem;
+    padding: 0 10px 0 8px;
 
     drock-calendar {
-        max-width: var(--saw-calendar-dropout-comp-width, 215rem);
-        max-height: var(--saw-calendar-dropout-comp-height, 250rem);
-        font-size: 16rem;
+        max-width: var(--saw-calendar-dropout-comp-width, 215px);
+        max-height: var(--saw-calendar-dropout-comp-height, 250px);
+        font-size: 16px;
     }
 }
 
 @mixin saw-sidebar-menu-calendar-todaychip-shown {
-    margin: 5rem 5rem 20rem 5rem;
+    margin: 5px 5px 20px 5px;
     display: block;
-    max-height: var(--saw-calendar-todaychip-height, 25.6rem);
+    max-height: var(--saw-calendar-todaychip-height, 25.6px);
 
     .saw-mdc-chip {
-        max-height: var(--saw-calendar-todaychip-height, 25.6rem);
+        max-height: var(--saw-calendar-todaychip-height, 25.6px);
 
         &:focus-within {
             outline: var(--saw-std-focus-outline, none);
@@ -25,12 +25,12 @@
         }
 
         .mdc-chip__touch {
-            max-height: 48rem;
+            max-height: 48px;
         }
 
         span {
-            max-height: var(--saw-calendar-todaychip-height, 25.6rem);
-            font-size: 14rem;
+            max-height: var(--saw-calendar-todaychip-height, 25.6px);
+            font-size: 14px;
         }
     }
 }
@@ -49,10 +49,10 @@ drock-calendar:unresolved {
 .saw-sidebar-menu-calendar-dropout {
     @include elevation.elevation(6);
     background-color: var(--mdc-theme-surface, #fff);
-    height: 0rem;
+    height: 0;
     max-width: var(--saw-calendar-dropout-width, 100%);
     min-width: var(--saw-calendar-dropout-width, 100%);
-    border-radius: var(--saw-std-surface-border-radius, 2rem);
+    border-radius: var(--saw-std-surface-border-radius, 2px);
     position: absolute;
     right: 0;
     bottom: 0;
@@ -62,9 +62,9 @@ drock-calendar:unresolved {
     transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
 
     drock-calendar {
-        max-width: 0rem;
-        max-height: 0rem;
-        font-size: 0rem;
+        max-width: 0;
+        max-height: 0;
+        font-size: 0;
         transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
         transition-delay: 0s;
     }
@@ -76,24 +76,24 @@ drock-calendar:unresolved {
 }
 
 #saw-navchip-today {
-    margin: 0rem;
-    max-height: 0rem;
-    padding: 0rem;
+    margin: 0;
+    max-height: 0;
+    padding: 0;
     user-select: none;
     transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
 
     .saw-mdc-chip {
-        margin: 0rem;
-        max-height: 0rem;
+        margin: 0;
+        max-height: 0;
         transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
 
         .mdc-chip__touch {
-            max-height: 0rem;
+            max-height: 0;
         }
 
         span {
-            max-height: 0rem;
-            font-size: 0rem;
+            max-height: 0;
+            font-size: 0;
             transition: all var(--saw-transitions-length, 0.3s) ease-in-out;
         }
     }
@@ -106,7 +106,7 @@ drock-calendar:unresolved {
 
     .saw-sidebar-menu-calendar-dropout {
         @include saw-sidebar-menu-calendar-comp-shown;
-        height: calc(var(--saw-calendar-dropout-height, 285rem) + 15rem);
+        height: calc(var(--saw-calendar-dropout-height, 285px) + 15px);
     }
 
     #saw-navchip-today {
@@ -122,7 +122,7 @@ drock-calendar:unresolved {
 
         &:focus-within {
             order: 0;
-            padding: 0rem;
+            padding: 0;
         }
     }
 
@@ -134,13 +134,13 @@ drock-calendar:unresolved {
     }
 
     .saw-sidebar-menu-calendar:focus-within .saw-sidebar-menu-calendar-dropout {
-        max-width: var(--saw-calendar-dropout-width-landscape, 215rem);
-        min-width: var(--saw-calendar-dropout-width-landscape, 215rem);
-        height: var(--saw-calendar-dropout-height, 285rem);
-        margin-left: 160rem;
+        max-width: var(--saw-calendar-dropout-width-landscape, 215px);
+        min-width: var(--saw-calendar-dropout-width-landscape, 215px);
+        height: var(--saw-calendar-dropout-height, 285px);
+        margin-left: 160px;
 
         #saw-navchip-today {
-            margin: 5rem;
+            margin: 5px;
         }
     }
 
@@ -154,16 +154,16 @@ drock-calendar:unresolved {
 
             ~ .saw-body .saw-sidebar-menu-calendar {
                 order: 1;
-                padding: 5rem 0rem;
+                padding: 5px 0;
             }
 
             ~ .saw-body .saw-sidebar-menu-calendar-dropout {
                 @include elevation.elevation(2);
                 @include saw-sidebar-menu-calendar-comp-shown;
-                margin-left: -25rem;
-                max-width: var(--saw-calendar-dropout-comp-width, 215rem);
-                min-width: var(--saw-calendar-dropout-comp-width, 215rem);
-                height: var(--saw-calendar-dropout-height, 285rem);
+                margin-left: -25px;
+                max-width: var(--saw-calendar-dropout-comp-width, 215px);
+                min-width: var(--saw-calendar-dropout-comp-width, 215px);
+                height: var(--saw-calendar-dropout-height, 285px);
                 transition-delay: var(--saw-sidebar-expand-delay, 0.05s);
 
                 drock-calendar {
@@ -173,7 +173,7 @@ drock-calendar:unresolved {
 
             ~ .saw-body #saw-navchip-today {
                 @include saw-sidebar-menu-calendar-todaychip-shown;
-                margin: 5rem;
+                margin: 5px;
             }
         }// #saw-base-expanded:checked
 

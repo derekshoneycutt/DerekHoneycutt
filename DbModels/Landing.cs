@@ -11,6 +11,11 @@ namespace DerekHoneycutt.DbModels
     public class Landing
     {
         /// <summary>
+        /// Gets or Sets the internal index (should let DB make this)
+        /// </summary>
+        public int? Index { get; set; }
+
+        /// <summary>
         /// Gets or Sets a unique identifier for the application
         /// </summary>
         public Guid Id { get; set; }
@@ -43,6 +48,6 @@ namespace DerekHoneycutt.DbModels
         /// <summary>
         /// Gets or Sets a collection of all of the pages associated to the landing section
         /// </summary>
-        public ICollection<Page> Pages { get; set; }
+        public virtual ICollection<Page> Pages { get; set; }
     }
 }

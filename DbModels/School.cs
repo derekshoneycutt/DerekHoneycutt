@@ -11,6 +11,11 @@ namespace DerekHoneycutt.DbModels
     public class School
     {
         /// <summary>
+        /// Gets or Sets the internal index (should let DB make this)
+        /// </summary>
+        public int? Index { get; set; }
+
+        /// <summary>
         /// Gets or Sets a unique identifier of the school
         /// </summary>
         public Guid Id { get; set; }
@@ -22,7 +27,7 @@ namespace DerekHoneycutt.DbModels
         /// <summary>
         /// Gets or Sets the page Schools extension this will be shown on
         /// </summary>
-        public SchoolsPage Page { get; set; }
+        public virtual SchoolsPage Page { get; set; }
 
         /// <summary>
         /// Gets or Sets the name of the school
