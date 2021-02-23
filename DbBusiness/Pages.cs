@@ -146,7 +146,9 @@ namespace DerekHoneycutt.DbBusiness
         /// <param name="page">Schools page to parse</param>
         /// <returns>A parsed Schools page</returns>
         public static BusinessModels.SchoolsPage ParseSchoolsPage(
-            DbModels.Page page, DbModels.SchoolsPage schoolsExt)
+            DbModels.DatabaseContext dbContext,
+            DbModels.Page page, DbModels.SchoolsPage schoolsExt,
+            ILogger log)
         {
             if (schoolsExt == null)
                 throw new ArgumentException("Page must be Schools to parse as such");
@@ -161,7 +163,11 @@ namespace DerekHoneycutt.DbBusiness
                 Image = page.Image,
                 Orientation = page.Orientation,
                 SchoolsId = schoolsExt.Id,
-                Schools = schoolsExt.Schools.Select(s => Schools.Parse(s)).ToList()
+                Schools = (schoolsExt.Schools != null) ?
+                            schoolsExt.Schools.Select(j => Schools.Parse(j)).ToList() :
+                            (from school in dbContext.Schools
+                             where school.PageId == schoolsExt.Id
+                             select Schools.Parse(school)).ToList()
             };
         }
 
@@ -207,7 +213,7 @@ namespace DerekHoneycutt.DbBusiness
             if (page.GitHubPageExt != null)
                 return ParseGitHubPage(page, page.GitHubPageExt);
             if (page.SchoolsExt != null)
-                return ParseSchoolsPage(page, page.SchoolsExt);
+                return ParseSchoolsPage(dbContext, page, page.SchoolsExt, log);
             if (page.TextBlockExt != null)
                 return ParseTextBlockPage(page, page.TextBlockExt);
 

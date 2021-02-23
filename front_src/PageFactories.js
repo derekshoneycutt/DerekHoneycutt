@@ -154,6 +154,29 @@ function createTextBlockPage(page, contentDiv) {
 }
 
 /**
+ * Create a Schools Page
+ * @param {DrockServerPage} page The server-page to construct the HTML from
+ * @param {HTMLDivElement} contentDiv content div to add the page to
+ */
+function createSchoolsPage(page, contentDiv) {
+    let dataDiv = $(['div', { class: 'drock-page-data drock-schools-data' },
+        ['div', { class: 'drock-schools-body' },
+            ['div', { class: 'drock-schools-title' }, page.title],
+            ['div', { class: 'drock-schools-schools' },
+                ...page.schools.map(j => {
+                    return ['div', { class: 'drock-schools-school' },
+                        ['div', { class: 'drock-schools-school-title' },
+                            `${j.name}${j.city ? `, ${j.city}` : ''}${j.startDate && j.endDate ? `, ${j.startDate} - ${j.endDate}` : ''}`],
+                        ['div', { class: 'drock-schools-school-program' }, j.program]
+                    ];
+                })
+            ]
+        ]
+    ]);
+    contentDiv.append(dataDiv);
+}
+
+/**
  * Construct a landing, including its pages
  * @param {DrockMainController} controller Controller object
  * @param {number} landingIndex index of the landing being constructed
@@ -196,6 +219,9 @@ export function constructLanding(controller, landingIndex, landing) {
         }
         else if (p.type === 'resumeexp') {
             createResumeExpPage(p, div);
+        }
+        else if (p.type === 'schools') {
+            createSchoolsPage(p, div);
         }
         else if (p.type === 'textblock') {
             createTextBlockPage(p, div);

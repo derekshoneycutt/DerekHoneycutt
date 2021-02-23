@@ -43,7 +43,7 @@ namespace DerekHoneycutt.DbBusiness
                                                 page.GitHubPageExt != null ?
                                                     Pages.ParseGitHubPage(page, page.GitHubPageExt) :
                                                 page.SchoolsExt != null ?
-                                                    Pages.ParseSchoolsPage(page, page.SchoolsExt) :
+                                                    Pages.ParseSchoolsPage(dbContext, page, page.SchoolsExt, log) :
                                                 page.TextBlockExt != null ?
                                                     Pages.ParseTextBlockPage(page, page.TextBlockExt) :
                                                     Pages.ParseEmptyPage(page)).ToList()
