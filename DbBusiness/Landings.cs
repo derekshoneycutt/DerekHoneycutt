@@ -35,7 +35,7 @@ namespace DerekHoneycutt.DbBusiness
                                              orderby page.Order
                                              select 
                                                 page.ImageWallExt != null ?
-                                                    Pages.ParseImageWallPage(page, page.ImageWallExt) :
+                                                    Pages.ParseImageWallPage(dbContext, page, page.ImageWallExt, log) :
                                                 page.ResumeExpExt != null ?
                                                     Pages.ParseResumeExpPage(dbContext, page, page.ResumeExpExt, log) :
                                                 page.ResumeHeadExt != null ?

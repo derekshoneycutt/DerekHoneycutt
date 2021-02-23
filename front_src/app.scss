@@ -3,6 +3,8 @@
 @use "@material/snackbar/mdc-snackbar";
 @use "@material/icon-button/mdc-icon-button";
 @use "@material/card/mdc-card";
+@use "@material/image-list/mdc-image-list";
+@use "@material/image-list";
 @import 'RobotoFont.scss';
 @import 'material-icons.scss';
 
@@ -154,6 +156,45 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+}
+
+
+#drock-img-dialog {
+    transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
+    background-color: #000;
+    position: absolute;
+    bottom: 0;
+    top: 100%;
+    left: 50%;
+    min-width: 0;
+    max-width: 0;
+    min-height: 0;
+    max-height:0;
+    overflow: hidden;
+    display: flex;
+    z-index: 20;
+}
+
+#drock-img-dialog.active {
+    top: 0;
+    left:0;
+    min-width: 100vw;
+    min-height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+#drock-img-dialog-img {
+    max-width: calc(100% - 80rem);
+    max-height: calc(100% - 40rem);
+    margin: auto;
+}
+
+#drock-img-dialog-close {
+    color: #fff;
+    position: absolute;
+    right: 10rem;
+    top: 5rem;
 }
 
 #drock-contact-snackbar .mdc-snackbar__surface {
@@ -547,4 +588,60 @@ body {
 
 .drock-schools-school-program {
     margin-left: 15rem;
+}
+
+
+.drock-image-list {
+    @include image-list.standard-columns(3);
+    @include image-list.shape-radius(8rem, true);
+
+    .mdc-image-list__label {
+        font-size: 10rem;
+        line-height: 12rem;
+    }
+
+    .drock-image-item {
+        cursor: pointer;
+        transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .drock-image-list {
+        @include image-list.standard-columns(5);
+    }
+}
+
+
+
+.drock-page-imagewall {
+    padding: 20rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.drock-imagewall-data {
+    margin: auto 0;
+    z-index: 1;
+}
+
+.drock-imagewall-body {
+    background: rgba(255,255,255,0.6);
+    padding: 10rem;
+}
+
+.drock-imagewall-title {
+    font-size: 18rem;
+    font-weight: bold;
+    border-bottom: 1px solid #bbb;
+    margin-bottom: 20rem;
+}
+
+.drock-imagewall-text {
+    margin: 10rem 30rem 20rem 50rem;
+    font-size: 14rem;
+}
+
+.drock-imagewall-images {
+
 }

@@ -47,6 +47,31 @@ namespace DerekHoneycutt.Controllers
         }
 
         /// <summary>
+        /// Translate an Image from the business model to a REST return model
+        /// </summary>
+        /// <param name="img">Business model to translate</param>
+        /// <returns>REST object to return to the client</returns>
+        private RestModels.Image TranslateImage(BusinessModels.Image img)
+        {
+            return new RestModels.Image()
+            {
+                Self = img.Id.ToString(),
+                Source = img.Source,
+                Description = img.Description,
+                Links = new[]
+                {
+                    new RestModels.Link()
+                    {
+                        Rel = "self",
+                        Href = $"portfolio/images/{img.Id.ToString()}",
+                        Method= "GET",
+                        PostData = null
+                    }
+                }
+            };
+        }
+
+        /// <summary>
         /// Translate a ResumeExpJob from the business model to a REST return model
         /// </summary>
         /// <param name="rej">Business model to translate</param>
@@ -92,6 +117,7 @@ namespace DerekHoneycutt.Controllers
                 Gpa = school.GPA,
                 Program = school.Program,
                 Other = school.Other,
+                Order = school.Order,
                 Links = new[]
                 {
                     new RestModels.Link()
@@ -119,7 +145,7 @@ namespace DerekHoneycutt.Controllers
                 ret = new RestModels.ImageWallPage()
                 {
                     Description = iwpage.Description,
-                    Images = iwpage.Images.Split('|'),
+                    Images = iwpage.Images.Select(img => TranslateImage(img)).ToList(),
                     Type = BusinessModels.PageTypes.ImageWall
                 };
             }
@@ -284,6 +310,40 @@ namespace DerekHoneycutt.Controllers
             }
 
             return new OkObjectResult(TranslatePage(page));
+        }
+
+        /// <summary>
+        /// REST point for getting a particular Image handle
+        /// </summary>
+        /// <param name="imgid">ID of the image to retrieve</param>
+        /// <returns>Action result, hopefully including job</returns>
+        [HttpGet("images/{imgid}")]
+        public async Task<IActionResult> GetImage(string imgid)
+        {
+            BusinessModels.Image img;
+
+            try
+            {
+                img = await DbBusiness.Images.GetById(_dbContext, imgid, _logger);
+            }
+            catch (IndexOutOfRangeException iorex)
+            {
+                return new BadRequestObjectResult(new
+                {
+                    Error = "BadId",
+                    iorex.Message
+                });
+            }
+            catch (KeyNotFoundException knfex)
+            {
+                return new BadRequestObjectResult(new
+                {
+                    Error = "NotFound",
+                    knfex.Message
+                });
+            }
+
+            return new OkObjectResult(TranslateImage(img));
         }
 
         /// <summary>

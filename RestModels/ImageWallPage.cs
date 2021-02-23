@@ -18,6 +18,6 @@ namespace DerekHoneycutt.RestModels
         /// <summary>
         /// Gets or Sets the collection of images to show
         /// </summary>
-        public ICollection<string> Images { get; set; }
+        public ICollection<Image> Images { get; set; }
     }
 }

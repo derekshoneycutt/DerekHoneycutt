@@ -21,6 +21,10 @@ namespace DerekHoneycutt.DbModels
         /// </summary>
         public DbSet<Page> Pages { get; set; }
         /// <summary>
+        /// Image definitions to display in image wall pages
+        /// </summary>
+        public DbSet<Image> Images { get; set; }
+        /// <summary>
         /// Image Wall Pages table, define extensions making select pages into walls of images
         /// </summary>
         public DbSet<ImageWallPage> ImageWallPages { get; set; }
@@ -61,6 +65,7 @@ namespace DerekHoneycutt.DbModels
         {
             builder.ApplyConfiguration(new Mappings.Landing())
                 .ApplyConfiguration(new Mappings.Page())
+                .ApplyConfiguration(new Mappings.Image())
                 .ApplyConfiguration(new Mappings.ImageWallPage())
                 .ApplyConfiguration(new Mappings.ResumeExpPage())
                 .ApplyConfiguration(new Mappings.ResumeExpJob())

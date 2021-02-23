@@ -20,7 +20,11 @@ export default class DrockMainController {
         this.contactSnackbar = null;
         this.contactMdcSnackbar = null;
 
-        this.UrlHandler = { landing: 0, page: 0, contact: false };
+        this.imgDialog = null;
+        this.imgDialogImg = null;
+        this.imgDialogClose = null;
+
+        this.UrlHandler = { landing: 0, contact: false };
     }
 
     /**
@@ -51,7 +55,6 @@ export default class DrockMainController {
         //Setup a URL Handler to deal with URL changes for navigation
         let params = new URLSearchParams(document.location.search.substring(1));
         this.UrlHandler.landing = parseInt(params.get("landing"), 0) || 0;
-        this.UrlHandler.page = parseInt(params.get("page"), 0) || 0;
         this.UrlHandler.contact = !!params.get("contact");
         if (this.UrlHandler.contact) {
             this.launchContactDlg(false);
@@ -99,11 +102,10 @@ export default class DrockMainController {
             if (pushHistory) {
                 window.history.pushState({
                     landing: this.UrlHandler.landing,
-                    page: this.UrlHandler.page,
                     contact: true
                 },
                     `Derek Honeycutt : ${this.tabs[this.UrlHandler.landing].label}`,
-                    `?landing=${this.UrlHandler.landing}&page=${this.UrlHandler.page}&contact=true`);
+                    `?landing=${this.UrlHandler.landing}&contact=true`);
             }
         }
     }
@@ -133,6 +135,9 @@ export default class DrockMainController {
         this.contactFab = $('#drock-contactfab')[0];
         this.contactSnackbar = $("#drock-contact-snackbar")[0];
         this.contactMdcSnackbar = new MDCSnackbar(this.contactSnackbar);
+        this.imgDialog = $("#drock-img-dialog")[0];
+        this.imgDialogImg = $("#drock-img-dialog-img")[0];
+        this.imgDialogClose = $("#drock-img-dialog-close")[0];
 
         $_.addEvents(this.contactDialog, {
             requestclose: e => {
@@ -144,6 +149,15 @@ export default class DrockMainController {
         $_.addEvents(this.contactFab, {
             click: () => {
                 this.launchContactDlg();
+            }
+        });
+
+        $_.addEvents(this.imgDialogClose, {
+            click: () => {
+                $_.setClassList(this.imgDialog, {
+                    active: false
+                });
+                window.history.back();
             }
         });
 
@@ -214,5 +228,16 @@ export default class DrockMainController {
             if (this.mainNav)
                 this.mainNav.moveToTabIndex(uselanding);
         }
+    }
+
+    /**
+     * Pop up the image dialog
+     * @param {any} imgSource
+     */
+    showImgDialog(imgSource) {
+        this.imgDialogImg.src = imgSource;
+        $_.setClassList(this.imgDialog, {
+            active: true
+        });
     }
 }

@@ -43,6 +43,9 @@ namespace DerekHoneycutt.DbModels.Mappings
             builder.Property(s => s.Other)
                 .HasMaxLength(Consts.MaxTextLength)
                 .IsRequired(false);
+            builder.Property(s => s.Order)
+                .HasColumnType("integer")
+                .IsRequired(false);
         }
     }
 }

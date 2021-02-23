@@ -37,7 +37,9 @@ namespace DerekHoneycutt.DbBusiness
         /// <param name="page">Image wall page to parse</param>
         /// <returns>A parsed Image Wall page</returns>
         public static BusinessModels.ImageWallPage ParseImageWallPage(
-            DbModels.Page page, DbModels.ImageWallPage imageWallExt)
+            DbModels.DatabaseContext dbContext,
+            DbModels.Page page, DbModels.ImageWallPage imageWallExt,
+            ILogger log)
         {
             if (imageWallExt == null)
                 throw new ArgumentException("Page must be Image Wall to parse as such");
@@ -53,7 +55,12 @@ namespace DerekHoneycutt.DbBusiness
                 Orientation = page.Orientation,
                 ImageWallId = imageWallExt.Id,
                 Description = imageWallExt.Description,
-                Images = imageWallExt.Images
+                Images = //imageWallExt.Images != null ?
+                            //imageWallExt.Images.Select(i => Images.Parse(i)).ToList() :
+                            (from img in dbContext.Images
+                             where img.PageId == imageWallExt.Id
+                             orderby img.Order
+                             select Images.Parse(img)).ToList()
             };
         }
 
@@ -167,6 +174,7 @@ namespace DerekHoneycutt.DbBusiness
                             schoolsExt.Schools.Select(j => Schools.Parse(j)).ToList() :
                             (from school in dbContext.Schools
                              where school.PageId == schoolsExt.Id
+                             orderby school.Order
                              select Schools.Parse(school)).ToList()
             };
         }
@@ -205,7 +213,7 @@ namespace DerekHoneycutt.DbBusiness
             DbModels.DatabaseContext dbContext, DbModels.Page page, ILogger log)
         {
             if (page.ImageWallExt != null)
-                return ParseImageWallPage(page, page.ImageWallExt);
+                return ParseImageWallPage(dbContext, page, page.ImageWallExt, log);
             if (page.ResumeExpExt != null)
                 return ParseResumeExpPage(dbContext, page, page.ResumeExpExt, log);
             if (page.ResumeHeadExt != null)

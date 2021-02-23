@@ -51,6 +51,11 @@ namespace DerekHoneycutt.RestModels
         public string Other { get; set; }
 
         /// <summary>
+        /// Gets or Sets the order of the school
+        /// </summary>
+        public int? Order { get; set; }
+
+        /// <summary>
         /// Gets or Sets links to navigate around the school
         /// </summary>
         public ICollection<Link> Links { get; set; }

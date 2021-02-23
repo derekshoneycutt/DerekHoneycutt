@@ -3,14 +3,16 @@ using System;
 using DerekHoneycutt.DbModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DerekHoneycutt.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210223003828_OrderSchools")]
+    partial class OrderSchools
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +41,7 @@ namespace DerekHoneycutt.Migrations
                     b.ToTable("GitHubPage");
                 });
 
-            modelBuilder.Entity("DerekHoneycutt.DbModels.Image", b =>
+            modelBuilder.Entity("DerekHoneycutt.DbModels.ImageWallPage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,31 +51,7 @@ namespace DerekHoneycutt.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("Order")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("PageId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Source")
-                        .IsRequired()
-                        .HasMaxLength(350)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PageId");
-
-                    b.ToTable("Images");
-                });
-
-            modelBuilder.Entity("DerekHoneycutt.DbModels.ImageWallPage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
+                    b.Property<string>("Images")
                         .HasMaxLength(2048)
                         .HasColumnType("TEXT");
 
@@ -342,17 +320,6 @@ namespace DerekHoneycutt.Migrations
                     b.Navigation("Page");
                 });
 
-            modelBuilder.Entity("DerekHoneycutt.DbModels.Image", b =>
-                {
-                    b.HasOne("DerekHoneycutt.DbModels.ImageWallPage", "Page")
-                        .WithMany("Images")
-                        .HasForeignKey("PageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Page");
-                });
-
             modelBuilder.Entity("DerekHoneycutt.DbModels.ImageWallPage", b =>
                 {
                     b.HasOne("DerekHoneycutt.DbModels.Page", "Page")
@@ -439,11 +406,6 @@ namespace DerekHoneycutt.Migrations
                         .IsRequired();
 
                     b.Navigation("Page");
-                });
-
-            modelBuilder.Entity("DerekHoneycutt.DbModels.ImageWallPage", b =>
-                {
-                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("DerekHoneycutt.DbModels.Landing", b =>

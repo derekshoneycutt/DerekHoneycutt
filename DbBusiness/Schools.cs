@@ -28,7 +28,8 @@ namespace DerekHoneycutt.DbBusiness
                 EndDate = s.EndDate,
                 Program = s.Program,
                 GPA = s.GPA,
-                Other = s.Other
+                Other = s.Other,
+                Order = s.Order
             };
         }
 

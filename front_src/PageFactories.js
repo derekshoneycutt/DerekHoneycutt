@@ -154,6 +154,47 @@ function createTextBlockPage(page, contentDiv) {
 }
 
 /**
+ * Create a Image Wall Page
+ * @param {DrockServerPage} page The server-page to construct the HTML from
+ * @param {HTMLDivElement} contentDiv content div to add the page to
+ */
+function createImageWallPage(page, contentDiv, controller, landingIndex) {
+    let dataDiv = $(['div', { class: 'drock-page-data drock-imagewall-data' }]);
+    const html = DOMPurify.sanitize(new showdown.Converter().makeHtml(page.description));
+    $_.appendChildren(dataDiv,
+        ['div', { class: 'drock-imagewall-body' },
+            ['div', { class: 'drock-imagewall-title' }, page.title],
+            ['div', {
+                class: 'drock-imagewall-text',
+                innerHTML: html
+            }],
+            ['div', { class: 'drock-imagewall-images' },
+                ['ul', { class: 'mdc-image-list mdc-image-list--with-text-protection drock-image-list' },
+                    ...page.images.map((img, index) => {
+                        return ['li', {
+                            class: 'mdc-image-list__item drock-image-item',
+                            on: {
+                                click: e => {
+                                    controller.showImgDialog(img.source, landingIndex, index);
+                                }
+                            }
+                        },
+                            ['div', { class: 'mdc-image-list__image-aspect-container' },
+                                ['img', { class: "mdc-image-list__image", src: img.source }]
+                            ],
+                            ['div', { class: 'mdc-image-list__supporting' },
+                                ['span', { class: 'mdc-image-list__label' }, img.description]
+                            ]
+                        ];
+                    })
+                ]
+            ]
+        ]
+    );
+    contentDiv.append(dataDiv);
+}
+
+/**
  * Create a Schools Page
  * @param {DrockServerPage} page The server-page to construct the HTML from
  * @param {HTMLDivElement} contentDiv content div to add the page to
@@ -222,6 +263,9 @@ export function constructLanding(controller, landingIndex, landing) {
         }
         else if (p.type === 'schools') {
             createSchoolsPage(p, div);
+        }
+        else if (p.type === 'imagewall') {
+            createImageWallPage(p, div, controller, landingIndex);
         }
         else if (p.type === 'textblock') {
             createTextBlockPage(p, div);

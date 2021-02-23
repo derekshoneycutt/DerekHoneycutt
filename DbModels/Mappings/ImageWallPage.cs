@@ -25,9 +25,12 @@ namespace DerekHoneycutt.DbModels.Mappings
             builder.Property(p => p.Description)
                 .HasMaxLength(Consts.MaxTextLength)
                 .IsRequired(false);
-            builder.Property(p => p.Images)
-                .HasMaxLength(Consts.MaxTextLength)
-                .IsRequired(false);
+
+            //Foreign keys
+            builder
+                .HasMany(p => p.Images)
+                .WithOne(i => i.Page)
+                .HasForeignKey(i => i.PageId);
         }
     }
 }

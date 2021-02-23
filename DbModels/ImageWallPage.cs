@@ -33,6 +33,6 @@ namespace DerekHoneycutt.DbModels
         /// <summary>
         /// Gets or Sets the collection of images to show
         /// </summary>
-        public string Images { get; set; }
+        public ICollection<Image> Images { get; set; }
     }
 }

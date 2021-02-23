@@ -49,5 +49,10 @@ namespace DerekHoneycutt.BusinessModels
         /// Gets or Sets a string of other information about the school
         /// </summary>
         public string Other { get; set; }
+
+        /// <summary>
+        /// Gets or Sets the order of the school
+        /// </summary>
+        public int? Order { get; set; }
     }
 }
