@@ -6,7 +6,7 @@ The primary project here is an intentionally over-engineered C# Web API RESTful 
 
 Portfolio is currently deployed at [https://www.derekhoneycutt.com](https://www.derekhoneycutt.com)
 
-#Using this Code for Other Projects
+# Using this Code for Other Projects
 
 This project can be used for other sites with some tweaks. Will likely want to find references to my name that I just carelessly put in code (hopefully that is not much!).
 
