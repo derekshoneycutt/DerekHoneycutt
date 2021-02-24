@@ -23,37 +23,35 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
 export function constructHomePage(controller, landings, onlandingclick) {
     const homecontainer = $(['div', { class: 'landing-div home-landing-div' },
         ['div', { class: 'home-page drock-page-base' },
-            ['div', { class: 'drock-page-content' },
-                ['div', { class: 'drock-page-background' }],
-                ['div', { class: 'home-page-list' },
-                    ...landings.map((l, index) => {
-                        let link;
-                        const ret = $(['div', { class: 'home-page-list-item' },
-                            link = $(['a', {
-                                class: 'home-page-list-link mdc-ripple-surface',
-                                href: `?landing=${index + 1}&page=0`,
-                                on: {
-                                    click: e => {
-                                        if (onlandingclick) {
-                                            e.preventDefault();
-                                            onlandingclick(index, e);
-                                        }
+            ['div', { class: 'drock-page-background' }],
+            ['div', { class: 'home-page-list drock-page-data' },
+                ...landings.map((l, index) => {
+                    let link;
+                    const ret = $(['div', { class: 'home-page-list-item' },
+                        link = $(['a', {
+                            class: 'home-page-list-link mdc-ripple-surface',
+                            href: `?landing=${index + 1}&page=0`,
+                            on: {
+                                click: e => {
+                                    if (onlandingclick) {
+                                        e.preventDefault();
+                                        onlandingclick(index, e);
                                     }
                                 }
-                            },
-                                ['div', { class: 'home-page-icons' },
-                                    ['span', { class: 'home-page-icon-actual material-icons' }, l.icon]
-                                ],
-                                ['div', { class: 'home-page-listing' },
-                                    ['div', { class: 'home-page-listing-title' }, l.title],
-                                    ['div', { class: 'home-page-listing-subtitle' }, l.subtitle]
-                                ]
-                            ])
-                        ]);
-                        link.mdcRipple = new MDCRipple(link);
-                        return ret;
-                    })
-                ]
+                            }
+                        },
+                            ['div', { class: 'home-page-icons' },
+                                ['span', { class: 'home-page-icon-actual material-icons' }, l.icon]
+                            ],
+                            ['div', { class: 'home-page-listing' },
+                                ['div', { class: 'home-page-listing-title' }, l.title],
+                                ['div', { class: 'home-page-listing-subtitle' }, l.subtitle]
+                            ]
+                        ])
+                    ]);
+                    link.mdcRipple = new MDCRipple(link);
+                    return ret;
+                })
             ]
         ]
     ]);

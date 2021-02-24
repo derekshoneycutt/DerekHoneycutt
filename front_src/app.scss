@@ -111,10 +111,6 @@ drock-splash {
     perspective: 1px;
 }
 
-.home-landing-div {
-    overflow: hidden;
-}
-
 #drock-topbar-container {
     position: relative;
     max-width: 100%;
@@ -235,15 +231,6 @@ drock-splash {
     min-height: 100vh;
 }
 
-.drock-page-content {
-    box-sizing: border-box;
-    background-color: #fff;
-    min-height: 100%;
-    padding: 20px;
-    margin: 0;
-    min-width: 100%;
-}
-
 .drock-page-background {
     position: absolute;
     top: 0;
@@ -324,27 +311,10 @@ _::-webkit-full-page-media, _:future, :root .drock-page-background {
 }
 
 .home-page {
-    position: relative;
     min-height: 100%;
-    max-height: 100%;
-    height: 100%;
 }
 
-.drock-page-content {
-    position: relative;
-    overflow: hidden;
-    background-size: cover;
-    background-position-x: center;
-}
-
-.home-page .drock-page-content {
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
-}
-
-.home-page .drock-page-content .drock-page-background {
-    position: fixed;
+.home-page .drock-page-background {
     background-image: url("../homescreen-min.jpg");
 }
 
@@ -395,17 +365,12 @@ _::-webkit-full-page-media, _:future, :root .drock-page-background {
 }
 
 @media screen and (orientation: landscape) {
-    .drock-page-content {
-        padding: 20px;
-    }
-
     .drock-page-data {
         padding: 30px 30px 100px 50px;
     }
 }
 
 @media screen and (max-height: 450px) {
-
     .drock-page-data {
         //transform: translateZ(-0.25px) scale(1.25);
     }
