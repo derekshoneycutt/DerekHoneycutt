@@ -20,7 +20,7 @@ Following this, the following items must be completed:
 
 ### Imogene
 
-In the front_src directory is a Javascript library called Imogene. This is a diverse library built around DOM manipulations and an automatic client for compatible RESTful interfaces (e.g. the backend included in this project).
+In the front_src directory is a Javascript "library" (more-or-less structured together, but really just a compilation of useful bits) called Imogene. This is a diverse library built around DOM manipulations and an automatic client for compatible RESTful interfaces (e.g. the backend included in this project).
 
 Suggested use of importing this library may be like this:
 ```javascript
