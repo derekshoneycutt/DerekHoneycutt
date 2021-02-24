@@ -1,3 +1,13 @@
+/*!
+ * Application Insights JavaScript SDK - Channel, 2.5.11
+ * Copyright (c) Microsoft and contributors. All rights reserved.
+ */
+
+/*!
+ * Application Insights JavaScript SDK - Dependencies Plugin, 2.5.11
+ * Copyright (c) Microsoft and contributors. All rights reserved.
+ */
+
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 

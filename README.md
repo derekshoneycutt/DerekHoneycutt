@@ -6,6 +6,16 @@ The primary project here is an intentionally over-engineered C# Web API RESTful 
 
 Portfolio is currently deployed at [https://www.derekhoneycutt.com](https://www.derekhoneycutt.com)
 
+#Using this Code for Other Projects
+
+This project can be used for other sites with some tweaks. Will likely want to find references to my name that I just carelessly put in code (hopefully that is not much!).
+
+Following this, the following items must be completed:
+
+- Create `webpack.user_config.js`. A demo is available with all options included.
+- Create `appsettings.json` and (perhaps) `appsettings.Development.json`. A demo is available with all options included.
+- Create `front_src/appinsights.js` or edit `front_src/app.js` to remove reference to it. This is a good spot to include analytic javascript code if any is desired.
+
 # Subprojects
 
 ### Imogene

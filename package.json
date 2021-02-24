@@ -31,6 +31,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "@microsoft/applicationinsights-web": "^2.5.11",
     "construct-style-sheets-polyfill": "^2.4.16",
     "material-components-web": "^10.0.0",
     "material-icons": "^0.5.3",
