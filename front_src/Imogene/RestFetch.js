@@ -32,11 +32,18 @@
  */
 
 /**
+ * @callback RestFetchAlterHrefCallback
+ * @param {string} Href value to modify before calling
+ * @returns {string} Modified Href value
+ */
+
+/**
  * @callback RestLinkFetchMethod
  * @param {any} [body] The body, if any, to send
  * @param {any} [details] Details to add to the fetch data
  * @param {Boolean} [simple] Whether the body data should be sent simply w/o translate to JSON string
  * @param {RestFetchErrorCallback} [overrcallback] Optional overriding error callback
+ * @param {RestFetchAlterHrefCallback} [alterhref] Optional method to alter the href being sent
  * @returns {RestFetchObject} a parsed RestFetchObject from a server fetch
  */
 
@@ -53,10 +60,14 @@
  * Make a query to a REST server, returning the result as a processed JS object
  * @param {string} baseUrl Base URL entry to use for queries
  * @param {string} startUrl The first URL to enter into
+ * @param {string} [method] Method to use in first fetching (default: GET)
+ * @param {any} [body] The body, if any, to send in first fetch
+ * @param {any} [details] Details to add to the first fetch data
+ * @param {Boolean} [simple] Whether the first body data should be sent simply w/o translate to JSON string
  * @param {RestFetchErrorCallback} [errcallback] Function to call when an error is encountered
  * @returns {RestFetchObject} The first entry point to the RESTful application
  */
-export default function RestFetch(baseUrl, startUrl, errcallback) {
+export default function RestFetch(baseUrl, startUrl, method, body, details, simple, errcallback) {
     /**
      * Get the Owned Properties of an object
      * @param {any} o Object to get properties of
@@ -76,8 +87,8 @@ export default function RestFetch(baseUrl, startUrl, errcallback) {
      */
     async function doFetch(url, method, body, details, simple, overrcallback) {
         const useerrcallback = overrcallback ?
-                                overrcallback :
-                                (errcallback ? errcallback : () => {});
+            overrcallback :
+            (errcallback ? errcallback : () => { });
 
 
         let fetchData = {
@@ -93,6 +104,10 @@ export default function RestFetch(baseUrl, startUrl, errcallback) {
         }
         else if (body && simple) {
             fetchData.body = body;
+        }
+        else if (method === 'POST') {
+            fetchData.headers['Content-Type'] = 'application/json';
+            fetchData.body = null;
         }
 
         let resp;
@@ -137,7 +152,9 @@ export default function RestFetch(baseUrl, startUrl, errcallback) {
             name: name,
             method: method,
             href: link.href,
-            func: (body, details, simple) => doFetch(link.href, method, body, details, simple),
+            func: ({ body, details, simple, overrcallback, alterhref } = {}) =>
+                doFetch(alterhref ? alterhref(link.href) : link.href,
+                    method, body, details, simple, overrcallback),
             postData: link.postData
         };
     }
@@ -189,5 +206,5 @@ export default function RestFetch(baseUrl, startUrl, errcallback) {
     }
 
     // Do a fetch for the start URL and return the Promise for that query
-    return doFetch(startUrl);
+    return doFetch(startUrl, method, body, details, simple);
 }
