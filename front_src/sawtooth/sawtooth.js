@@ -11,16 +11,34 @@ import { getDummyHome } from './DummyData';
  * @returns {SawWeekElement} a new week component
  */
 function makeweek(days) {
-    let item = $t`<saw-week></saw-week>`;
+    let item = $(['saw-week']);
     if (days)
         $_.setProperties(item, { days: days });
-    item.prepareRows(3, [
-        { primaryDate: Date.today(), endDate: Date.today() },
-        { primaryDate: Date.today(), endDate: Date.today().plusDays(2) },
-        { primaryDate: Date.today().plusDays(1), endDate: Date.today().plusDays(2) },
-        { primaryDate: Date.today(), endDate: Date.today().plusDays(1) },
-        { primaryDate: Date.today().plusDays(-1), endDate: Date.today().plusDays(4) }
-    ]);
+
+    let home = getDummyHome();
+    let budget = home.budgets[0].getBudget();
+    let events;
+    if (days === 1)
+        events = budget.getDayView(Date.today());
+    else if (days === 3 || days === undefined)
+        events = budget.getThreeDayView(Date.today());
+    else if (days === 7)
+        events = budget.getWeekView(Date.today());
+    events = events.sort((a, b) => {
+        return a.primaryDate - b.primaryDate;
+    });
+    item.prepareRows(3, events);
+
+    events.forEach((evt, index) => {
+        let evtDiv = $(['div', {
+                class: 'saw-allocation',
+                slot: `alloc${index + 1}`
+            },
+            evt.title 
+        ]);
+        item.append(evtDiv);
+    });
+
     return item;
 }
 

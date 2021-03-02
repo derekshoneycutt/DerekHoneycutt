@@ -5,19 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DerekHoneycutt.DbBusiness
+namespace DerekHoneycutt.Services.Core
 {
     /// <summary>
-    /// Methods for converting pages from the database to business code representation
+    /// Service for handling pages in the application
     /// </summary>
-    public static class Pages
+    public class PagesService : IPagesService
     {
         /// <summary>
         /// Parse an empty page
         /// </summary>
         /// <param name="page">empty page to parse</param>
         /// <returns>A parsed, useless page</returns>
-        public static BusinessModels.Page ParseEmptyPage(DbModels.Page page)
+        private static BusinessModels.Page ParseEmptyPage(DbModels.Page page)
         {
             return new BusinessModels.Page()
             {
@@ -36,7 +36,7 @@ namespace DerekHoneycutt.DbBusiness
         /// </summary>
         /// <param name="page">Image wall page to parse</param>
         /// <returns>A parsed Image Wall page</returns>
-        public static BusinessModels.ImageWallPage ParseImageWallPage(
+        private static BusinessModels.ImageWallPage ParseImageWallPage(
             DbModels.Page page)
         {
             var images = (from image in page.ImageWallExt.Images
@@ -68,7 +68,7 @@ namespace DerekHoneycutt.DbBusiness
         /// </summary>
         /// <param name="page">Resume Experience page to parse</param>
         /// <returns>A parsed Resume Experience page</returns>
-        public static BusinessModels.ResumeExpPage ParseResumeExpPage(
+        private static BusinessModels.ResumeExpPage ParseResumeExpPage(
             DbModels.Page page)
         {
             var jobs = (from job in page.ResumeExpExt.Jobs
@@ -102,7 +102,7 @@ namespace DerekHoneycutt.DbBusiness
         /// </summary>
         /// <param name="page">Resume Head page to parse</param>
         /// <returns>A parsed Resume Head page</returns>
-        public static BusinessModels.ResumeHeadPage ParseResumeHeadPage(
+        private static BusinessModels.ResumeHeadPage ParseResumeHeadPage(
             DbModels.Page page)
         {
             return new BusinessModels.ResumeHeadPage()
@@ -125,7 +125,7 @@ namespace DerekHoneycutt.DbBusiness
         /// </summary>
         /// <param name="page">Resume GitHub page to parse</param>
         /// <returns>A parsed Resume GitHub page</returns>
-        public static BusinessModels.GitHubPage ParseGitHubPage(
+        private static BusinessModels.GitHubPage ParseGitHubPage(
             DbModels.Page page)
         {
             return new BusinessModels.GitHubPage()
@@ -148,10 +148,11 @@ namespace DerekHoneycutt.DbBusiness
         /// </summary>
         /// <param name="page">Schools page to parse</param>
         /// <returns>A parsed Schools page</returns>
-        public static BusinessModels.SchoolsPage ParseSchoolsPage(
+        private static BusinessModels.SchoolsPage ParseSchoolsPage(
             DbModels.Page page)
         {
             var schools = (from school in page.SchoolsExt.Schools
+                           orderby school.Order
                            select school).ToList();
             return new BusinessModels.SchoolsPage()
             {
@@ -164,7 +165,6 @@ namespace DerekHoneycutt.DbBusiness
                 Orientation = page.Orientation,
                 SchoolsId = page.SchoolsExt.Id,
                 Schools = (from school in schools
-                           orderby school.Order
                            select new BusinessModels.School()
                            {
                                Id = school.Id,
@@ -185,7 +185,7 @@ namespace DerekHoneycutt.DbBusiness
         /// </summary>
         /// <param name="page">Text Block page to parse</param>
         /// <returns>A parsed Text Block page</returns>
-        public static BusinessModels.TextBlockPage ParseTextBlockPage(
+        private static BusinessModels.TextBlockPage ParseTextBlockPage(
             DbModels.Page page)
         {
             return new BusinessModels.TextBlockPage()
@@ -207,7 +207,7 @@ namespace DerekHoneycutt.DbBusiness
         /// </summary>
         /// <param name="page">Page to parse</param>
         /// <returns>A parsed page</returns>
-        public static BusinessModels.Page ParsePage(
+        private static BusinessModels.Page ParsePage(
             DbModels.Page page)
         {
             if (String.Equals(page.Type, BusinessModels.PageTypes.ResumeHead))
@@ -245,7 +245,7 @@ namespace DerekHoneycutt.DbBusiness
         /// </summary>
         /// <param name="inpages">The page to translate</param>
         /// <returns>Business model representing the page</returns>
-        public static IEnumerable<BusinessModels.Page> ParsePages(
+        public IEnumerable<BusinessModels.Page> ParsePages(
             DbModels.DatabaseContext dbContext, IEnumerable<DbModels.Page> inpages, ILogger log)
         {
             var pages = (from page in inpages
@@ -263,7 +263,7 @@ namespace DerekHoneycutt.DbBusiness
         /// <returns>Business object representing the page</returns>
         /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        public static async Task<BusinessModels.Page> GetById(
+        public async Task<BusinessModels.Page> GetById(
             DbModels.DatabaseContext dbContext, string id, ILogger log)
         {
             if (!Guid.TryParse(id, out Guid useGuid))

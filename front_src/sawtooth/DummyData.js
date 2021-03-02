@@ -90,14 +90,25 @@ function prepareDummyInitialViews(baseOnDate) {
 }
 prepareDummyInitialViews(dummytoday.plusDays(-60));
 
+function filterEvents(baseOn, days) {
+    let startDate = new Date(baseOn);
+    if (days === 7)
+        startDate.setDate(startDate.getDate() - startDate.getDay());
+    let endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + (days - 1));
+
+    return DummyDatabase.events.filter(evt =>
+        evt.primaryDate <= endDate && evt.endDate >= startDate);
+}
+
 function getDummyBudget(id) {
     return {
         self: `dummy_budget${id}`,
 
         views: [],
-        getDayView: () => { },
-        getThreeDayView: () => { },
-        getWeekView: () => { },
+        getDayView: (baseOn) => filterEvents(baseOn, 1),
+        getThreeDayView: (baseOn) => filterEvents(baseOn, 3),
+        getWeekView: (baseOn) => filterEvents(baseOn, 7),
         getMonthView: () => { },
         getAgendaView: () => { },
         getReportsView: () => { },

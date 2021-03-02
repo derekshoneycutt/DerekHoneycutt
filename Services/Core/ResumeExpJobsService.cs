@@ -5,38 +5,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DerekHoneycutt.DbBusiness
+namespace DerekHoneycutt.Services.Core
 {
     /// <summary>
-    /// Methods for converting images from the database to business code representation
+    /// Services for handling resume experience jobs in the application
     /// </summary>
-    public static class Images
+    public class ResumeExpJobsService : IResumeExpJobsService
     {
         /// <summary>
-        /// Parse an image from the database into business code
+        /// Parse a job from the database into business code
         /// </summary>
-        /// <param name="i">Image to parse</param>
+        /// <param name="j">Job to parse</param>
         /// <returns>The business code representation</returns>
-        public static BusinessModels.Image Parse(DbModels.Image i)
+        private static BusinessModels.ResumeExpJob ParseJob(DbModels.ResumeExpJob j)
         {
-            return new BusinessModels.Image()
+            return new BusinessModels.ResumeExpJob()
             {
-                Id = i.Id,
-                Source = i.Source,
-                Description = i.Description
+                Id = j.Id,
+                Title = j.Title,
+                Employer = j.Employer,
+                EmployerCity = j.EmployerCity,
+                StartDate = j.StartDate,
+                EndDate = j.EndDate,
+                Description = j.Description
             };
         }
 
         /// <summary>
-        /// Get a specific image by its ID
+        /// Get a specific resume job by its ID
         /// </summary>
         /// <param name="dbContext">DB Context to get job from</param>
-        /// <param name="id">ID of the image to search for</param>
+        /// <param name="id">ID of the job to search for</param>
         /// <param name="log">Logging object to log information</param>
-        /// <returns>Business object representing the image</returns>
+        /// <returns>Business object representing the job</returns>
         /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        public static async Task<BusinessModels.Image> GetById(
+        public async Task<BusinessModels.ResumeExpJob> GetById(
             DbModels.DatabaseContext dbContext, string id, ILogger log)
         {
             if (!Guid.TryParse(id, out Guid useGuid))
@@ -45,16 +49,15 @@ namespace DerekHoneycutt.DbBusiness
                 throw new IndexOutOfRangeException();
             }
 
-            var image = await dbContext.Images.FirstOrDefaultAsync(i => useGuid.Equals(i.Id));
+            var job = await dbContext.ResumeExpJobs.FirstOrDefaultAsync(j => useGuid.Equals(j.Id));
 
-            if (image == null)
+            if (job == null)
             {
                 log.LogError("Invalid ID Passed, not found");
                 throw new KeyNotFoundException();
             }
 
-            return Parse(image);
-
+            return ParseJob(job);
         }
     }
 }

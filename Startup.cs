@@ -26,18 +26,22 @@ namespace DerekHoneycutt
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionChoice = Configuration.GetValue("UseConnection", "SqliteConn") ?? "";
+            var connectionChoice = Configuration.GetValue("UseConnection", "Azure") ?? "";
             var connectionString = Configuration.GetConnectionString(connectionChoice);
-            if (connectionChoice.StartsWith("Sqlite"))
-                services.AddDbContext<DbModels.DatabaseContext>(opt =>
-                    opt.UseSqlite(connectionString));
-            else
-                services.AddDbContext<DbModels.DatabaseContext>(opt =>
+            services.AddDbContext<DbModels.DatabaseContext>(opt =>
                     opt.UseLazyLoadingProxies().UseSqlServer(connectionString));
 
+            //Add configuration patterns
             var smtpSettings = Configuration.GetSection("SmtpSettings");
-            services.Configure<BusinessModels.SmtpSettings>(smtpSettings);
-            services.AddSingleton<Controllers.IMailer, Controllers.Mailer>();
+            services.Configure<Config.SmtpSettings>(smtpSettings);
+
+            //Add services for individual parts
+            services.AddScoped<Services.IEmailService, Services.Core.EmailService>();
+            services.AddScoped<Services.IImagesService, Services.Core.ImagesService>();
+            services.AddScoped<Services.ILandingsService, Services.Core.LandingsService>();
+            services.AddScoped<Services.IPagesService, Services.Core.PagesService>();
+            services.AddScoped<Services.IResumeExpJobsService, Services.Core.ResumeExpJobsService>();
+            services.AddScoped<Services.ISchoolsService, Services.Core.SchoolsService>();
 
             services.AddCors();
 

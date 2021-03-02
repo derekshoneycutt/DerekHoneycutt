@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DerekHoneycutt.BusinessModels
+namespace DerekHoneycutt.Config
 {
     /// <summary>
     /// Defines a block of SMTP Connection settings
@@ -26,5 +26,9 @@ namespace DerekHoneycutt.BusinessModels
         /// Gets or Sets a password to login to the server with
         /// </summary>
         public string Password { get; set; }
+        /// <summary>
+        /// Gets or Sets an email address to mark the email as from
+        /// </summary>
+        public string EmailFrom { get; set; }
     }
 }

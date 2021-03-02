@@ -5,20 +5,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DerekHoneycutt.DbBusiness
+namespace DerekHoneycutt.Services.Core
 {
     /// <summary>
-    /// Static handlers for getting Landings data from the database into Business format
+    /// Service for handling landings in the application
     /// </summary>
-    public static class Landings
+    public class LandingsService : ILandingsService
     {
+        /// <summary>
+        /// Pages service for getting pages from each landing
+        /// </summary>
+        private readonly IPagesService PagesService;
+
+        public LandingsService(IPagesService pagesService)
+        {
+            PagesService = pagesService;
+        }
+
         /// <summary>
         /// Get all of the landings
         /// </summary>
         /// <param name="dbContext">DB Context to work with</param>
         /// <param name="log">Logging object to log operations</param>
         /// <returns>Collection of landings from the database</returns>
-        public static async Task<ICollection<BusinessModels.Landing>> GetAll(
+        public async Task<ICollection<BusinessModels.Landing>> GetAll(
             DbModels.DatabaseContext dbContext, ILogger log)
         {
             var dbModels = await (from landing in dbContext.Landings
@@ -41,13 +51,8 @@ namespace DerekHoneycutt.DbBusiness
                     Subtitle = landing.Subtitle,
                     Icon = landing.Icon,
                     Order = landing.Order,
-                    Pages = new List<BusinessModels.Page>(pages.Count)
+                    Pages = PagesService.ParsePages(dbContext, pages, log).ToList()
                 };
-
-                foreach (var page in pages)
-                {
-                    newLanding.Pages.Add(Pages.ParsePage(page));
-                }
 
                 ret.Add(newLanding);
             }
@@ -64,7 +69,7 @@ namespace DerekHoneycutt.DbBusiness
         /// <returns>Business object representing the landing</returns>
         /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        public static async Task<BusinessModels.Landing> GetById(
+        public async Task<BusinessModels.Landing> GetById(
             DbModels.DatabaseContext dbContext, string id, ILogger log)
         {
             if (!Guid.TryParse(id, out Guid useGuid))
@@ -87,7 +92,7 @@ namespace DerekHoneycutt.DbBusiness
                 Href = landing.Href,
                 Title = landing.Title,
                 Subtitle = landing.Subtitle,
-                Pages = Pages.ParsePages(dbContext, landing.Pages, log).ToList()
+                Pages = PagesService.ParsePages(dbContext, landing.Pages, log).ToList()
             };
         }
     }
