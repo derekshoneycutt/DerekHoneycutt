@@ -53,7 +53,7 @@ namespace DerekHoneycutt.Controllers
         /// <param name="form">Contact information, including who is sending the message and the message</param>
         /// <returns>Action result describing success or failure object</returns>
         [HttpPost]
-        public async Task<IActionResult> PostContact(RestModels.PostContact form)
+        public async Task<IActionResult> PostContact(RequestModels.PostContact form)
         {
             return new OkObjectResult(new { Message = "Message not actually sent." });
 

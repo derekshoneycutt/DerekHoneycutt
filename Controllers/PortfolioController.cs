@@ -66,7 +66,7 @@ namespace DerekHoneycutt.Controllers
                         Rel = "Contact",
                         Href = "portfolio/contact",
                         Method = "POST",
-                        PostData = new RestModels.PostContact()
+                        PostData = new RequestModels.PostContact()
                         {
                             From = "Name",
                             Return = "person@example.com",

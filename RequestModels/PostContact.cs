@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DerekHoneycutt.RestModels
+namespace DerekHoneycutt.RequestModels
 {
     /// <summary>
     /// Defines a form to post contact requests to the server

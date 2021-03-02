@@ -91,6 +91,8 @@ namespace DerekHoneycutt
                 }
             });
 
+            app.UseMiddleware<Middlewares.ErrorHandlerMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
