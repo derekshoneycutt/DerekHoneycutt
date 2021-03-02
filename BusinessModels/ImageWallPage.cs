@@ -11,6 +11,11 @@ namespace DerekHoneycutt.BusinessModels
     public class ImageWallPage : Page
     {
         /// <summary>
+        /// Gets or Sets the original database model, if available
+        /// </summary>
+        public DbModels.ImageWallPage ImageWallPageOrigin { get; set; }
+
+        /// <summary>
         /// Gets or Sets the ID for the database part capturing the image wall
         /// </summary>
         public Guid ImageWallId { get; set; }

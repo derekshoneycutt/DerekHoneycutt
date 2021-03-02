@@ -11,6 +11,11 @@ namespace DerekHoneycutt.BusinessModels
     public class Landing
     {
         /// <summary>
+        /// Gets or Sets the original database model, if available
+        /// </summary>
+        public DbModels.Landing LandingOrigin { get; set; }
+
+        /// <summary>
         /// Gets or Sets the unique identifier of the landing section
         /// </summary>
         public Guid Id { get; set; }

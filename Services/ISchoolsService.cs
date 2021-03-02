@@ -12,15 +12,19 @@ namespace DerekHoneycutt.Services
     public interface ISchoolsService
     {
         /// <summary>
+        /// Get the schools for a particular school wall page
+        /// </summary>
+        /// <param name="page">Page to get the school for (can include just SchoolsId, but must included that)</param>
+        /// <returns>Collection of schools for the specified page</returns>
+        Task<ICollection<BusinessModels.School>> GetFromPage(BusinessModels.SchoolsPage page);
+
+        /// <summary>
         /// Get a specific school by its ID
         /// </summary>
-        /// <param name="dbContext">DB Context to get school from</param>
         /// <param name="id">ID of the school to search for</param>
-        /// <param name="log">Logging object to log information</param>
         /// <returns>Business object representing the school</returns>
         /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        Task<BusinessModels.School> GetById(
-               DbModels.DatabaseContext dbContext, string id, ILogger log);
+        Task<BusinessModels.School> GetById(string id);
     }
 }

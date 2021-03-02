@@ -16,26 +16,14 @@ namespace DerekHoneycutt.Controllers
     public class ResumeExpJobController : ControllerBase
     {
         /// <summary>
-        /// Database Context that the application will run on
-        /// </summary>
-        private readonly DbModels.DatabaseContext _dbContext;
-        /// <summary>
         /// Service for handling resume experience jobs in the application
         /// </summary>
         private readonly Services.IResumeExpJobsService ResumeExpJobsService;
-        /// <summary>
-        /// Logger to log any information as we progress
-        /// </summary>
-        private readonly ILogger<ResumeExpJobController> _logger;
 
         public ResumeExpJobController(
-            DbModels.DatabaseContext dbContext,
-            Services.IResumeExpJobsService resumeExpJobsService,
-            ILogger<ResumeExpJobController> logger)
+            Services.IResumeExpJobsService resumeExpJobsService)
         {
-            _dbContext = dbContext;
             ResumeExpJobsService = resumeExpJobsService;
-            _logger = logger;
         }
 
         /// <summary>
@@ -79,7 +67,7 @@ namespace DerekHoneycutt.Controllers
 
             try
             {
-                job = await ResumeExpJobsService.GetById(_dbContext, jobid, _logger);
+                job = await ResumeExpJobsService.GetById(jobid);
             }
             catch (IndexOutOfRangeException iorex)
             {

@@ -17,8 +17,7 @@ namespace DerekHoneycutt.Services
         /// <param name="dbContext">DB Context to work with</param>
         /// <param name="log">Logging object to log operations</param>
         /// <returns>Collection of landings from the database</returns>
-        Task<ICollection<BusinessModels.Landing>> GetAll(
-            DbModels.DatabaseContext dbContext, ILogger log);
+        Task<ICollection<BusinessModels.Landing>> GetAll();
 
         /// <summary>
         /// Get a specific landing by its ID
@@ -29,7 +28,6 @@ namespace DerekHoneycutt.Services
         /// <returns>Business object representing the landing</returns>
         /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        Task<BusinessModels.Landing> GetById(
-            DbModels.DatabaseContext dbContext, string id, ILogger log);
+        Task<BusinessModels.Landing> GetById(string id);
     }
 }

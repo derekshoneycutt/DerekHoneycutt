@@ -11,6 +11,11 @@ namespace DerekHoneycutt.BusinessModels
     public class TextBlockPage : Page
     {
         /// <summary>
+        /// Gets or Sets the original database model, if available
+        /// </summary>
+        public DbModels.TextBlockPage TextBlockPageOrigin { get; set; }
+
+        /// <summary>
         /// Gets or Sets the unique identifier for the textblock portion of the page
         /// </summary>
         public Guid TextBlockId { get; set; }

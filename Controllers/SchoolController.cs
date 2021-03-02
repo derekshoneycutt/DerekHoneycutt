@@ -16,26 +16,14 @@ namespace DerekHoneycutt.Controllers
     public class SchoolController : ControllerBase
     {
         /// <summary>
-        /// Database Context that the application will run on
-        /// </summary>
-        private readonly DbModels.DatabaseContext _dbContext;
-        /// <summary>
         /// Service for handling schools in the application
         /// </summary>
         private readonly Services.ISchoolsService SchoolsService;
-        /// <summary>
-        /// Logger to log any information as we progress
-        /// </summary>
-        private readonly ILogger<SchoolController> _logger;
 
         public SchoolController(
-            DbModels.DatabaseContext dbContext,
-            Services.ISchoolsService schoolsService,
-            ILogger<SchoolController> logger)
+            Services.ISchoolsService schoolsService)
         {
-            _dbContext = dbContext;
             SchoolsService = schoolsService;
-            _logger = logger;
         }
 
         /// <summary>
@@ -81,7 +69,7 @@ namespace DerekHoneycutt.Controllers
 
             try
             {
-                school = await SchoolsService.GetById(_dbContext, schoolid, _logger);
+                school = await SchoolsService.GetById(schoolid);
             }
             catch (IndexOutOfRangeException iorex)
             {

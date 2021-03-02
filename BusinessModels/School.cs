@@ -11,6 +11,11 @@ namespace DerekHoneycutt.BusinessModels
     public class School
     {
         /// <summary>
+        /// Gets or Sets the original database model, if available
+        /// </summary>
+        public DbModels.School SchoolOrigin { get; set; }
+
+        /// <summary>
         /// Gets or Sets a unique identifier of the school
         /// </summary>
         public Guid Id { get; set; }

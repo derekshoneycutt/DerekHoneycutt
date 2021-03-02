@@ -13,6 +13,41 @@ namespace DerekHoneycutt.Services.Core
     public class PagesService : IPagesService
     {
         /// <summary>
+        /// Database Context that the application will run on
+        /// </summary>
+        private readonly DbModels.DatabaseContext DbContext;
+        /// <summary>
+        /// Logger to log any information as we progress
+        /// </summary>
+        private readonly ILogger Logger;
+        /// <summary>
+        /// Images services for handling images in the application
+        /// </summary>
+        private readonly IImagesService ImagesService;
+        /// <summary>
+        /// Images services for handling resume experience jobs in the application
+        /// </summary>
+        private readonly IResumeExpJobsService ResumeExpJobsService;
+        /// <summary>
+        /// Images services for handling schools in the application
+        /// </summary>
+        private readonly ISchoolsService SchoolsService;
+
+        public PagesService(
+            DbModels.DatabaseContext dbContext,
+            ILogger<PagesService> logger,
+            IImagesService imagesService,
+            IResumeExpJobsService resumeExpJobService,
+            ISchoolsService schoolsService)
+        {
+            DbContext = dbContext;
+            Logger = logger;
+            ImagesService = imagesService;
+            ResumeExpJobsService = resumeExpJobService;
+            SchoolsService = schoolsService;
+        }
+
+        /// <summary>
         /// Parse an empty page
         /// </summary>
         /// <param name="page">empty page to parse</param>
@@ -21,6 +56,7 @@ namespace DerekHoneycutt.Services.Core
         {
             return new BusinessModels.Page()
             {
+                PageOrigin = page,
                 Id = page.Id,
                 Type = String.Empty,
                 Title = page.Title,
@@ -36,14 +72,12 @@ namespace DerekHoneycutt.Services.Core
         /// </summary>
         /// <param name="page">Image wall page to parse</param>
         /// <returns>A parsed Image Wall page</returns>
-        private static BusinessModels.ImageWallPage ParseImageWallPage(
+        private async Task<BusinessModels.ImageWallPage> ParseImageWallPage(
             DbModels.Page page)
         {
-            var images = (from image in page.ImageWallExt.Images
-                          orderby image.Order
-                          select image).ToList();
-            return new BusinessModels.ImageWallPage()
+            var retPage =  new BusinessModels.ImageWallPage()
             {
+                PageOrigin = page,
                 Id = page.Id,
                 Type = BusinessModels.PageTypes.ImageWall,
                 Title = page.Title,
@@ -51,16 +85,14 @@ namespace DerekHoneycutt.Services.Core
                 Background = page.Background,
                 Image = null,
                 Orientation = page.Orientation,
+                ImageWallPageOrigin = page.ImageWallExt,
                 ImageWallId = page.ImageWallExt.Id,
-                Description = page.ImageWallExt.Description,
-                Images = (from image in images
-                          select new BusinessModels.Image()
-                          {
-                              Id = image.Id,
-                              Source = image.Source,
-                              Description = image.Description
-                          }).ToList()
+                Description = page.ImageWallExt.Description
             };
+
+            retPage.Images = await ImagesService.GetFromPage(retPage);
+
+            return retPage;
         }
 
         /// <summary>
@@ -68,13 +100,12 @@ namespace DerekHoneycutt.Services.Core
         /// </summary>
         /// <param name="page">Resume Experience page to parse</param>
         /// <returns>A parsed Resume Experience page</returns>
-        private static BusinessModels.ResumeExpPage ParseResumeExpPage(
+        private async Task<BusinessModels.ResumeExpPage> ParseResumeExpPage(
             DbModels.Page page)
         {
-            var jobs = (from job in page.ResumeExpExt.Jobs
-                        select job).ToList();
-            return new BusinessModels.ResumeExpPage()
+            var retPage = new BusinessModels.ResumeExpPage()
             {
+                PageOrigin = page,
                 Id = page.Id,
                 Type = BusinessModels.PageTypes.ResumeExp,
                 Title = page.Title,
@@ -82,19 +113,12 @@ namespace DerekHoneycutt.Services.Core
                 Background = page.Background,
                 Image = null,
                 Orientation = page.Orientation,
-                ResumeExpId = page.ResumeExpExt.Id,
-                Jobs = (from job in jobs
-                        select new BusinessModels.ResumeExpJob()
-                        {
-                            Id = job.Id,
-                            Title = job.Title,
-                            Description = job.Description,
-                            Employer = job.Employer,
-                            EmployerCity = job.EmployerCity,
-                            StartDate = job.StartDate,
-                            EndDate = job.EndDate
-                        }).ToList()
+                ResumeExpPageOrigin = page.ResumeExpExt,
+                ResumeExpId = page.ResumeExpExt.Id
             };
+            retPage.Jobs = await ResumeExpJobsService.GetFromPage(retPage);
+
+            return retPage;
         }
 
         /// <summary>
@@ -107,6 +131,7 @@ namespace DerekHoneycutt.Services.Core
         {
             return new BusinessModels.ResumeHeadPage()
             {
+                PageOrigin = page,
                 Id = page.Id,
                 Type = BusinessModels.PageTypes.ResumeHead,
                 Title = page.Title,
@@ -114,6 +139,7 @@ namespace DerekHoneycutt.Services.Core
                 Background = page.Background,
                 Image = page.Image,
                 Orientation = page.Orientation,
+                ResumeHeadPageOrigin = page.ResumeHeadExt,
                 ResumeHeadId = page.ResumeHeadExt.Id,
                 Description = page.ResumeHeadExt.Description,
                 Competencies = page.ResumeHeadExt.Competencies
@@ -130,6 +156,7 @@ namespace DerekHoneycutt.Services.Core
         {
             return new BusinessModels.GitHubPage()
             {
+                PageOrigin = page,
                 Id = page.Id,
                 Type = BusinessModels.PageTypes.GitHub,
                 Title = page.Title,
@@ -137,6 +164,7 @@ namespace DerekHoneycutt.Services.Core
                 Background = page.Background,
                 Image = page.Image,
                 Orientation = page.Orientation,
+                GitHubPageOrigin = page.GitHubPageExt,
                 GitHubId = page.GitHubPageExt.Id,
                 Description = page.GitHubPageExt.Description,
                 GitHub = page.GitHubPageExt.GitHub
@@ -148,14 +176,11 @@ namespace DerekHoneycutt.Services.Core
         /// </summary>
         /// <param name="page">Schools page to parse</param>
         /// <returns>A parsed Schools page</returns>
-        private static BusinessModels.SchoolsPage ParseSchoolsPage(
-            DbModels.Page page)
+        private async Task<BusinessModels.SchoolsPage> ParseSchoolsPage(DbModels.Page page)
         {
-            var schools = (from school in page.SchoolsExt.Schools
-                           orderby school.Order
-                           select school).ToList();
-            return new BusinessModels.SchoolsPage()
+            var retPage = new BusinessModels.SchoolsPage()
             {
+                PageOrigin = page,
                 Id = page.Id,
                 Type = BusinessModels.PageTypes.ResumeExp,
                 Title = page.Title,
@@ -163,21 +188,12 @@ namespace DerekHoneycutt.Services.Core
                 Background = page.Background,
                 Image = null,
                 Orientation = page.Orientation,
-                SchoolsId = page.SchoolsExt.Id,
-                Schools = (from school in schools
-                           select new BusinessModels.School()
-                           {
-                               Id = school.Id,
-                               Name = school.Name,
-                               City = school.City,
-                               Program = school.Program,
-                               StartDate = school.StartDate,
-                               EndDate = school.EndDate,
-                               GPA = school.GPA,
-                               Other = school.Other,
-                               Order = school.Order
-                           }).ToList()
+                SchoolsPageOrigin = page.SchoolsExt,
+                SchoolsId = page.SchoolsExt.Id
             };
+            retPage.Schools = await SchoolsService.GetFromPage(retPage);
+
+            return retPage;
         }
 
         /// <summary>
@@ -190,6 +206,7 @@ namespace DerekHoneycutt.Services.Core
         {
             return new BusinessModels.TextBlockPage()
             {
+                PageOrigin = page,
                 Id = page.Id,
                 Type = BusinessModels.PageTypes.TextBlock,
                 Title = page.Title,
@@ -197,6 +214,7 @@ namespace DerekHoneycutt.Services.Core
                 Background = page.Background,
                 Image = page.Image,
                 Orientation = page.Orientation,
+                TextBlockPageOrigin = page.TextBlockExt,
                 TextBlockId = page.TextBlockExt.Id,
                 Text = page.TextBlockExt.Text
             };
@@ -207,7 +225,7 @@ namespace DerekHoneycutt.Services.Core
         /// </summary>
         /// <param name="page">Page to parse</param>
         /// <returns>A parsed page</returns>
-        private static BusinessModels.Page ParsePage(
+        private async Task<BusinessModels.Page> ParsePage(
             DbModels.Page page)
         {
             if (String.Equals(page.Type, BusinessModels.PageTypes.ResumeHead))
@@ -216,15 +234,15 @@ namespace DerekHoneycutt.Services.Core
             }
             else if (String.Equals(page.Type, BusinessModels.PageTypes.ResumeExp))
             {
-                return ParseResumeExpPage(page);
+                return await ParseResumeExpPage(page);
             }
             else if (String.Equals(page.Type, BusinessModels.PageTypes.Schools))
             {
-                return ParseSchoolsPage(page);
+                return await ParseSchoolsPage(page);
             }
             else if (String.Equals(page.Type, BusinessModels.PageTypes.ImageWall))
             {
-                return ParseImageWallPage(page);
+                return await ParseImageWallPage(page);
             }
             else if (String.Equals(page.Type, BusinessModels.PageTypes.TextBlock))
             {
@@ -240,47 +258,60 @@ namespace DerekHoneycutt.Services.Core
             }
         }
 
+
         /// <summary>
-        /// Parse a Page from the database into Business models
+        /// Get the pages for a particular landing
         /// </summary>
-        /// <param name="inpages">The page to translate</param>
-        /// <returns>Business model representing the page</returns>
-        public IEnumerable<BusinessModels.Page> ParsePages(
-            DbModels.DatabaseContext dbContext, IEnumerable<DbModels.Page> inpages, ILogger log)
+        /// <param name="landing">Landing to get the pages for (can include just Id, but must included that)</param>
+        /// <returns>Collection of pages for the specified landing</returns>
+        public async Task<ICollection<BusinessModels.Page>> GetFromLanding(BusinessModels.Landing landing)
         {
-            var pages = (from page in inpages
+            ICollection<DbModels.Page> pages;
+            if (landing.LandingOrigin != null)
+            {
+                pages = (from page in landing.LandingOrigin.Pages
                          orderby page.Order
                          select page).ToList();
-            return pages.Select(p => ParsePage(p)).ToList();
+            }
+            else
+            {
+                pages = await (from page in DbContext.Pages
+                               where page.LandingId == landing.Id
+                               orderby page.Order
+                               select page).ToListAsync();
+            }
+            var ret = new List<BusinessModels.Page>(pages.Count);
+            foreach (var page in pages)
+            {
+                ret.Add(await ParsePage(page));
+            }
+            return ret;
         }
 
         /// <summary>
         /// Get a specific page by its ID
         /// </summary>
-        /// <param name="dbContext">DB Context to get page from</param>
         /// <param name="id">ID of the page to search for</param>
-        /// <param name="log">Logging object to log information</param>
         /// <returns>Business object representing the page</returns>
         /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        public async Task<BusinessModels.Page> GetById(
-            DbModels.DatabaseContext dbContext, string id, ILogger log)
+        public async Task<BusinessModels.Page> GetById(string id)
         {
             if (!Guid.TryParse(id, out Guid useGuid))
             {
-                log.LogError("Invalid ID Passed, not appropriate Guid");
+                Logger.LogError("Invalid ID Passed, not appropriate Guid");
                 throw new IndexOutOfRangeException();
             }
 
-            var page = await dbContext.Pages.FirstOrDefaultAsync(p => useGuid.Equals(p.Id));
+            var page = await DbContext.Pages.FirstOrDefaultAsync(p => useGuid.Equals(p.Id));
 
             if (page == null)
             {
-                log.LogError("Invalid ID Passed, not found");
+                Logger.LogError("Invalid ID Passed, not found");
                 throw new KeyNotFoundException();
             }
 
-            return ParsePage(page);
+            return await ParsePage(page);
         }
     }
 }

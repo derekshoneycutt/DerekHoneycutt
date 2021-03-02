@@ -16,26 +16,14 @@ namespace DerekHoneycutt.Controllers
     public class ImagesController : ControllerBase
     {
         /// <summary>
-        /// Database Context that the application will run on
-        /// </summary>
-        private readonly DbModels.DatabaseContext _dbContext;
-        /// <summary>
         /// Service for handling images in the application
         /// </summary>
         private readonly Services.IImagesService ImagesService;
-        /// <summary>
-        /// Logger to log any information as we progress
-        /// </summary>
-        private readonly ILogger<ImagesController> _logger;
 
         public ImagesController(
-            DbModels.DatabaseContext dbContext,
-            Services.IImagesService imagesService,
-            ILogger<ImagesController> logger)
+            Services.IImagesService imagesService)
         {
-            _dbContext = dbContext;
             ImagesService = imagesService;
-            _logger = logger;
         }
 
         /// <summary>
@@ -75,7 +63,7 @@ namespace DerekHoneycutt.Controllers
 
             try
             {
-                img = await ImagesService.GetById(_dbContext, imgid, _logger);
+                img = await ImagesService.GetById(imgid);
             }
             catch (IndexOutOfRangeException iorex)
             {

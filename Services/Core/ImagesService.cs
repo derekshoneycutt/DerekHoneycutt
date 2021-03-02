@@ -13,6 +13,24 @@ namespace DerekHoneycutt.Services.Core
     public class ImagesService : IImagesService
     {
         /// <summary>
+        /// Database Context that the application will run on
+        /// </summary>
+        private readonly DbModels.DatabaseContext DbContext;
+        /// <summary>
+        /// Logger to log any information as we progress
+        /// </summary>
+        private readonly ILogger Logger;
+
+        public ImagesService(
+            DbModels.DatabaseContext dbContext,
+            ILogger<ImagesService> logger)
+        {
+            DbContext = dbContext;
+            Logger = logger;
+        }
+
+
+        /// <summary>
         /// Parse an image from the database into business code
         /// </summary>
         /// <param name="i">Image to parse</param>
@@ -28,28 +46,50 @@ namespace DerekHoneycutt.Services.Core
         }
 
         /// <summary>
+        /// Get the images for a particular image wall page
+        /// </summary>
+        /// <param name="page">Page to get the images for (can include just ImageWallId, but must included that)</param>
+        /// <returns>Collection of images for the specified page</returns>
+        public async Task<ICollection<BusinessModels.Image>> GetFromPage(BusinessModels.ImageWallPage page)
+        {
+            ICollection<BusinessModels.Image> ret;
+            if (page.ImageWallPageOrigin != null)
+            {
+                ret = (from img in page.ImageWallPageOrigin.Images
+                       orderby img.Order
+                       select Parse(img)).ToList();
+            }
+            else
+            {
+                ret = await (from img in DbContext.Images
+                             where img.PageId == page.ImageWallId
+                             orderby img.Order
+                             select Parse(img)).ToListAsync();
+            }
+
+            return ret;
+        }
+
+        /// <summary>
         /// Get a specific image by its ID
         /// </summary>
-        /// <param name="dbContext">DB Context to get job from</param>
         /// <param name="id">ID of the image to search for</param>
-        /// <param name="log">Logging object to log information</param>
         /// <returns>Business object representing the image</returns>
         /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        public async Task<BusinessModels.Image> GetById(
-            DbModels.DatabaseContext dbContext, string id, ILogger log)
+        public async Task<BusinessModels.Image> GetById(string id)
         {
             if (!Guid.TryParse(id, out Guid useGuid))
             {
-                log.LogError("Invalid ID Passed, not appropriate Guid");
+                Logger.LogError("Invalid ID Passed, not appropriate Guid");
                 throw new IndexOutOfRangeException();
             }
 
-            var image = await dbContext.Images.FirstOrDefaultAsync(i => useGuid.Equals(i.Id));
+            var image = await DbContext.Images.FirstOrDefaultAsync(i => useGuid.Equals(i.Id));
 
             if (image == null)
             {
-                log.LogError("Invalid ID Passed, not found");
+                Logger.LogError("Invalid ID Passed, not found");
                 throw new KeyNotFoundException();
             }
 

@@ -16,26 +16,14 @@ namespace DerekHoneycutt.Controllers
     public class LandingController : ControllerBase
     {
         /// <summary>
-        /// Database Context that the application will run on
-        /// </summary>
-        private readonly DbModels.DatabaseContext _dbContext;
-        /// <summary>
         /// Service for handling landings in the application
         /// </summary>
         private readonly Services.ILandingsService LandingsService;
-        /// <summary>
-        /// Logger to log any information as we progress
-        /// </summary>
-        private readonly ILogger<LandingController> _logger;
 
         public LandingController(
-            DbModels.DatabaseContext dbContext,
-            Services.ILandingsService landingsService,
-            ILogger<LandingController> logger)
+            Services.ILandingsService landingsService)
         {
-            _dbContext = dbContext;
             LandingsService = landingsService;
-            _logger = logger;
         }
 
         /// <summary>
@@ -79,7 +67,7 @@ namespace DerekHoneycutt.Controllers
 
             try
             {
-                landing = await LandingsService.GetById(_dbContext, landingid, _logger);
+                landing = await LandingsService.GetById(landingid);
             }
             catch (IndexOutOfRangeException iorex)
             {

@@ -11,6 +11,11 @@ namespace DerekHoneycutt.BusinessModels
     public class GitHubPage : Page
     {
         /// <summary>
+        /// Gets or Sets the original database model, if available
+        /// </summary>
+        public DbModels.GitHubPage GitHubPageOrigin { get; set; }
+
+        /// <summary>
         /// Gets or Sets a unique identifier for the resume header part of the page
         /// </summary>
         public Guid GitHubId { get; set; }

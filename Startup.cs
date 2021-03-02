@@ -26,6 +26,11 @@ namespace DerekHoneycutt
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging(conf =>
+            {
+                conf.AddDebug();
+            });
+
             var connectionChoice = Configuration.GetValue("UseConnection", "Azure") ?? "";
             var connectionString = Configuration.GetConnectionString(connectionChoice);
             services.AddDbContext<DbModels.DatabaseContext>(opt =>

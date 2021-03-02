@@ -18,26 +18,14 @@ namespace DerekHoneycutt.Controllers
     public class PortfolioController : Controller
     {
         /// <summary>
-        /// Database Context that the application will run on
-        /// </summary>
-        private readonly DbModels.DatabaseContext _dbContext;
-        /// <summary>
         /// Service for handling landings in the application
         /// </summary>
         private readonly Services.ILandingsService LandingsService;
-        /// <summary>
-        /// Logger to log any information as we progress
-        /// </summary>
-        private readonly ILogger<PortfolioController> _logger;
 
         public PortfolioController(
-            DbModels.DatabaseContext dbContext,
-            Services.ILandingsService landingsService,
-            ILogger<PortfolioController> logger)
+            Services.ILandingsService landingsService)
         {
-            _dbContext = dbContext;
             LandingsService = landingsService;
-            _logger = logger;
         }
 
         /// <summary>
@@ -47,7 +35,7 @@ namespace DerekHoneycutt.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var landings = await LandingsService.GetAll(_dbContext, _logger);
+            var landings = await LandingsService.GetAll();
 
             return new OkObjectResult(new RestModels.Home()
             {

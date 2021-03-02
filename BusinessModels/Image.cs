@@ -11,6 +11,11 @@ namespace DerekHoneycutt.BusinessModels
     public class Image
     {
         /// <summary>
+        /// Gets or Sets the original database model, if available
+        /// </summary>
+        public DbModels.Image ImageOrigin { get; set; }
+
+        /// <summary>
         /// Gets or Sets a unique identifier of the image
         /// </summary>
         public Guid Id { get; set; }

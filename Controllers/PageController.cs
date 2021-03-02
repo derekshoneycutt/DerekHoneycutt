@@ -16,26 +16,14 @@ namespace DerekHoneycutt.Controllers
     public class PageController : ControllerBase
     {
         /// <summary>
-        /// Database Context that the application will run on
-        /// </summary>
-        private readonly DbModels.DatabaseContext _dbContext;
-        /// <summary>
         /// Service for handling pages in the application
         /// </summary>
         private readonly Services.IPagesService PagesService;
-        /// <summary>
-        /// Logger to log any information as we progress
-        /// </summary>
-        private readonly ILogger<PageController> _logger;
 
         public PageController(
-            DbModels.DatabaseContext dbContext,
-            Services.IPagesService pagesService,
-            ILogger<PageController> logger)
+            Services.IPagesService pagesService)
         {
-            _dbContext = dbContext;
             PagesService = pagesService;
-            _logger = logger;
         }
 
         /// <summary>
@@ -134,7 +122,7 @@ namespace DerekHoneycutt.Controllers
 
             try
             {
-                page = await PagesService.GetById(_dbContext, pageid, _logger);
+                page = await PagesService.GetById(pageid);
             }
             catch (IndexOutOfRangeException iorex)
             {

@@ -13,12 +13,26 @@ namespace DerekHoneycutt.Services.Core
     public class LandingsService : ILandingsService
     {
         /// <summary>
+        /// Database Context that the application will run on
+        /// </summary>
+        private readonly DbModels.DatabaseContext DbContext;
+        /// <summary>
+        /// Logger to log any information as we progress
+        /// </summary>
+        private readonly ILogger Logger;
+
+        /// <summary>
         /// Pages service for getting pages from each landing
         /// </summary>
         private readonly IPagesService PagesService;
 
-        public LandingsService(IPagesService pagesService)
+        public LandingsService(
+            DbModels.DatabaseContext dbContext,
+            ILogger<SchoolsService> logger,
+            IPagesService pagesService)
         {
+            DbContext = dbContext;
+            Logger = logger;
             PagesService = pagesService;
         }
 
@@ -28,10 +42,9 @@ namespace DerekHoneycutt.Services.Core
         /// <param name="dbContext">DB Context to work with</param>
         /// <param name="log">Logging object to log operations</param>
         /// <returns>Collection of landings from the database</returns>
-        public async Task<ICollection<BusinessModels.Landing>> GetAll(
-            DbModels.DatabaseContext dbContext, ILogger log)
+        public async Task<ICollection<BusinessModels.Landing>> GetAll()
         {
-            var dbModels = await (from landing in dbContext.Landings
+            var dbModels = await (from landing in DbContext.Landings
                                   orderby landing.Order
                                   select landing).ToListAsync();
 
@@ -45,14 +58,15 @@ namespace DerekHoneycutt.Services.Core
 
                 var newLanding = new BusinessModels.Landing()
                 {
+                    LandingOrigin = landing,
                     Id = landing.Id,
                     Href = landing.Href,
                     Title = landing.Title,
                     Subtitle = landing.Subtitle,
                     Icon = landing.Icon,
                     Order = landing.Order,
-                    Pages = PagesService.ParsePages(dbContext, pages, log).ToList()
                 };
+                newLanding.Pages = await PagesService.GetFromLanding(newLanding);
 
                 ret.Add(newLanding);
             }
@@ -69,31 +83,32 @@ namespace DerekHoneycutt.Services.Core
         /// <returns>Business object representing the landing</returns>
         /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        public async Task<BusinessModels.Landing> GetById(
-            DbModels.DatabaseContext dbContext, string id, ILogger log)
+        public async Task<BusinessModels.Landing> GetById(string id)
         {
             if (!Guid.TryParse(id, out Guid useGuid))
             {
-                log.LogError("Invalid ID Passed, not appropriate Guid");
+                Logger.LogError("Invalid ID Passed, not appropriate Guid");
                 throw new IndexOutOfRangeException();
             }
 
-            var landing = await dbContext.Landings.FirstOrDefaultAsync(l => useGuid.Equals(l.Id));
+            var landing = await DbContext.Landings.FirstOrDefaultAsync(l => useGuid.Equals(l.Id));
 
             if (landing == null)
             {
-                log.LogError("Invalid ID Passed, not found");
+                Logger.LogError("Invalid ID Passed, not found");
                 throw new KeyNotFoundException();
             }
 
-            return new BusinessModels.Landing()
+            var retLanding = new BusinessModels.Landing()
             {
+                LandingOrigin = landing,
                 Id = landing.Id,
                 Href = landing.Href,
                 Title = landing.Title,
-                Subtitle = landing.Subtitle,
-                Pages = PagesService.ParsePages(dbContext, landing.Pages, log).ToList()
+                Subtitle = landing.Subtitle
             };
+            retLanding.Pages = await PagesService.GetFromLanding(retLanding);
+            return retLanding;
         }
     }
 }

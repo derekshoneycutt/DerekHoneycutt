@@ -11,6 +11,11 @@ namespace DerekHoneycutt.BusinessModels
     public class ResumeExpJob
     {
         /// <summary>
+        /// Gets or Sets the original database model, if available
+        /// </summary>
+        public DbModels.ResumeExpJob ResumeExpJobOrigin { get; set; }
+
+        /// <summary>
         /// Gets or Sets the unique identifier of the job
         /// </summary>
         public Guid Id { get; set; }

@@ -11,6 +11,11 @@ namespace DerekHoneycutt.BusinessModels
     public class SchoolsPage : Page
     {
         /// <summary>
+        /// Gets or Sets the original database model, if available
+        /// </summary>
+        public DbModels.SchoolsPage SchoolsPageOrigin { get; set; }
+
+        /// <summary>
         /// Gets or Sets a unique identifier for the schools part of the page
         /// </summary>
         public Guid SchoolsId { get; set; }

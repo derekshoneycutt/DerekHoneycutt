@@ -13,6 +13,24 @@ namespace DerekHoneycutt.Services.Core
     public class SchoolsService : ISchoolsService
     {
         /// <summary>
+        /// Database Context that the application will run on
+        /// </summary>
+        private readonly DbModels.DatabaseContext DbContext;
+        /// <summary>
+        /// Logger to log any information as we progress
+        /// </summary>
+        private readonly ILogger Logger;
+
+        public SchoolsService(
+            DbModels.DatabaseContext dbContext,
+            ILogger<SchoolsService> logger)
+        {
+            DbContext = dbContext;
+            Logger = logger;
+        }
+
+
+        /// <summary>
         /// Parse a school from the database into business code
         /// </summary>
         /// <param name="s">School to parse</param>
@@ -34,28 +52,50 @@ namespace DerekHoneycutt.Services.Core
         }
 
         /// <summary>
+        /// Get the schools for a particular school wall page
+        /// </summary>
+        /// <param name="page">Page to get the school for (can include just SchoolsId, but must included that)</param>
+        /// <returns>Collection of schools for the specified page</returns>
+        public async Task<ICollection<BusinessModels.School>> GetFromPage(BusinessModels.SchoolsPage page)
+        {
+            ICollection<BusinessModels.School> ret;
+            if (page.SchoolsPageOrigin != null)
+            {
+                ret = (from school in page.SchoolsPageOrigin.Schools
+                       orderby school.Order
+                       select Parse(school)).ToList();
+            }
+            else
+            {
+                ret = await (from school in DbContext.Schools
+                             where school.PageId == page.SchoolsId
+                             orderby school.Order
+                             select Parse(school)).ToListAsync();
+            }
+
+            return ret;
+        }
+
+        /// <summary>
         /// Get a specific school by its ID
         /// </summary>
-        /// <param name="dbContext">DB Context to get school from</param>
         /// <param name="id">ID of the school to search for</param>
-        /// <param name="log">Logging object to log information</param>
         /// <returns>Business object representing the school</returns>
         /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        public async Task<BusinessModels.School> GetById(
-            DbModels.DatabaseContext dbContext, string id, ILogger log)
+        public async Task<BusinessModels.School> GetById(string id)
         {
             if (!Guid.TryParse(id, out Guid useGuid))
             {
-                log.LogError("Invalid ID Passed, not appropriate Guid");
+                Logger.LogError("Invalid ID Passed, not appropriate Guid");
                 throw new IndexOutOfRangeException();
             }
 
-            var school = await dbContext.Schools.FirstOrDefaultAsync(s => useGuid.Equals(s.Id));
+            var school = await DbContext.Schools.FirstOrDefaultAsync(s => useGuid.Equals(s.Id));
 
             if (school == null)
             {
-                log.LogError("Invalid ID Passed, not found");
+                Logger.LogError("Invalid ID Passed, not found");
                 throw new KeyNotFoundException();
             }
 
