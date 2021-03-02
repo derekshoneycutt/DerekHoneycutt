@@ -52,10 +52,6 @@ namespace DerekHoneycutt.Services.Core
 
             foreach (var landing in dbModels)
             {
-                var pages = (from page in landing.Pages
-                             orderby page.Order
-                             select page).ToList();
-
                 var newLanding = new BusinessModels.Landing()
                 {
                     LandingOrigin = landing,
