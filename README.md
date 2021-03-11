@@ -2,7 +2,7 @@
 
 This is a repository for my personal portfolio website and code that I'm willing to show as additional portfolio. Although primarily the codebase for my personal "resume" website, there is some work from other projects included as well. For example, a few C# WPF projects are included in an OTHERS folder; these are generally older code that may be below par on my own standards today, but they provide some useful code and old sampling of work I have collected over the years.
 
-The primary project here is an intentionally over-engineered C# Web API RESTful backend with a vanilla Javascript frontend built with web components. 
+The primary project here is an intentionally over-engineered C# Web API RESTful backend with a vanilla Javascript frontend built with web components. I wanted to showcase a proper RESTful backend, including HATEOAS, and I also took the challenge of vanilla Javascript (with helper methods developed along the way) as a delve into the technological basis of the web.
 
 Portfolio is currently deployed at [https://www.derekhoneycutt.com](https://www.derekhoneycutt.com)
 
@@ -30,7 +30,7 @@ import { Imogene as $, ImogeneExports as $_, ImogeneTemplate as $t } from 'Imoge
 The `$` syntax is remarkable for only kind of following a jQuery type syntax. For example, the following is possible:
 ```javascript
 const checkbox = $("#mycheckbox");
-$_.setProperties(arrayOfElements, {
+$_.setProperties(checkbox, {
 	checked: true
 });
 ```
@@ -63,7 +63,7 @@ Every link will be translated into a function on the returned object of `RestFet
 let data = await $_.RestFetch('/api/', 'portfolio', err_callback);
 let settings = await data.getSettings(); 
 let postData = Object.assign({}, settings.postAddressPostData);
-postData .address = '123 New Address Lane';
+postData.address = '123 New Address Lane';
 await settings.postAddress(postData);
 ```
 
