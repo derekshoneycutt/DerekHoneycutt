@@ -77,15 +77,9 @@ namespace DerekHoneycutt.Services.Core
         /// <returns>Business object representing the image</returns>
         /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        public async Task<BusinessModels.Image> GetById(string id)
+        public async Task<BusinessModels.Image> GetById(Guid id)
         {
-            if (!Guid.TryParse(id, out Guid useGuid))
-            {
-                Logger.LogError("Invalid ID Passed, not appropriate Guid");
-                throw new IndexOutOfRangeException();
-            }
-
-            var image = await DbContext.Images.FirstOrDefaultAsync(i => useGuid.Equals(i.Id));
+            var image = await DbContext.Images.FirstOrDefaultAsync(i => id.Equals(i.Id));
 
             if (image == null)
             {

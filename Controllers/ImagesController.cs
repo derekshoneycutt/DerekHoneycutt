@@ -57,7 +57,7 @@ namespace DerekHoneycutt.Controllers
         /// <param name="imgid">ID of the image to retrieve</param>
         /// <returns>Action result, hopefully including job</returns>
         [HttpGet("{imgid}")]
-        public async Task<IActionResult> GetImage(string imgid)
+        public async Task<IActionResult> GetImage(Guid imgid)
         {
             BusinessModels.Image img;
 

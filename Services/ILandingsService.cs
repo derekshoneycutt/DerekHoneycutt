@@ -26,8 +26,7 @@ namespace DerekHoneycutt.Services
         /// <param name="id">ID of the landing to search for</param>
         /// <param name="log">Logging object to log information</param>
         /// <returns>Business object representing the landing</returns>
-        /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        Task<BusinessModels.Landing> GetById(string id);
+        Task<BusinessModels.Landing> GetById(Guid id);
     }
 }

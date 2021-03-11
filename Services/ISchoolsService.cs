@@ -23,8 +23,7 @@ namespace DerekHoneycutt.Services
         /// </summary>
         /// <param name="id">ID of the school to search for</param>
         /// <returns>Business object representing the school</returns>
-        /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        Task<BusinessModels.School> GetById(string id);
+        Task<BusinessModels.School> GetById(Guid id);
     }
 }

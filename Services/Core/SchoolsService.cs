@@ -81,17 +81,10 @@ namespace DerekHoneycutt.Services.Core
         /// </summary>
         /// <param name="id">ID of the school to search for</param>
         /// <returns>Business object representing the school</returns>
-        /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        public async Task<BusinessModels.School> GetById(string id)
+        public async Task<BusinessModels.School> GetById(Guid id)
         {
-            if (!Guid.TryParse(id, out Guid useGuid))
-            {
-                Logger.LogError("Invalid ID Passed, not appropriate Guid");
-                throw new IndexOutOfRangeException();
-            }
-
-            var school = await DbContext.Schools.FirstOrDefaultAsync(s => useGuid.Equals(s.Id));
+            var school = await DbContext.Schools.FirstOrDefaultAsync(s => id.Equals(s.Id));
 
             if (school == null)
             {

@@ -61,7 +61,7 @@ namespace DerekHoneycutt.Controllers
         /// <param name="jobid">ID of the job to retrieve</param>
         /// <returns>Action result, hopefully including job</returns>
         [HttpGet("{jobid}")]
-        public async Task<IActionResult> GetResumeExpJob(string jobid)
+        public async Task<IActionResult> GetResumeExpJob(Guid jobid)
         {
             BusinessModels.ResumeExpJob job;
 

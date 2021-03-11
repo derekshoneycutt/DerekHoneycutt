@@ -61,7 +61,7 @@ namespace DerekHoneycutt.Controllers
         /// <param name="landingid">ID of the landing to retrieve</param>
         /// <returns>Action result, hopefully including landing</returns>
         [HttpGet("{landingid}")]
-        public async Task<IActionResult> GetLanding(string landingid)
+        public async Task<IActionResult> GetLanding(Guid landingid)
         {
             BusinessModels.Landing landing;
 

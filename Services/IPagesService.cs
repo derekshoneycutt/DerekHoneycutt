@@ -23,8 +23,7 @@ namespace DerekHoneycutt.Services
         /// </summary>
         /// <param name="id">ID of the page to search for</param>
         /// <returns>Business object representing the page</returns>
-        /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        Task<BusinessModels.Page> GetById(string id);
+        Task<BusinessModels.Page> GetById(Guid id);
     }
 }

@@ -77,17 +77,10 @@ namespace DerekHoneycutt.Services.Core
         /// </summary>
         /// <param name="id">ID of the job to search for</param>
         /// <returns>Business object representing the job</returns>
-        /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        public async Task<BusinessModels.ResumeExpJob> GetById(string id)
+        public async Task<BusinessModels.ResumeExpJob> GetById(Guid id)
         {
-            if (!Guid.TryParse(id, out Guid useGuid))
-            {
-                Logger.LogError("Invalid ID Passed, not appropriate Guid");
-                throw new IndexOutOfRangeException();
-            }
-
-            var job = await DbContext.ResumeExpJobs.FirstOrDefaultAsync(j => useGuid.Equals(j.Id));
+            var job = await DbContext.ResumeExpJobs.FirstOrDefaultAsync(j => id.Equals(j.Id));
 
             if (job == null)
             {

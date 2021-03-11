@@ -116,7 +116,7 @@ namespace DerekHoneycutt.Controllers
         /// <param name="pageid">ID of the page to retrieve</param>
         /// <returns>Action result, hopefully including page</returns>
         [HttpGet("{pageid}")]
-        public async Task<IActionResult> GetPage(string pageid)
+        public async Task<IActionResult> GetPage(Guid pageid)
         {
             BusinessModels.Page page;
 

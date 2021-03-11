@@ -79,15 +79,9 @@ namespace DerekHoneycutt.Services.Core
         /// <returns>Business object representing the landing</returns>
         /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        public async Task<BusinessModels.Landing> GetById(string id)
+        public async Task<BusinessModels.Landing> GetById(Guid id)
         {
-            if (!Guid.TryParse(id, out Guid useGuid))
-            {
-                Logger.LogError("Invalid ID Passed, not appropriate Guid");
-                throw new IndexOutOfRangeException();
-            }
-
-            var landing = await DbContext.Landings.FirstOrDefaultAsync(l => useGuid.Equals(l.Id));
+            var landing = await DbContext.Landings.FirstOrDefaultAsync(l => id.Equals(l.Id));
 
             if (landing == null)
             {

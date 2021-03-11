@@ -293,17 +293,10 @@ namespace DerekHoneycutt.Services.Core
         /// </summary>
         /// <param name="id">ID of the page to search for</param>
         /// <returns>Business object representing the page</returns>
-        /// <exception cref="IndexOutOfRangeException">Invalid GUID string</exception>
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
-        public async Task<BusinessModels.Page> GetById(string id)
+        public async Task<BusinessModels.Page> GetById(Guid id)
         {
-            if (!Guid.TryParse(id, out Guid useGuid))
-            {
-                Logger.LogError("Invalid ID Passed, not appropriate Guid");
-                throw new IndexOutOfRangeException();
-            }
-
-            var page = await DbContext.Pages.FirstOrDefaultAsync(p => useGuid.Equals(p.Id));
+            var page = await DbContext.Pages.FirstOrDefaultAsync(p => id.Equals(p.Id));
 
             if (page == null)
             {

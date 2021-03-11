@@ -63,7 +63,7 @@ namespace DerekHoneycutt.Controllers
         /// <param name="landingid">ID of the school to retrieve</param>
         /// <returns>Action result, hopefully including school</returns>
         [HttpGet("{schoolid}")]
-        public async Task<IActionResult> GetSchool(string schoolid)
+        public async Task<IActionResult> GetSchool(Guid schoolid)
         {
             BusinessModels.School school;
 
