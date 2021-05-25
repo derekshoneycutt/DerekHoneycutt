@@ -25,6 +25,8 @@ jobs:
         echo '${{ secrets.DEREKHONEYCUTT_APPSETTINGS }}' > "DerekHoneycutt\\appsettings.json"
         echo '${{ secrets.DEREKHONEYCUTT_FRONTEND_APPINSIGHTS }}' > "front_src\\main\\appinsights.js"
         echo '${{ secrets.DEREKHONEYCUTT_WEBPACK_USERCONFIG }}' > "front_src\\webpack.user_config.js"
+        ls "font_src"
+        cat "front_src\\webpack.user_config.js"
       shell: powershell
     - name: Build Frontend
       run: .\Prepare-Frontend.ps1
