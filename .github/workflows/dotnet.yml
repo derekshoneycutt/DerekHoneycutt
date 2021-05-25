@@ -26,6 +26,6 @@ jobs:
       with:
         script: "Prepare-Frontend.ps1"
     - name: Build Backend
-      run: dotnet build --no-restore "./DerekHoneycutt/DerekHoneycutt.csproj"
+      run: dotnet build --no-restore "DerekHoneycutt/DerekHoneycutt.csproj" --configuration Release
     #- name: Test
     #  run: dotnet test --no-build --verbosity normal
