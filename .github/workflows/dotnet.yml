@@ -23,16 +23,21 @@ jobs:
     - name: Restore Secret Files
       env:
        CONNECTIONSTRING_AZURE: ${{ secrets.CONNECTIONSTRING_AZURE }}
-       APPINSIGHTS_INSTRUMENTKEY: ${{secrets.APPINSIGHTS_INSTRUMENTKEY}}
+       APPINSIGHTS_INSTRUMENTKEY: ${{secrets.APPINSIGHTS_INSTRUMENTKEY}},
+       USERCONFIG_TITLE: ${{secrets.USERCONFIG_TITLE}},
+       USERCONFIG_FIRSTNAME: ${{secrets.USERCONFIG_FIRSTNAME}},
+       USERCONFIG_LASTNAME: ${{secrets.USERCONFIG_LASTNAME}},
+       USERCONFIG_DESCRIPTION: ${{secrets.USERCONFIG_DESCRIPTION}},
+       USERCONFIG_URL: ${{secrets.USERCONFIG_URL}}
       run: |
         $appSettings = cat "DerekHoneycutt\\appsettings.json" | ConvertFrom-Json
-        $appSettings.ConnectionStrings.Azure = "$CONNECTIONSTRING_AZURE"
+        $appSettings.ConnectionStrings.Azure = "$env:CONNECTIONSTRING_AZURE"
         $appSettings | ConvertTo-Json -depth 100 | Out-File "DerekHoneycutt\\appsettings.json"
         cat "DerekHoneycutt\\appsettings.json"
-        $appInsights = "import { Imogene as x } from '../Imogene/Imogene'; import { ApplicationInsights } from '@microsoft/applicationinsights-web'; x(() => { const i = new ApplicationInsights({ config: { instrumentationKey: '$APPINSIGHTS_INSTRUMENTKEY' } }); i.loadAppInsights(), i.trackPageView() });"
+        $appInsights = "import { Imogene as x } from '../Imogene/Imogene'; import { ApplicationInsights } from '@microsoft/applicationinsights-web'; x(() => { const i = new ApplicationInsights({ config: { instrumentationKey: '$env:APPINSIGHTS_INSTRUMENTKEY' } }); i.loadAppInsights(), i.trackPageView() });"
         echo $appInsights > "front_src\\main\\appinsights.js"
         cat "front_src\\main\\appinsights.js"
-        $wpuserconfig = "const UserConfig = { title: '${{secrets.USERCONFIG_TITLE}}', first_name: '${{secrets.USERCONFIG_FIRSTNAME}}', last_name: '${{secrets.USERCONFIG_LASTNAME}}', description: '${{secrets.USERCONFIG_DESCRIPTION}}', url: '${{secrets.USERCONFIG_URL}}' }; module.exports['UserConfig'] = UserConfig;"
+        $wpuserconfig = "const UserConfig = { title: '$env:USERCONFIG_TITLE', first_name: '$env:USERCONFIG_FIRSTNAME', last_name: '$env:USERCONFIG_LASTNAME', description: '$env:USERCONFIG_DESCRIPTION', url: '$env:USERCONFIG_URL' }; module.exports['UserConfig'] = UserConfig;"
         echo $wpuserconfig > "front_src\\webpack.user_config.js"
         cat "front_src\\webpack.user_config.js"
         #${{ secrets.DEREKHONEYCUTT_APPSETTINGS }} | Out-File "DerekHoneycutt\\appsettings.json"
