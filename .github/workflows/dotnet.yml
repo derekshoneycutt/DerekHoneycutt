@@ -18,12 +18,11 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Build Frontend
-      uses: Amadevus/pwsh-script@v2.0.1
-      with:
-        script: "Prepare-Frontend.ps1"
+      run: .\Prepare-Frontend.ps1
+      shell: powershell
     - name: Restore dependencies for Backend
       run: dotnet restore
     - name: Build Backend
-      run: dotnet build --no-restore "DerekHoneycutt/DerekHoneycutt.csproj" --configuration Release
+      run: dotnet build --no-restore --configuration Release
     #- name: Test
     #  run: dotnet test --no-build --verbosity normal
