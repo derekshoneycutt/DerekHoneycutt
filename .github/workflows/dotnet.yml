@@ -22,13 +22,13 @@ jobs:
       uses: actions/setup-node@v1
     - name: Restore Secret Files
       run: |
-        ${{ secrets.DEREKHONEYCUTT_APPSETTINGS }} | Out-File "DerekHoneycutt\\appsettings.json"
-        ${{ secrets.DEREKHONEYCUTT_FRONTEND_APPINSIGHTS }} | Out-File "front_src\\main\\appinsights.js"
-        ${{ secrets.DEREKHONEYCUTT_WEBPACK_USERCONFIG }} | Out-File "front_src\\webpack.user_config.js"
-        #$appSettings = "${{ secrets.DEREKHONEYCUTT_BUILDDATA }}" | ConvertFrom-Json
-        #$appSettings.AppSettings | ConvertTo-Json -depth 100 | Out-File "DerekHoneycutt\\appsettings.json"
-        #$appSettings.AppInsightsScript | Out-File "front_src\\main\\appinsights.js"
-        #$appSettings.WebpackUserConfig | Out-File "front_src\\webpack.user_config.js"
+        #${{ secrets.DEREKHONEYCUTT_APPSETTINGS }} | Out-File "DerekHoneycutt\\appsettings.json"
+        #${{ secrets.DEREKHONEYCUTT_FRONTEND_APPINSIGHTS }} | Out-File "front_src\\main\\appinsights.js"
+        #${{ secrets.DEREKHONEYCUTT_WEBPACK_USERCONFIG }} | Out-File "front_src\\webpack.user_config.js"
+        $appSettings = "${{ secrets.DEREKHONEYCUTT_BUILDDATA }}" | ConvertFrom-Json
+        $appSettings.AppSettings | ConvertTo-Json -depth 100 | Out-File "DerekHoneycutt\\appsettings.json"
+        $appSettings.AppInsightsScript | Out-File "front_src\\main\\appinsights.js"
+        $appSettings.WebpackUserConfig | Out-File "front_src\\webpack.user_config.js"
         #echo '${{ secrets.DEREKHONEYCUTT_APPSETTINGS }}' > "DerekHoneycutt\\appsettings.json"
         #echo '${{ secrets.DEREKHONEYCUTT_FRONTEND_APPINSIGHTS }}' > "front_src\\main\\appinsights.js"
         #echo '${{ secrets.DEREKHONEYCUTT_WEBPACK_USERCONFIG }}' > "front_src\\webpack.user_config.js"
