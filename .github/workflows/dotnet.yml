@@ -20,18 +20,6 @@ jobs:
         dotnet-version: 5.0.x
     - name: Setup Node.js
       uses: actions/setup-node@v1
-    - name: Restore Secret Files
-      env:
-       CONNECTIONSTRING_AZURE: ${{ secrets.CONNECTIONSTRING_AZURE }}
-       APPINSIGHTS_INSTRUMENTKEY: ${{secrets.APPINSIGHTS_INSTRUMENTKEY}},
-       USERCONFIG_TITLE: ${{secrets.USERCONFIG_TITLE}},
-       USERCONFIG_FIRSTNAME: ${{secrets.USERCONFIG_FIRSTNAME}},
-       USERCONFIG_LASTNAME: ${{secrets.USERCONFIG_LASTNAME}},
-       USERCONFIG_DESCRIPTION: ${{secrets.USERCONFIG_DESCRIPTION}},
-       USERCONFIG_URL: ${{secrets.USERCONFIG_URL}}
-      run: |
-        .\SetupSecrets.ps1 -CONNECTIONSTRING_AZURE "$env:CONNECTIONSTRING_AZURE" -APPINSIGHTS_INSTRUMENTKEY "$env:APPINSIGHTS_INSTRUMENTKEY" -USERCONFIG_TITLE "$env:USERCONFIG_TITLE" -USERCONFIG_FIRSTNAME "$env:USERCONFIG_FIRSTNAME" -USERCONFIG_LASTNAME "$env:USERCONFIG_LASTNAME" -USERCONFIG_DESCRIPTION "$env:USERCONFIG_DESCRIPTION" -USERCONFIG_URL "$env:USERCONFIG_URL"
-      shell: powershell
     - name: Build Frontend
       run: .\Prepare-Frontend.ps1
       shell: powershell

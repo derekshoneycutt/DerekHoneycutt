@@ -19,7 +19,6 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include="DateExts.js" />
-    <Content Include="demo_webpack.user_config.js" />
     <Content Include="localdefs.js" />
     <Content Include="postcss.config.js" />
     <Content Include="ServerTypeDefs.js" />
