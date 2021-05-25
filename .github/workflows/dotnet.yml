@@ -17,9 +17,11 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: Restore dependencies for Backend
+      run: dotnet restore "./DerekHoneycutt/DerekHoneycutt.csproj"
+    - name: Restore dependencies for Frontend
+      run: dotnet restore "./front_src/DerekHoneycutt.front_end.njsproj"
+    - name: Build Backend
+      run: dotnet build --no-restore "./DerekHoneycutt/DerekHoneycutt.csproj"
+    #- name: Test
+    #  run: dotnet test --no-build --verbosity normal
