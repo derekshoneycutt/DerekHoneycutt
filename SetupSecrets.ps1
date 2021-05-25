@@ -1,10 +1,11 @@
+
 Param (
     [Parameter(Mandatory=$true)][String] $CONNECTIONSTRING_AZURE,
     [Parameter(Mandatory=$true)][String] $APPINSIGHTS_INSTRUMENTKEY,
     [Parameter(Mandatory=$true)][String] $USERCONFIG_TITLE,
     [Parameter(Mandatory=$true)][String] $USERCONFIG_FIRSTNAME,
     [Parameter(Mandatory=$true)][String] $USERCONFIG_LASTNAME,
-    [Parameter(Mandatory=$true)][String] $USERCONFIG_DESCRIPTION
+    [Parameter(Mandatory=$true)][String] $USERCONFIG_DESCRIPTION,
     [Parameter(Mandatory=$true)][String] $USERCONFIG_URL
 )
 
