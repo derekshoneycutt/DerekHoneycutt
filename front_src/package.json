@@ -21,7 +21,6 @@
     "html-loader": "^2.0.0",
     "html-webpack-partials-plugin": "^0.8.0",
     "html-webpack-plugin": "^5.1.0",
-    "markedjs": "^10.0.0",
     "postcss-loader": "^5.0.0",
     "sass": "^1.32.7",
     "sass-loader": "^11.0.1",
