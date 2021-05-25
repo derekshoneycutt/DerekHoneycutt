@@ -22,13 +22,23 @@ jobs:
       uses: actions/setup-node@v1
     - name: Restore Secret Files
       run: |
+        $appSettings = cat "DerekHoneycutt\\appsettings.json" | ConvertFrom-Json
+        $appSettings.ConnectionStrings.Azure = "${{secrets.CONNECTIONSTRING_AZURE}}"
+        $appSettings | ConvertTo-Json -depth 100 | Out-File "DerekHoneycutt\\appsettings.json"
+        cat "DerekHoneycutt\\appsettings.json"
+        $appInsights = "import { Imogene as x } from '../Imogene/Imogene'; import { ApplicationInsights } from '@microsoft/applicationinsights-web'; x(() => { const i = new ApplicationInsights({ config: { instrumentationKey: '${{APPINSIGHTS_INSTRUMENTKEY}}' } }); i.loadAppInsights(), i.trackPageView() });"
+        echo $appInsights > "front_src\\main\\appinsights.js"
+        cat "front_src\\main\\appinsights.js"
+        $wpuserconfig = "const UserConfig = { title: '${{USERCONFIG_TITLE}}', first_name: '${{USERCONFIG_FIRSTNAME}}', last_name: '${{USERCONFIG_LASTNAME}}', description: '${{USERCONFIG_DESCRIPTION}}', url: '${{USERCONFIG_URL}}' }; module.exports['UserConfig'] = UserConfig;"
+        echo $wpuserconfig > "front_src\\webpack.user_config.js"
+        cat "front_src\\webpack.user_config.js"
         #${{ secrets.DEREKHONEYCUTT_APPSETTINGS }} | Out-File "DerekHoneycutt\\appsettings.json"
         #${{ secrets.DEREKHONEYCUTT_FRONTEND_APPINSIGHTS }} | Out-File "front_src\\main\\appinsights.js"
         #${{ secrets.DEREKHONEYCUTT_WEBPACK_USERCONFIG }} | Out-File "front_src\\webpack.user_config.js"
-        $appSettings = "${{ secrets.DEREKHONEYCUTT_BUILDDATA }}" | ConvertFrom-Json
-        $appSettings.AppSettings | ConvertTo-Json -depth 100 | Out-File "DerekHoneycutt\\appsettings.json"
-        $appSettings.AppInsightsScript | Out-File "front_src\\main\\appinsights.js"
-        $appSettings.WebpackUserConfig | Out-File "front_src\\webpack.user_config.js"
+        #$appSettings = "${{ secrets.DEREKHONEYCUTT_BUILDDATA }}" | ConvertFrom-Json
+        #$appSettings.AppSettings | ConvertTo-Json -depth 100 | Out-File "DerekHoneycutt\\appsettings.json"
+        #$appSettings.AppInsightsScript | Out-File "front_src\\main\\appinsights.js"
+        #$appSettings.WebpackUserConfig | Out-File "front_src\\webpack.user_config.js"
         #echo '${{ secrets.DEREKHONEYCUTT_APPSETTINGS }}' > "DerekHoneycutt\\appsettings.json"
         #echo '${{ secrets.DEREKHONEYCUTT_FRONTEND_APPINSIGHTS }}' > "front_src\\main\\appinsights.js"
         #echo '${{ secrets.DEREKHONEYCUTT_WEBPACK_USERCONFIG }}' > "front_src\\webpack.user_config.js"

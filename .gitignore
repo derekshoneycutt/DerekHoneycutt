@@ -10,7 +10,7 @@ obj/
 node_modules/
 packages/
 /DerekHoneycutt/appsettings.Development.json
-/DerekHoneycutt/appsettings.json
+#/DerekHoneycutt/appsettings.json
 /DerekHoneycutt/Properties/PublishProfiles
 /DerekHoneycutt/Properties/ServiceDependencies/DerekHoneycuttPortfolio - Web Deploy
 #/front_src/webpack.user_config.js
