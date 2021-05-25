@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{231b1d90-4275-4107-8f5d-1038341a6fe1}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartupFile>localdefs.js</StartupFile>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">16.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <StartWebBrowser>True</StartWebBrowser>
+    <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="DateExts.js" />
+    <Content Include="demo_webpack.user_config.js" />
+    <Content Include="localdefs.js" />
+    <Content Include="postcss.config.js" />
+    <Content Include="ServerTypeDefs.js" />
+    <Content Include="webpack.config.js" />
+    <Content Include="webpack.user_config.js" />
+    <Content Include="material-icons.scss" />
+    <Content Include="RobotoFont.scss" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
+    <Content Include="cmp\calendar.js" />
+    <Content Include="cmp\fab.js" />
+    <Content Include="cmp\splashscreen.js" />
+    <Content Include="cmp\swiper.js" />
+    <Content Include="cmp\calendar.html" />
+    <Content Include="cmp\fab.html" />
+    <Content Include="cmp\splashscreen.html" />
+    <Content Include="cmp\swiper.html" />
+    <Content Include="cmp\calendar.scss" />
+    <Content Include="cmp\fab.scss" />
+    <Content Include="cmp\splashscreen.scss" />
+    <Content Include="cmp\swiper.scss" />
+    <Content Include="Imogene\Animate.js" />
+    <Content Include="Imogene\AnimationState.js" />
+    <Content Include="Imogene\Base.js" />
+    <Content Include="Imogene\DomMods.js" />
+    <Content Include="Imogene\EventsHandler.js" />
+    <Content Include="Imogene\Imogene.js" />
+    <Content Include="Imogene\IntervalFunction.js" />
+    <Content Include="Imogene\NotifyingValue.js" />
+    <Content Include="Imogene\RestFetch.js" />
+    <Content Include="Imogene\shortQuery.js" />
+    <Content Include="Imogene\Template.js" />
+    <Content Include="main\app.js" />
+    <Content Include="main\appinsights.js" />
+    <Content Include="main\MainController.js" />
+    <Content Include="main\PageFactories.js" />
+    <Content Include="main\index.html" />
+    <Content Include="main\app.scss" />
+    <Content Include="main\pages.scss" />
+    <Content Include="sawtooth\DummyData.js" />
+    <Content Include="sawtooth\sawtooth.js" />
+    <Content Include="sawtooth\sawtooth.html" />
+    <Content Include="sawtooth\sawtooth.scss" />
+    <Content Include="wwwroot\android-chrome-96x96.png" />
+    <Content Include="wwwroot\apple-touch-icon.png" />
+    <Content Include="wwwroot\browserconfig.xml" />
+    <Content Include="wwwroot\bundle.js" />
+    <Content Include="wwwroot\favicon-16x16.png" />
+    <Content Include="wwwroot\favicon-32x32.png" />
+    <Content Include="wwwroot\favicon.ico" />
+    <Content Include="wwwroot\GitHub-Mark-120px-plus.png" />
+    <Content Include="wwwroot\GitHub-Mark-32px.png" />
+    <Content Include="wwwroot\GitHub-Mark-64px.png" />
+    <Content Include="wwwroot\homescreen-min.jpg" />
+    <Content Include="wwwroot\material-icons\MaterialIcons-Regular.eot" />
+    <Content Include="wwwroot\material-icons\MaterialIcons-Regular.ijmap.txt" />
+    <Content Include="wwwroot\material-icons\MaterialIcons-Regular.svg" />
+    <Content Include="wwwroot\material-icons\MaterialIcons-Regular.ttf" />
+    <Content Include="wwwroot\material-icons\MaterialIcons-Regular.woff" />
+    <Content Include="wwwroot\material-icons\MaterialIcons-Regular.woff2" />
+    <Content Include="wwwroot\mstile-150x150.png" />
+    <Content Include="wwwroot\orienteer-min.jpg" />
+    <Content Include="wwwroot\roboto-font\roboto-v18-latin-regular.eot" />
+    <Content Include="wwwroot\roboto-font\roboto-v18-latin-regular.svg" />
+    <Content Include="wwwroot\roboto-font\roboto-v18-latin-regular.ttf" />
+    <Content Include="wwwroot\roboto-font\roboto-v18-latin-regular.woff" />
+    <Content Include="wwwroot\roboto-font\roboto-v18-latin-regular.woff2" />
+    <Content Include="wwwroot\safari-pinned-tab.svg" />
+    <Content Include="wwwroot\sawtooth.js" />
+    <Content Include="wwwroot\bundle.js.LICENSE.txt" />
+    <Content Include="wwwroot\sawtooth.js.LICENSE.txt" />
+    <Content Include="wwwroot\index.html" />
+    <Content Include="wwwroot\sawtooth.html" />
+    <Content Include="wwwroot\bundle.css" />
+    <Content Include="wwwroot\sawtooth.css" />
+    <Content Include="cmp\drock\contact.js" />
+    <Content Include="cmp\drock\topbar.js" />
+    <Content Include="cmp\drock\contact.html" />
+    <Content Include="cmp\drock\topbar.html" />
+    <Content Include="cmp\drock\contact.scss" />
+    <Content Include="cmp\drock\topbar.scss" />
+    <Content Include="packages\EntityFramework.6.4.4\Icon.png" />
+    <Content Include="packages\EntityFramework.6.4.4\tools\about_EntityFramework6.help.txt" />
+    <Content Include="packages\EntityFramework.6.4.4\lib\net40\EntityFramework.SqlServer.xml" />
+    <Content Include="packages\EntityFramework.6.4.4\lib\net40\EntityFramework.xml" />
+    <Content Include="packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.xml" />
+    <Content Include="packages\EntityFramework.6.4.4\lib\net45\EntityFramework.xml" />
+    <Content Include="packages\EntityFramework.6.4.4\lib\netstandard2.1\EntityFramework.SqlServer.xml" />
+    <Content Include="packages\EntityFramework.6.4.4\lib\netstandard2.1\EntityFramework.xml" />
+    <Content Include="packages\EntityFramework.6.4.4\tools\netcoreapp3.0\any\ef6.runtimeconfig.json" />
+    <Content Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Microsoft.Xaml.Behaviors.xml" />
+    <Content Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net5.0-windows7.0\Microsoft.Xaml.Behaviors.xml" />
+    <Content Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\netcoreapp3.1\Microsoft.Xaml.Behaviors.xml" />
+    <Content Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net20\System.Data.SQLite.xml" />
+    <Content Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net40\System.Data.SQLite.xml" />
+    <Content Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net45\System.Data.SQLite.xml" />
+    <Content Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net451\System.Data.SQLite.xml" />
+    <Content Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net46\System.Data.SQLite.xml" />
+    <Content Include="packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.xml" />
+    <Content Include="packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.xml" />
+    <Content Include="sawtooth\cmp\sawbase.js" />
+    <Content Include="sawtooth\cmp\sawbase.html" />
+    <Content Include="sawtooth\cmp\sawbase-addbutton.scss" />
+    <Content Include="sawtooth\cmp\sawbase-menu-calendar.scss" />
+    <Content Include="sawtooth\cmp\sawbase-menu-view.scss" />
+    <Content Include="sawtooth\cmp\sawbase-sidebar.scss" />
+    <Content Include="sawtooth\cmp\sawbase-topbar.scss" />
+    <Content Include="sawtooth\cmp\sawbase.scss" />
+    <Content Include="sawtooth\cmp\Core\mdciconbutton.js" />
+    <Content Include="sawtooth\cmp\Core\mdciconbutton.html" />
+    <Content Include="sawtooth\cmp\Core\mdciconbutton.scss" />
+    <Content Include="sawtooth\cmp\Views\dayhead.js" />
+    <Content Include="sawtooth\cmp\Views\week.js" />
+    <Content Include="sawtooth\cmp\Views\dayhead.html" />
+    <Content Include="sawtooth\cmp\Views\week.html" />
+    <Content Include="sawtooth\cmp\Views\dayhead.scss" />
+    <Content Include="sawtooth\cmp\Views\week.scss" />
+    <Content Include="wwwroot\cmpcss\sass.js" />
+    <Content Include="wwwroot\cmpcss\calendar.css" />
+    <Content Include="wwwroot\cmpcss\contact.css" />
+    <Content Include="wwwroot\cmpcss\fab.css" />
+    <Content Include="wwwroot\cmpcss\splashscreen.css" />
+    <Content Include="wwwroot\cmpcss\swiper.css" />
+    <Content Include="wwwroot\cmpcss\topbar.css" />
+    <Content Include="wwwroot\cmpcss\sawtooth\sass.js" />
+    <Content Include="wwwroot\cmpcss\sawtooth\dayhead.css" />
+    <Content Include="wwwroot\cmpcss\sawtooth\mdciconbutton.css" />
+    <Content Include="wwwroot\cmpcss\sawtooth\sawbase.css" />
+    <Content Include="wwwroot\cmpcss\sawtooth\week.css" />
+    <Content Include="wwwroot\site.webmanifest" />
+    <Content Include="wwwroot\softwaredev-min.jpg" />
+    <Content Include="wwwroot\SplashScreen-min.jpg" />
+    <Content Include="wwwroot\student-min.jpg" />
+    <Content Include="wwwroot\subaruvagabond-min.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="cmp" />
+    <Folder Include="cmp\drock" />
+    <Folder Include="Imogene" />
+    <Folder Include="main" />
+    <Folder Include="packages" />
+    <Folder Include="packages\EntityFramework.6.4.4" />
+    <Folder Include="packages\EntityFramework.6.4.4\build" />
+    <Folder Include="packages\EntityFramework.6.4.4\build\netcoreapp3.0" />
+    <Folder Include="packages\EntityFramework.6.4.4\buildTransitive" />
+    <Folder Include="packages\EntityFramework.6.4.4\buildTransitive\netcoreapp3.0" />
+    <Folder Include="packages\EntityFramework.6.4.4\content" />
+    <Folder Include="packages\EntityFramework.6.4.4\content\net40" />
+    <Folder Include="packages\EntityFramework.6.4.4\lib" />
+    <Folder Include="packages\EntityFramework.6.4.4\lib\net40" />
+    <Folder Include="packages\EntityFramework.6.4.4\lib\net45" />
+    <Folder Include="packages\EntityFramework.6.4.4\lib\netstandard2.1" />
+    <Folder Include="packages\EntityFramework.6.4.4\tools" />
+    <Folder Include="packages\EntityFramework.6.4.4\tools\net40" />
+    <Folder Include="packages\EntityFramework.6.4.4\tools\net40\any" />
+    <Folder Include="packages\EntityFramework.6.4.4\tools\net40\win-x86" />
+    <Folder Include="packages\EntityFramework.6.4.4\tools\net45" />
+    <Folder Include="packages\EntityFramework.6.4.4\tools\net45\any" />
+    <Folder Include="packages\EntityFramework.6.4.4\tools\net45\win-x86" />
+    <Folder Include="packages\EntityFramework.6.4.4\tools\netcoreapp3.0" />
+    <Folder Include="packages\EntityFramework.6.4.4\tools\netcoreapp3.0\any" />
+    <Folder Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31" />
+    <Folder Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib" />
+    <Folder Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45" />
+    <Folder Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Design" />
+    <Folder Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net5.0-windows7.0" />
+    <Folder Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net5.0-windows7.0\Design" />
+    <Folder Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\netcoreapp3.1" />
+    <Folder Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\netcoreapp3.1\Design" />
+    <Folder Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\tools" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net20" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net20\x64" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net20\x86" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net40" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net40\x64" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net40\x86" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net45" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net45\x64" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net45\x86" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net451" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net451\x64" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net451\x86" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\x64" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\x86" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\buildTransitive" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\buildTransitive\net20" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\buildTransitive\net40" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\buildTransitive\net45" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\buildTransitive\net451" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\buildTransitive\net46" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net20" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net40" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net45" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net451" />
+    <Folder Include="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net46" />
+    <Folder Include="packages\System.Data.SQLite.1.0.113.7" />
+    <Folder Include="packages\System.Data.SQLite.Core.1.0.113.7" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\content" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\content\net40" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\content\net45" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\content\net451" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\content\net46" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\lib" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\lib\net40" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\lib\net45" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\lib\net451" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\lib\net46" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\lib\netstandard2.1" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\tools" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\tools\net40" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\tools\net45" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\tools\net451" />
+    <Folder Include="packages\System.Data.SQLite.EF6.1.0.113.0\tools\net46" />
+    <Folder Include="packages\System.Data.SQLite.Linq.1.0.113.0" />
+    <Folder Include="packages\System.Data.SQLite.Linq.1.0.113.0\content" />
+    <Folder Include="packages\System.Data.SQLite.Linq.1.0.113.0\content\net20" />
+    <Folder Include="packages\System.Data.SQLite.Linq.1.0.113.0\content\net40" />
+    <Folder Include="packages\System.Data.SQLite.Linq.1.0.113.0\content\net45" />
+    <Folder Include="packages\System.Data.SQLite.Linq.1.0.113.0\content\net451" />
+    <Folder Include="packages\System.Data.SQLite.Linq.1.0.113.0\content\net46" />
+    <Folder Include="packages\System.Data.SQLite.Linq.1.0.113.0\lib" />
+    <Folder Include="packages\System.Data.SQLite.Linq.1.0.113.0\lib\net20" />
+    <Folder Include="packages\System.Data.SQLite.Linq.1.0.113.0\lib\net40" />
+    <Folder Include="packages\System.Data.SQLite.Linq.1.0.113.0\lib\net45" />
+    <Folder Include="packages\System.Data.SQLite.Linq.1.0.113.0\lib\net451" />
+    <Folder Include="packages\System.Data.SQLite.Linq.1.0.113.0\lib\net46" />
+    <Folder Include="packages\System.Windows.Interactivity.WPF.2.0.20525" />
+    <Folder Include="packages\System.Windows.Interactivity.WPF.2.0.20525\lib" />
+    <Folder Include="packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40" />
+    <Folder Include="sawtooth" />
+    <Folder Include="sawtooth\cmp" />
+    <Folder Include="sawtooth\cmp\Core" />
+    <Folder Include="sawtooth\cmp\Views" />
+    <Folder Include="wwwroot" />
+    <Folder Include="wwwroot\cmpcss" />
+    <Folder Include="wwwroot\cmpcss\sawtooth" />
+    <Folder Include="wwwroot\material-icons\" />
+    <Folder Include="wwwroot\roboto-font\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

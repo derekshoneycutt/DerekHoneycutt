@@ -2,31 +2,16 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs
-/bin
-/node_modules
-/obj
-/appsettings.Development.json
-/appsettings.json
-/derekhoneycutt.db
-/OTHERS/Gpx/GpxAnalysis/bin
-/OTHERS/Gpx/GpxAnalysis/obj
-/OTHERS/Gpx/GpxAnalyzer/bin
-/OTHERS/Gpx/GpxAnalyzer/obj
-/OTHERS/VagabondLib/bin
-/OTHERS/VagabondLib/obj
-/packages
-/OTHERS/searchicd10/.vs
-/OTHERS/searchicd10/ICD.DataAccess/bin
-/OTHERS/searchicd10/ICD.DataAccess/obj
-/OTHERS/searchicd10/IcdDatabaseBuilder/bin
-/OTHERS/searchicd10/IcdDatabaseBuilder/obj
-/OTHERS/searchicd10/packages
-/OTHERS/searchicd10/SearchIcd10/bin
-/OTHERS/searchicd10/SearchIcd10/obj
 *.user
 *.suo
-/Properties/PublishProfiles
-/Properties/ServiceDependencies/DerekHoneycuttPortfolio - Web Deploy
-/webpack.user_config.js
-/front_src/appinsights.js
+.vs/
+bin/
+obj/
+node_modules/
+packages/
+/DerekHoneycutt/appsettings.Development.json
+/DerekHoneycutt/appsettings.json
+/DerekHoneycutt/Properties/PublishProfiles
+/DerekHoneycutt/Properties/ServiceDependencies/DerekHoneycuttPortfolio - Web Deploy
+/front_src/webpack.user_config.js
+/front_src/main/appinsights.js

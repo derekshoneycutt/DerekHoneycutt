@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DerekHoneycutt", "DerekHoneycutt.csproj", "{A4773CEA-2F56-4194-A671-E74A7CDF65D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DerekHoneycutt", "DerekHoneycutt\DerekHoneycutt.csproj", "{A4773CEA-2F56-4194-A671-E74A7CDF65D2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VagabondLib", "OTHERS\VagabondLib\VagabondLib.csproj", "{42BB42ED-DFBE-40A6-A9CD-6BA3EE38607A}"
 EndProject
@@ -40,6 +40,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CMS Files", "CMS Files", "{
 		OTHERS\searchicd10\CMS Files\MostUsedList.xml = OTHERS\searchicd10\CMS Files\MostUsedList.xml
 		OTHERS\searchicd10\CMS Files\Tabular.xml = OTHERS\searchicd10\CMS Files\Tabular.xml
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5A1B0EC7-27AF-4C5A-B184-02D2EABCA6D0}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Prepare-Frontend.ps1 = Prepare-Frontend.ps1
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "DerekHoneycutt.front_src", "front_src\DerekHoneycutt.front_src.njsproj", "{231B1D90-4275-4107-8F5D-1038341A6FE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +145,18 @@ Global
 		{897DE2EA-45CA-4E65-8444-66BFF5E1C06E}.Release|x64.Build.0 = Release|Any CPU
 		{897DE2EA-45CA-4E65-8444-66BFF5E1C06E}.Release|x86.ActiveCfg = Release|Any CPU
 		{897DE2EA-45CA-4E65-8444-66BFF5E1C06E}.Release|x86.Build.0 = Release|Any CPU
+		{231B1D90-4275-4107-8F5D-1038341A6FE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{231B1D90-4275-4107-8F5D-1038341A6FE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{231B1D90-4275-4107-8F5D-1038341A6FE1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{231B1D90-4275-4107-8F5D-1038341A6FE1}.Debug|x64.Build.0 = Debug|Any CPU
+		{231B1D90-4275-4107-8F5D-1038341A6FE1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{231B1D90-4275-4107-8F5D-1038341A6FE1}.Debug|x86.Build.0 = Debug|Any CPU
+		{231B1D90-4275-4107-8F5D-1038341A6FE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{231B1D90-4275-4107-8F5D-1038341A6FE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{231B1D90-4275-4107-8F5D-1038341A6FE1}.Release|x64.ActiveCfg = Release|Any CPU
+		{231B1D90-4275-4107-8F5D-1038341A6FE1}.Release|x64.Build.0 = Release|Any CPU
+		{231B1D90-4275-4107-8F5D-1038341A6FE1}.Release|x86.ActiveCfg = Release|Any CPU
+		{231B1D90-4275-4107-8F5D-1038341A6FE1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
