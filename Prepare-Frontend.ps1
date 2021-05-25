@@ -16,14 +16,15 @@ echo "Build Directories Prepared"
 echo "Building Frontend"
 cd "./front_src/"
 echo "Restoring frontend dependencies..."
-npm install
+npm ci
 echo "Building frontend formally..."
 npm run wbp
 if ($LastExitCode -ne 0) {
 	echo "Fatal error occurred building with webpack"
 	
 	echo "Cleaning Build"
-	Remove-Item -Path "./front_src/wwwroot/" -Recurse
+	cd ..
+	Remove-Item -Path "./wwwroot/" -Recurse
 	echo "Build is cleaned and finished"
 
 	Exit 1
