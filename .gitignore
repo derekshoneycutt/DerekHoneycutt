@@ -13,5 +13,6 @@ packages/
 /DerekHoneycutt/appsettings.json
 /DerekHoneycutt/Properties/PublishProfiles
 /DerekHoneycutt/Properties/ServiceDependencies/DerekHoneycuttPortfolio - Web Deploy
-/front_src/webpack.user_config.js
+#/front_src/webpack.user_config.js
 /front_src/main/appinsights.js
+/server_secrets.json
