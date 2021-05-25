@@ -17,14 +17,12 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Restore dependencies for Frontend
-      run: dotnet restore "front_src/DerekHoneycutt.front_end.njsproj"
-    - name: Restore dependencies for Backend
-      run: dotnet restore "DerekHoneycutt/DerekHoneycutt.csproj"
     - name: Build Frontend
       uses: Amadevus/pwsh-script@v2.0.1
       with:
         script: "Prepare-Frontend.ps1"
+    - name: Restore dependencies for Backend
+      run: dotnet restore
     - name: Build Backend
       run: dotnet build --no-restore "DerekHoneycutt/DerekHoneycutt.csproj" --configuration Release
     #- name: Test

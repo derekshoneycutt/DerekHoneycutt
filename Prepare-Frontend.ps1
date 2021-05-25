@@ -15,6 +15,9 @@ echo "Build Directories Prepared"
 
 echo "Building Frontend"
 cd "./front_src/"
+echo "Restoring frontend dependencies..."
+npm install
+echo "Building frontend formally..."
 npm run wbp
 if ($LastExitCode -ne 0) {
 	echo "Fatal error occurred building with webpack"
