@@ -15,8 +15,6 @@ echo "Build Directories Prepared"
 
 echo "Building Frontend"
 cd "./front_src/"
-echo "Restoring frontend dependencies..."
-npm ci
 echo "Building frontend formally..."
 npm run wbp
 if ($LastExitCode -ne 0) {

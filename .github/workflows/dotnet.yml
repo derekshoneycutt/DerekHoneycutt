@@ -20,6 +20,15 @@ jobs:
         dotnet-version: 5.0.x
     - name: Setup Node.js
       uses: actions/setup-node@v1
+    - name: Restoring Frontend Dependencies
+      env:
+        AppInsightsInstrumentKey: ${{secrets.APPINSIGHTS_INSTRUMENTKEY}}
+      run: |
+        cd front_src
+        printf "`r`nimport `{ Imogene as `$ `} from '../Imogene/Imogene'; import { ApplicationInsights } from '@microsoft/applicationinsights-web'; `$`(`(`) => `{ const i = new ApplicationInsights`(`{ config: `{ instrumentationKey: '$env:AppInsightsInstrumentKey' `} `}); i.loadAppInsights(), i.trackPageView() `});`r`n" > "main/appinsights.js"
+        npm ci
+        cd ..
+      shell: powershell
     - name: Build Frontend
       run: .\Prepare-Frontend.ps1
       shell: powershell
