@@ -21,6 +21,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Restore Secret Files
+      run: |
+        printf "${{ secrets.DEREKHONEYCUTT_APPSETTINGS }}" > "DerekHoneycutt\\appsettings.json"
+        printf "${{ secrets.DEREKHONEYCUTT_FRONTEND_APPINSIGHTS }}" > "front_src\\main\\appinsights.js"
+        printf "${{ secrets.DEREKHONEYCUTT_WEBPACK_USERCONFIG }}" > "front_src\\webpack.user_config.js"
     - name: Build Frontend
       run: .\Prepare-Frontend.ps1
       shell: powershell
