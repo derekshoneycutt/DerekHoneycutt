@@ -17,15 +17,14 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Setup Node.js ${{ matrix.node-version }}
+    - name: Setup Node.js
       uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
     - name: Restore Secret Files
       run: |
-        printf "${{ secrets.DEREKHONEYCUTT_APPSETTINGS }}" > "DerekHoneycutt\\appsettings.json"
-        printf "${{ secrets.DEREKHONEYCUTT_FRONTEND_APPINSIGHTS }}" > "front_src\\main\\appinsights.js"
-        printf "${{ secrets.DEREKHONEYCUTT_WEBPACK_USERCONFIG }}" > "front_src\\webpack.user_config.js"
+        echo "${{ secrets.DEREKHONEYCUTT_APPSETTINGS }}" > "DerekHoneycutt\\appsettings.json"
+        echo "${{ secrets.DEREKHONEYCUTT_FRONTEND_APPINSIGHTS }}" > "front_src\\main\\appinsights.js"
+        echo "${{ secrets.DEREKHONEYCUTT_WEBPACK_USERCONFIG }}" > "front_src\\webpack.user_config.js"
+      shell: powershell
     - name: Build Frontend
       run: .\Prepare-Frontend.ps1
       shell: powershell
