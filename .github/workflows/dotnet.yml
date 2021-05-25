@@ -22,10 +22,10 @@ jobs:
       uses: actions/setup-node@v1
     - name: Restoring Frontend Dependencies
       env:
-        AppInsightsInstrumentKey: ${{secrets.APPINSIGHTS_INSTRUMENTKEY}}
+        AppInsightsInstrumentKey: '${{secrets.APPINSIGHTS_INSTRUMENTKEY}}'
       run: |
         cd front_src
-        $useKey = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($env:AppInsightsInstrumentKey))
+        $useKey = $env:AppInsightsInstrumentKey
         printf "`r`nimport `{ Imogene as `$ `} from '../Imogene/Imogene'; import { ApplicationInsights } from '@microsoft/applicationinsights-web'; `$`(`(`) => `{ const i = new ApplicationInsights`(`{ config: `{ instrumentationKey: '$useKey' `} `}); i.loadAppInsights(), i.trackPageView() `});`r`n" > "main/appinsights.js"
         $useKey = ""
         npm ci
