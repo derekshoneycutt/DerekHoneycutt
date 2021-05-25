@@ -30,28 +30,7 @@ jobs:
        USERCONFIG_DESCRIPTION: ${{secrets.USERCONFIG_DESCRIPTION}},
        USERCONFIG_URL: ${{secrets.USERCONFIG_URL}}
       run: |
-        $appSettings = cat "DerekHoneycutt\\appsettings.json" | ConvertFrom-Json
-        $appSettings.ConnectionStrings.Azure = "$env:CONNECTIONSTRING_AZURE"
-        $appSettings | ConvertTo-Json -depth 100 | Out-File "DerekHoneycutt\\appsettings.json"
-        cat "DerekHoneycutt\\appsettings.json"
-        $appInsights = "`r`nimport { Imogene as x } from '../Imogene/Imogene'; import { ApplicationInsights } from '@microsoft/applicationinsights-web'; x(() => { const i = new ApplicationInsights({ config: { instrumentationKey: '$env:APPINSIGHTS_INSTRUMENTKEY' } }); i.loadAppInsights(), i.trackPageView() });`r`n"
-        echo $appInsights > "front_src\\main\\appinsights.js"
-        cat "front_src\\main\\appinsights.js"
-        $wpuserconfig = "`r`nconst UserConfig = { title: '$env:USERCONFIG_TITLE', first_name: '$env:USERCONFIG_FIRSTNAME', last_name: '$env:USERCONFIG_LASTNAME', description: '$env:USERCONFIG_DESCRIPTION', url: '$env:USERCONFIG_URL' }; module.exports['UserConfig'] = UserConfig;`r`n"
-        echo $wpuserconfig > "front_src\\webpack.user_config.js"
-        cat "front_src\\webpack.user_config.js"
-        #${{ secrets.DEREKHONEYCUTT_APPSETTINGS }} | Out-File "DerekHoneycutt\\appsettings.json"
-        #${{ secrets.DEREKHONEYCUTT_FRONTEND_APPINSIGHTS }} | Out-File "front_src\\main\\appinsights.js"
-        #${{ secrets.DEREKHONEYCUTT_WEBPACK_USERCONFIG }} | Out-File "front_src\\webpack.user_config.js"
-        #$appSettings = "${{ secrets.DEREKHONEYCUTT_BUILDDATA }}" | ConvertFrom-Json
-        #$appSettings.AppSettings | ConvertTo-Json -depth 100 | Out-File "DerekHoneycutt\\appsettings.json"
-        #$appSettings.AppInsightsScript | Out-File "front_src\\main\\appinsights.js"
-        #$appSettings.WebpackUserConfig | Out-File "front_src\\webpack.user_config.js"
-        #echo '${{ secrets.DEREKHONEYCUTT_APPSETTINGS }}' > "DerekHoneycutt\\appsettings.json"
-        #echo '${{ secrets.DEREKHONEYCUTT_FRONTEND_APPINSIGHTS }}' > "front_src\\main\\appinsights.js"
-        #echo '${{ secrets.DEREKHONEYCUTT_WEBPACK_USERCONFIG }}' > "front_src\\webpack.user_config.js"
-        #ls "front_src"
-        #cat "front_src\\webpack.user_config.js"
+        .\SetupSecrets.ps1 -CONNECTIONSTRING_AZURE "$env:CONNECTIONSTRING_AZURE" -APPINSIGHTS_INSTRUMENTKEY "$env:APPINSIGHTS_INSTRUMENTKEY" -USERCONFIG_TITLE "$env:USERCONFIG_TITLE" -USERCONFIG_FIRSTNAME "$env:USERCONFIG_FIRSTNAME" -USERCONFIG_LASTNAME "$env:USERCONFIG_LASTNAME" -USERCONFIG_DESCRIPTION "$env:USERCONFIG_DESCRIPTION" -USERCONFIG_URL "$env:USERCONFIG_URL"
       shell: powershell
     - name: Build Frontend
       run: .\Prepare-Frontend.ps1
