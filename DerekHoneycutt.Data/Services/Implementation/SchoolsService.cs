@@ -62,12 +62,14 @@ namespace DerekHoneycutt.Data.Services.Implementation
             ICollection<BusinessModels.School> ret;
             if (page.SchoolsPageOrigin != null)
             {
+                Logger.LogInformation($"Getting schools from existing schools page origin");
                 ret = (from school in page.SchoolsPageOrigin.Schools
                        orderby school.Order
                        select Parse(school)).ToList();
             }
             else
             {
+                Logger.LogInformation($"Getting schools based on Schools Page Id");
                 ret = await (from school in DbContext.Schools
                              where school.PageId == page.SchoolsId
                              orderby school.Order
@@ -85,6 +87,7 @@ namespace DerekHoneycutt.Data.Services.Implementation
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
         public async Task<BusinessModels.School> GetById(Guid id)
         {
+            Logger.LogInformation($"Getting first school with matching id {id}");
             var school = await DbContext.Schools.FirstOrDefaultAsync(s => id.Equals(s.Id));
 
             if (school == null)

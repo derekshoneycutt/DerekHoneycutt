@@ -56,12 +56,14 @@ namespace DerekHoneycutt.Data.Services.Implementation
             ICollection<BusinessModels.Image> ret;
             if (page.ImageWallPageOrigin != null)
             {
+                Logger.LogInformation($"Getting images from existing image wall page origin");
                 ret = (from img in page.ImageWallPageOrigin.Images
                        orderby img.Order
                        select Parse(img)).ToList();
             }
             else
             {
+                Logger.LogInformation($"Getting images based on ImageWall Id");
                 ret = await (from img in DbContext.Images
                              where img.PageId == page.ImageWallId
                              orderby img.Order
@@ -80,6 +82,7 @@ namespace DerekHoneycutt.Data.Services.Implementation
         /// <exception cref="KeyNotFoundException">ID Passed was not discovered in database</exception>
         public async Task<BusinessModels.Image> GetById(Guid id)
         {
+            Logger.LogInformation($"Getting first image with matching id {id}");
             var image = await DbContext.Images.FirstOrDefaultAsync(i => id.Equals(i.Id));
 
             if (image == null)
