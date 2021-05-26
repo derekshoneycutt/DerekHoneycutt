@@ -23,19 +23,3 @@ if ($LastExitCode -ne 0) {
 }
 cd ..
 echo "Frontend built"
-
-#echo "Cleaning prior builds"
-#if (Test-Path -Path "./DerekHoneycutt/wwwroot/*") {
-#	Remove-Item -Path "./DerekHoneycutt/wwwroot/*" -Recurse
-#}
-#echo "Prior builds cleaned"
-
-
-#echo "Copying directory to ASP.NET Core Project"
-#Copy-Item -Path "./front_src/wwwroot/*" -Destination "./DerekHoneycutt/wwwroot/" -Recurse
-#echo "Newly built directory copied"
-
-
-#echo "Cleaning Build"
-#Remove-Item -Path "./front_src/wwwroot/" -Recurse
-#echo "Build is cleaned and finished"

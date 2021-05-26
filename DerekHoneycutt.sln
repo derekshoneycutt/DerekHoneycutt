@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DerekHoneycutt", "DerekHoneycutt\DerekHoneycutt.csproj", "{A4773CEA-2F56-4194-A671-E74A7CDF65D2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VagabondLib", "OTHERS\VagabondLib\VagabondLib.csproj", "{42BB42ED-DFBE-40A6-A9CD-6BA3EE38607A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OTHERS", "OTHERS", "{5F419190-A855-4CDC-B1AA-536228AC3E3D}"
@@ -45,11 +43,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		Prepare-Frontend.ps1 = Prepare-Frontend.ps1
+		BuildFrontend.ps1 = BuildFrontend.ps1
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "front_src", "front_src\front_src.njsproj", "{231B1D90-4275-4107-8F5D-1038341A6FE1}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "DerekHoneycutt.Frontend", "DerekHoneycutt.Frontend\DerekHoneycutt.Frontend.njsproj", "{231B1D90-4275-4107-8F5D-1038341A6FE1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DerekHoneycutt.Data", "DerekHoneycutt.Data\DerekHoneycutt.Data.csproj", "{FE4CEA3A-7D99-432F-90B8-1033C601AF88}"
 EndProject
@@ -65,18 +63,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A4773CEA-2F56-4194-A671-E74A7CDF65D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A4773CEA-2F56-4194-A671-E74A7CDF65D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A4773CEA-2F56-4194-A671-E74A7CDF65D2}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A4773CEA-2F56-4194-A671-E74A7CDF65D2}.Debug|x64.Build.0 = Debug|Any CPU
-		{A4773CEA-2F56-4194-A671-E74A7CDF65D2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A4773CEA-2F56-4194-A671-E74A7CDF65D2}.Debug|x86.Build.0 = Debug|Any CPU
-		{A4773CEA-2F56-4194-A671-E74A7CDF65D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A4773CEA-2F56-4194-A671-E74A7CDF65D2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A4773CEA-2F56-4194-A671-E74A7CDF65D2}.Release|x64.ActiveCfg = Release|Any CPU
-		{A4773CEA-2F56-4194-A671-E74A7CDF65D2}.Release|x64.Build.0 = Release|Any CPU
-		{A4773CEA-2F56-4194-A671-E74A7CDF65D2}.Release|x86.ActiveCfg = Release|Any CPU
-		{A4773CEA-2F56-4194-A671-E74A7CDF65D2}.Release|x86.Build.0 = Release|Any CPU
 		{42BB42ED-DFBE-40A6-A9CD-6BA3EE38607A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{42BB42ED-DFBE-40A6-A9CD-6BA3EE38607A}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{42BB42ED-DFBE-40A6-A9CD-6BA3EE38607A}.Debug|x86.ActiveCfg = Debug|Any CPU
