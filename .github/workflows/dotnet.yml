@@ -26,7 +26,8 @@ jobs:
       run: |
         cd front_src
         $useKey = $env:AppInsightsInstrumentKey
-        printf "`r`nimport `{ Imogene as `$ `} from '../Imogene/Imogene'; import { ApplicationInsights } from '@microsoft/applicationinsights-web'; `$`(`(`) => `{ const i = new ApplicationInsights`(`{ config: `{ instrumentationKey: '$useKey' `} `}); i.loadAppInsights(), i.trackPageView() `});`r`n" > "main/appinsights.js"
+        .\BuildSecuredFiles.ps1 -AppInsightsKey '$useKey'
+        #printf "`r`nimport `{ Imogene as `$ `} from '../Imogene/Imogene'; import { ApplicationInsights } from '@microsoft/applicationinsights-web'; `$`(`(`) => `{ const i = new ApplicationInsights`(`{ config: `{ instrumentationKey: '$useKey' `} `}); i.loadAppInsights(), i.trackPageView() `});`r`n" > "main/appinsights.js"
         $useKey = ""
         npm ci
         cd ..

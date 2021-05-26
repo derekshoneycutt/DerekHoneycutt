@@ -18,6 +18,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include="BuildSecuredFiles.ps1" />
     <Content Include="DateExts.js" />
     <Content Include="localdefs.js" />
     <Content Include="postcss.config.js" />
