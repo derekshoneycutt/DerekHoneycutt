@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DerekHoneycutt.Data.Services.Interface;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -20,10 +21,10 @@ namespace DerekHoneycutt.Controllers
         /// <summary>
         /// Service for handling landings in the application
         /// </summary>
-        private readonly Services.ILandingsService LandingsService;
+        private readonly ILandingsService LandingsService;
 
         public PortfolioController(
-            Services.ILandingsService landingsService)
+            ILandingsService landingsService)
         {
             LandingsService = landingsService;
         }

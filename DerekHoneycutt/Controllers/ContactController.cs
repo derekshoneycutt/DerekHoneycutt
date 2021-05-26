@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DerekHoneycutt.Data.Services.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -19,11 +20,11 @@ namespace DerekHoneycutt.Controllers
         /// <summary>
         /// Database Context that the application will run on
         /// </summary>
-        private readonly DbModels.DatabaseContext _dbContext;
+        private readonly Data.DbModels.DatabaseContext _dbContext;
         /// <summary>
         /// Mailer to use if the user is trying to contact me
         /// </summary>
-        private readonly Services.IEmailService _mailer;
+        private readonly IEmailService _mailer;
         /// <summary>
         /// Logger to log any information as we progress
         /// </summary>
@@ -34,8 +35,8 @@ namespace DerekHoneycutt.Controllers
         private readonly IConfiguration Configuration;
 
         public ContactController(
-            DbModels.DatabaseContext dbContext,
-            Services.IEmailService mailer,
+            Data.DbModels.DatabaseContext dbContext,
+            IEmailService mailer,
             ILogger<ContactController> logger,
             IConfiguration configuration)
         {
@@ -55,6 +56,7 @@ namespace DerekHoneycutt.Controllers
         [HttpPost]
         public async Task<IActionResult> PostContact(RequestModels.PostContact form)
         {
+            await Task.CompletedTask;
             return new OkObjectResult(new { Message = "Message not actually sent." });
 
             /*var sendto = Configuration.GetValue("ContactEmail", "derekhoneycutthole@mailinator.com");

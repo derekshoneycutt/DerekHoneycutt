@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DerekHoneycutt.Data.Services.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,10 +19,10 @@ namespace DerekHoneycutt.Controllers
         /// <summary>
         /// Service for handling resume experience jobs in the application
         /// </summary>
-        private readonly Services.IResumeExpJobsService ResumeExpJobsService;
+        private readonly IResumeExpJobsService ResumeExpJobsService;
 
         public ResumeExpJobController(
-            Services.IResumeExpJobsService resumeExpJobsService)
+            IResumeExpJobsService resumeExpJobsService)
         {
             ResumeExpJobsService = resumeExpJobsService;
         }
@@ -31,7 +32,7 @@ namespace DerekHoneycutt.Controllers
         /// </summary>
         /// <param name="rej">Business model to translate</param>
         /// <returns>REST object to return to the client</returns>
-        public static RestModels.ResumeExpJob TranslateResumeExpJob(BusinessModels.ResumeExpJob rej)
+        public static RestModels.ResumeExpJob TranslateResumeExpJob(Data.BusinessModels.ResumeExpJob rej)
         {
             return new RestModels.ResumeExpJob()
             {
@@ -63,7 +64,7 @@ namespace DerekHoneycutt.Controllers
         [HttpGet("{jobid}")]
         public async Task<IActionResult> GetResumeExpJob(Guid jobid)
         {
-            BusinessModels.ResumeExpJob job;
+            Data.BusinessModels.ResumeExpJob job;
 
             try
             {

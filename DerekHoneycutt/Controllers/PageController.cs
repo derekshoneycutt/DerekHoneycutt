@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DerekHoneycutt.Data.Services.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,10 +19,10 @@ namespace DerekHoneycutt.Controllers
         /// <summary>
         /// Service for handling pages in the application
         /// </summary>
-        private readonly Services.IPagesService PagesService;
+        private readonly IPagesService PagesService;
 
         public PageController(
-            Services.IPagesService pagesService)
+            IPagesService pagesService)
         {
             PagesService = pagesService;
         }
@@ -31,58 +32,58 @@ namespace DerekHoneycutt.Controllers
         /// </summary>
         /// <param name="page">Business model to translate</param>
         /// <returns>REST model to return to the client</returns>
-        public static RestModels.Page TranslatePage(BusinessModels.Page page)
+        public static RestModels.Page TranslatePage(Data.BusinessModels.Page page)
         {
             RestModels.Page ret = null;
 
-            if (page is BusinessModels.ImageWallPage iwpage)
+            if (page is Data.BusinessModels.ImageWallPage iwpage)
             {
                 ret = new RestModels.ImageWallPage()
                 {
                     Description = iwpage.Description,
                     Images = iwpage.Images.Select(img => ImagesController.TranslateImage(img)).ToList(),
-                    Type = BusinessModels.PageTypes.ImageWall
+                    Type = Data.BusinessModels.PageTypes.ImageWall
                 };
             }
-            else if (page is BusinessModels.ResumeExpPage repage)
+            else if (page is Data.BusinessModels.ResumeExpPage repage)
             {
                 ret = new RestModels.ResumeExpPage()
                 {
-                    Type = BusinessModels.PageTypes.ResumeExp,
+                    Type = Data.BusinessModels.PageTypes.ResumeExp,
                     Jobs = repage.Jobs.Select(rej => ResumeExpJobController.TranslateResumeExpJob(rej)).ToList()
                 };
             }
-            else if (page is BusinessModels.ResumeHeadPage rhpage)
+            else if (page is Data.BusinessModels.ResumeHeadPage rhpage)
             {
                 ret = new RestModels.ResumeHeadPage()
                 {
-                    Type = BusinessModels.PageTypes.ResumeHead,
+                    Type = Data.BusinessModels.PageTypes.ResumeHead,
                     Description = rhpage.Description,
                     Competencies = rhpage.Competencies
                 };
             }
-            else if (page is BusinessModels.GitHubPage ghpage)
+            else if (page is Data.BusinessModels.GitHubPage ghpage)
             {
                 ret = new RestModels.GitHubPage()
                 {
-                    Type = BusinessModels.PageTypes.GitHub,
+                    Type = Data.BusinessModels.PageTypes.GitHub,
                     GitHub = ghpage.GitHub,
                     Description = ghpage.Description
                 };
             }
-            else if (page is BusinessModels.SchoolsPage spage)
+            else if (page is Data.BusinessModels.SchoolsPage spage)
             {
                 ret = new RestModels.SchoolsPage()
                 {
-                    Type = BusinessModels.PageTypes.Schools,
+                    Type = Data.BusinessModels.PageTypes.Schools,
                     Schools = spage.Schools.Select(school => SchoolController.TranslateSchool(school)).ToList()
                 };
             }
-            else if (page is BusinessModels.TextBlockPage tbpage)
+            else if (page is Data.BusinessModels.TextBlockPage tbpage)
             {
                 ret = new RestModels.TextBlockPage()
                 {
-                    Type = BusinessModels.PageTypes.TextBlock,
+                    Type = Data.BusinessModels.PageTypes.TextBlock,
                     Text = tbpage.Text
                 };
             }
@@ -118,7 +119,7 @@ namespace DerekHoneycutt.Controllers
         [HttpGet("{pageid}")]
         public async Task<IActionResult> GetPage(Guid pageid)
         {
-            BusinessModels.Page page;
+            Data.BusinessModels.Page page;
 
             try
             {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DerekHoneycutt.Data.Services.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,10 +19,10 @@ namespace DerekHoneycutt.Controllers
         /// <summary>
         /// Service for handling schools in the application
         /// </summary>
-        private readonly Services.ISchoolsService SchoolsService;
+        private readonly ISchoolsService SchoolsService;
 
         public SchoolController(
-            Services.ISchoolsService schoolsService)
+            ISchoolsService schoolsService)
         {
             SchoolsService = schoolsService;
         }
@@ -31,7 +32,7 @@ namespace DerekHoneycutt.Controllers
         /// </summary>
         /// <param name="school">Business model to translate</param>
         /// <returns>REST model to return to client</returns>
-        public static RestModels.School TranslateSchool(BusinessModels.School school)
+        public static RestModels.School TranslateSchool(Data.BusinessModels.School school)
         {
             return new RestModels.School()
             {
@@ -65,7 +66,7 @@ namespace DerekHoneycutt.Controllers
         [HttpGet("{schoolid}")]
         public async Task<IActionResult> GetSchool(Guid schoolid)
         {
-            BusinessModels.School school;
+            Data.BusinessModels.School school;
 
             try
             {

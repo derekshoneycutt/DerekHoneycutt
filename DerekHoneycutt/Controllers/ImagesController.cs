@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DerekHoneycutt.Data.Services.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,10 +19,10 @@ namespace DerekHoneycutt.Controllers
         /// <summary>
         /// Service for handling images in the application
         /// </summary>
-        private readonly Services.IImagesService ImagesService;
+        private readonly IImagesService ImagesService;
 
         public ImagesController(
-            Services.IImagesService imagesService)
+            IImagesService imagesService)
         {
             ImagesService = imagesService;
         }
@@ -31,7 +32,7 @@ namespace DerekHoneycutt.Controllers
         /// </summary>
         /// <param name="img">Business model to translate</param>
         /// <returns>REST object to return to the client</returns>
-        public static RestModels.Image TranslateImage(BusinessModels.Image img)
+        public static RestModels.Image TranslateImage(Data.BusinessModels.Image img)
         {
             return new RestModels.Image()
             {
@@ -59,7 +60,7 @@ namespace DerekHoneycutt.Controllers
         [HttpGet("{imgid}")]
         public async Task<IActionResult> GetImage(Guid imgid)
         {
-            BusinessModels.Image img;
+            Data.BusinessModels.Image img;
 
             try
             {

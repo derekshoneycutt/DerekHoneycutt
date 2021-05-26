@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using DerekHoneycutt.Data.Extensions;
 
 namespace DerekHoneycutt
 {
@@ -31,22 +32,7 @@ namespace DerekHoneycutt
                 conf.AddDebug();
             });
 
-            var connectionChoice = Configuration.GetValue("UseConnection", "Azure") ?? "";
-            var connectionString = Configuration.GetConnectionString(connectionChoice);
-            services.AddDbContext<DbModels.DatabaseContext>(opt =>
-                    opt.UseLazyLoadingProxies().UseSqlServer(connectionString));
-
-            //Add configuration patterns
-            var smtpSettings = Configuration.GetSection("SmtpSettings");
-            services.Configure<Config.SmtpSettings>(smtpSettings);
-
-            //Add services for individual parts
-            services.AddScoped<Services.IEmailService, Services.Core.EmailService>();
-            services.AddScoped<Services.IImagesService, Services.Core.ImagesService>();
-            services.AddScoped<Services.ILandingsService, Services.Core.LandingsService>();
-            services.AddScoped<Services.IPagesService, Services.Core.PagesService>();
-            services.AddScoped<Services.IResumeExpJobsService, Services.Core.ResumeExpJobsService>();
-            services.AddScoped<Services.ISchoolsService, Services.Core.SchoolsService>();
+            services.AddDerekHoneycuttServices(Configuration);
 
             services.AddCors();
 

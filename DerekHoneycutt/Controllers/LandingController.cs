@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DerekHoneycutt.Data.Services.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,10 +19,10 @@ namespace DerekHoneycutt.Controllers
         /// <summary>
         /// Service for handling landings in the application
         /// </summary>
-        private readonly Services.ILandingsService LandingsService;
+        private readonly ILandingsService LandingsService;
 
         public LandingController(
-            Services.ILandingsService landingsService)
+            ILandingsService landingsService)
         {
             LandingsService = landingsService;
         }
@@ -31,7 +32,7 @@ namespace DerekHoneycutt.Controllers
         /// </summary>
         /// <param name="landing">Business model to translate</param>
         /// <returns>REST model to return to the client</returns>
-        public static RestModels.Landing TranslateLanding(BusinessModels.Landing landing)
+        public static RestModels.Landing TranslateLanding(Data.BusinessModels.Landing landing)
         {
             return new RestModels.Landing()
             {
@@ -63,7 +64,7 @@ namespace DerekHoneycutt.Controllers
         [HttpGet("{landingid}")]
         public async Task<IActionResult> GetLanding(Guid landingid)
         {
-            BusinessModels.Landing landing;
+            Data.BusinessModels.Landing landing;
 
             try
             {
