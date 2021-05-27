@@ -23,6 +23,19 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION_INPROC }}
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2.1.5
+    - name: Prepare NPM for Frontend
+      run: |
+        cd DerekHoneycutt.Frontend
+        npm ci
+        cd ..
+    - name: Build Frontend
+      shell: cmd
+      env:
+        DHONEYCUTT_INSIGHTS_KEY: ${{ secrets.APPINSIGHTS_INSTRUMENTKEY }}
+      run: |
+        ./BuildFrontend.ps1 -AppInsightsKey "%DHONEYCUTT_INSIGHTS_KEY%"
     - name: Restore
       run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
     - name: Build
