@@ -9,7 +9,7 @@ import * as pageFactories from './PageFactories';
 import '../ServerTypeDefs';
 
 //Comment this out if not doing
-//import './appinsights';
+import './appinsights';
 
 
 /**

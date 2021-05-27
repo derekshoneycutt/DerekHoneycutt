@@ -4,7 +4,7 @@ import { ApplicationInsights } from '@microsoft/applicationinsights-web'
 $(() => {
     const appInsights = new ApplicationInsights({
         config: {
-            instrumentationKey: '81cab510-5b57-4b66-8a5a-cfb81456352c'
+            instrumentationKey: '${{ secrets.APPINSIGHTS_INSTRUMENTKEY }}'
             /* ...Other Configuration Options... */
         }
     });

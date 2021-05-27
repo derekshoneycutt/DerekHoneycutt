@@ -30,6 +30,11 @@ jobs:
         cd DerekHoneycutt.Frontend
         npm ci
         cd ..
+    - uses: jwsi/secret-parser@v1
+      with:
+        filename: "./DerekHoneycutt.Frontend/main/appinsights.js"
+        secret-name: APPINSIGHTS_INSTRUMENTKEY
+        secret-value: ${{ secrets.APPINSIGHTS_INSTRUMENTKEY }}
     - name: Build Frontend
       shell: pwsh
       run: ./BuildFrontend.ps1
