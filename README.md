@@ -2,7 +2,7 @@
 
 This is a repository for my personal portfolio website and code that I'm willing to show as additional portfolio. Although primarily the codebase for my personal "resume" website, there is some work from other projects included as well. For example, a few C# WPF projects are included in an OTHERS folder; these are generally older code that may be below par on my own standards today, but they provide some useful code and old sampling of work I have collected over the years.
 
-The primary project here is an intentionally over-engineered C# Web API RESTful backend with a vanilla Javascript frontend built with web components. I wanted to showcase a proper RESTful backend, including HATEOAS, and I also took the challenge of vanilla Javascript (with helper methods developed along the way) as a delve into the technological basis of the web.
+The primary project here is an intentionally over-engineered C# Azure Functions RESTful backend with a vanilla Javascript static frontend built with web components. I wanted to showcase a proper RESTful backend, including HATEOAS, and I also took the challenge of vanilla Javascript (with helper methods developed along the way) as a delve into the technological basis of the web. Eventually, I sought to make this serverless, running on Azure Functions and Azure Storage, where it now stands.
 
 Portfolio is currently deployed at [https://www.derekhoneycutt.com](https://www.derekhoneycutt.com)
 
@@ -12,9 +12,11 @@ This project can be used for other sites with some tweaks. Will likely want to f
 
 Following this, the following items must be completed:
 
-- Create `webpack.user_config.js`. A demo is available with all options included.
-- Create `appsettings.json` and (perhaps) `appsettings.Development.json`. A demo is available with all options included.
-- Create `front_src/appinsights.js` or edit `front_src/app.js` to remove reference to it. This is a good spot to include analytic javascript code if any is desired.
+- Create `DerekHoneycutt.Frontend/webpack.user_config.js`. A demo is available with all options included.
+- Create `DerekHoneycutt.Frontend/main/appinsights.js` or edit `DerekHoneycutt.Frontend/main/app.js` to remove reference to it. This is a good spot to include analytic javascript code if any is desired.
+- `DerekHoneycutt.Frontend/main/app.js` should be reviewed and appropriate URL strings updated
+
+Ultimately, static websites must be built (`BuildFrontend.ps1` will do) and deployed to a static webhost. The azure functions project must be built and deployed as well. A SQL server is required: Visual Studio Migrations may be utilized to some effect, but connection strings, etc. must be provided. Azure Functions project, when deployed, should have ConnectionString set on server.
 
 # Subprojects
 
