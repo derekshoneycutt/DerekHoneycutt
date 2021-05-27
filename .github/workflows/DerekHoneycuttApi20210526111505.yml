@@ -23,6 +23,12 @@ jobs:
         cd DerekHoneycutt.Frontend
         npm ci
         cd ..
+    - name: Decrypt App Insights File
+      env:
+        DEREKHONEYCUTT_APPINSIGHTS_PASSCODE: ${{ secrets.DEREKHONEYCUTT_APPINSIGHTS_PASSCODE }}
+      run: |
+        chmod +x ./decrypt_appinsights.sh
+        ./decrypt_appinsights.sh
     - name: Build Frontend
       shell: pwsh
       run: ./BuildFrontend.ps1
