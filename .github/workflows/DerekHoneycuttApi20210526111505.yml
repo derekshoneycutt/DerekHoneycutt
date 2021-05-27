@@ -24,7 +24,7 @@ jobs:
         npm ci
         cd ..
     - name: Add App Insights Instrument Key
-      uses: yegobox/secret-parser@v1.0.1
+      uses: jwsi/secret-parser@v1
       with:
         filename: "./DerekHoneycutt.Frontend/main/appinsights.js"
         secret-name: APPINSIGHTS_INSTRUMENTKEY
