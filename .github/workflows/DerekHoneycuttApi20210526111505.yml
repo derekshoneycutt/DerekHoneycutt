@@ -46,9 +46,8 @@ jobs:
         publish-profile: ${{ secrets.DerekHoneycuttApi20210526111505_9115 }}
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
     - name: Deploy Frontend to Azure Storage
-      uses: bacongobbler/azure-blob-storage-upload@v1.2.0
+      uses: LanceMcCarthy/Action-AzureBlobUpload@v1.9.0
       with:
-        source_dir: './DerekHoneycutt.Frontend/wwwroot/'
+        source_folder: './DerekHoneycutt.Frontend/wwwroot/'
         container_name: '$web'
         connection_string: ${{ secrets.DEREKHONEYCUTT_AZURESTORAGE_CONNECTION}}
-        sync: true
