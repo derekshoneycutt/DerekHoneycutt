@@ -14,7 +14,8 @@ jobs:
   build-and-deploy:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -30,7 +31,8 @@ jobs:
         cd DerekHoneycutt.Frontend
         npm ci
         cd ..
-    - uses: jwsi/secret-parser@v1
+    - name: Add App Insights Instrument Key
+      uses: yegobox/secret-parser@v1.0.1
       with:
         filename: "./DerekHoneycutt.Frontend/main/appinsights.js"
         secret-name: APPINSIGHTS_INSTRUMENTKEY
@@ -38,11 +40,17 @@ jobs:
     - name: Build Frontend
       shell: pwsh
       run: ./BuildFrontend.ps1
-    - name: Restore
+    - name: Deploy Frontend to Azure Storage
+      uses: LanceMcCarthy/Action-AzureBlobUpload@v1.9.0
+      with:
+        source_folder: './DerekHoneycutt.Frontend/wwwroot/'
+        container_name: '$web'
+        connection_string: ${{ secrets.DEREKHONEYCUTT_AZURESTORAGE_CONNECTION}}
+    - name: Restore Backend Dependencies
       run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
-    - name: Build
+    - name: Build Backend
       run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
-    - name: Publish
+    - name: Publish Backend to artifact
       run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}"
     - name: Deploy to Azure Function App
       uses: Azure/functions-action@v1
@@ -50,9 +58,3 @@ jobs:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
         publish-profile: ${{ secrets.DerekHoneycuttApi20210526111505_9115 }}
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-    - name: Deploy Frontend to Azure Storage
-      uses: LanceMcCarthy/Action-AzureBlobUpload@v1.9.0
-      with:
-        source_folder: './DerekHoneycutt.Frontend/wwwroot/'
-        container_name: '$web'
-        connection_string: ${{ secrets.DEREKHONEYCUTT_AZURESTORAGE_CONNECTION}}
