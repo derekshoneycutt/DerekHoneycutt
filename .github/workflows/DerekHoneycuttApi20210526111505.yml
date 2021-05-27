@@ -11,19 +11,11 @@ env:
   WORKING_DIRECTORY: DerekHoneycutt.Api
   DOTNET_CORE_VERSION_INPROC: 3.1.x
 jobs:
-  build-and-deploy:
-    runs-on: windows-latest
+  Frontend-Build-And-Deploy:
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
-    - name: Setup .NET Core (for inproc extensions)
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.DOTNET_CORE_VERSION_INPROC }}
     - name: Setup Node.js environment
       uses: actions/setup-node@v2.1.5
     - name: Prepare NPM for Frontend
@@ -46,6 +38,19 @@ jobs:
         source_folder: './DerekHoneycutt.Frontend/wwwroot/'
         container_name: '$web'
         connection_string: ${{ secrets.DEREKHONEYCUTT_AZURESTORAGE_CONNECTION}}
+  Backend-Build-And-Deploy:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+    - name: Setup .NET Core (for inproc extensions)
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_CORE_VERSION_INPROC }}
     - name: Restore Backend Dependencies
       run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
     - name: Build Backend
