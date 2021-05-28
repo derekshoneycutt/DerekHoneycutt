@@ -13,7 +13,7 @@ This project can be used for other sites with some tweaks. Will likely want to f
 Following this, the following items must be completed:
 
 - Create `DerekHoneycutt.Frontend/webpack.user_config.js`. A demo is available with all options included.
-- Create `DerekHoneycutt.Frontend/main/appinsights.js` or edit `DerekHoneycutt.Frontend/main/app.js` to remove reference to it. This is a good spot to include analytic javascript code if any is desired.
+- Create `DerekHoneycutt.Frontend/main/appinsights.js` or edit `DerekHoneycutt.Frontend/main/app.js` to remove reference to it. This is a good spot to include analytic javascript code if any is desired. NOTE: I have an appinsights.js.gpg which is encrypted with a random string and decrypted during github actions build. I might recommend similar.
 - `DerekHoneycutt.Frontend/main/app.js` should be reviewed and appropriate URL strings updated
 
 Ultimately, static websites must be built (`BuildFrontend.ps1` will do) and deployed to a static webhost. The azure functions project must be built and deployed as well. A SQL server is required: Visual Studio Migrations may be utilized to some effect, but connection strings, etc. must be provided. Azure Functions project, when deployed, should have ConnectionString set on server.
