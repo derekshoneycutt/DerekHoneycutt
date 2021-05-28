@@ -38,7 +38,9 @@ function fillLandings(controller) {
 /** Fetch the Home object from the server, which tells us everything to build the initial site!
  * @param {DrockMainController} controller */
 async function fetchhome(controller) {
-    let homefetch = await $_.RestFetch("https://derekhoneycuttapi20210526111505.azurewebsites.net/", "api/portfolio");
+    //localhost:7071 is for development; set otherwise for prod
+    let homefetch = await $_.RestFetch("http://localhost:7071/", "api/portfolio");
+    //let homefetch = await $_.RestFetch("https://derekhoneycuttapi20210526111505.azurewebsites.net/", "api/portfolio");
 
     controller.homefetch = homefetch;
 

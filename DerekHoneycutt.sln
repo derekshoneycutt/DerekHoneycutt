@@ -45,10 +45,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		BuildFrontend.ps1 = BuildFrontend.ps1
 		decrypt_appinsights.sh = decrypt_appinsights.sh
+		.github\workflows\DerekHoneycuttApi20210526111505.yml = .github\workflows\DerekHoneycuttApi20210526111505.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "DerekHoneycutt.Frontend", "DerekHoneycutt.Frontend\DerekHoneycutt.Frontend.njsproj", "{231B1D90-4275-4107-8F5D-1038341A6FE1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B3F17F35-CD48-4365-97E5-A43F7FB2D2D6} = {B3F17F35-CD48-4365-97E5-A43F7FB2D2D6}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DerekHoneycutt.Data", "DerekHoneycutt.Data\DerekHoneycutt.Data.csproj", "{FE4CEA3A-7D99-432F-90B8-1033C601AF88}"
 EndProject

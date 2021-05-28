@@ -11,55 +11,73 @@ env:
   WORKING_DIRECTORY: DerekHoneycutt.Api
   DOTNET_CORE_VERSION_INPROC: 3.1.x
 jobs:
-  Frontend-Build-And-Deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v2.1.5
-    - name: Prepare NPM for Frontend
-      run: |
-        cd DerekHoneycutt.Frontend
-        npm ci
-        cd ..
-    - name: Decrypt App Insights File
-      env:
-        DEREKHONEYCUTT_APPINSIGHTS_PASSCODE: ${{ secrets.DEREKHONEYCUTT_APPINSIGHTS_PASSCODE }}
-      run: |
-        chmod +x ./decrypt_appinsights.sh
-        ./decrypt_appinsights.sh
-    - name: Build Frontend
-      shell: pwsh
-      run: ./BuildFrontend.ps1
-    - name: Deploy Frontend to Azure Storage
-      uses: LanceMcCarthy/Action-AzureBlobUpload@v1.9.0
-      with:
-        source_folder: './DerekHoneycutt.Frontend/wwwroot/'
-        container_name: '$web'
-        connection_string: ${{ secrets.DEREKHONEYCUTT_AZURESTORAGE_CONNECTION}}
+
   Backend-Build-And-Deploy:
     runs-on: windows-latest
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+
     - name: Setup .NET Core (for inproc extensions)
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION_INPROC }}
+
     - name: Restore Backend Dependencies
       run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
+
     - name: Build Backend
       run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+
     - name: Publish Backend to artifact
       run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}"
+
     - name: Deploy to Azure Function App
       uses: Azure/functions-action@v1
       with:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
         publish-profile: ${{ secrets.DerekHoneycuttApi20210526111505_9115 }}
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+
+
+  Frontend-Build-And-Deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2.1.5
+
+    - name: Prepare NPM for Frontend
+      run: |
+        cd DerekHoneycutt.Frontend
+        npm ci
+        cd ..
+
+    - name: Decrypt App Insights File
+      env:
+        DEREKHONEYCUTT_APPINSIGHTS_PASSCODE: ${{ secrets.DEREKHONEYCUTT_APPINSIGHTS_PASSCODE }}
+      run: |
+        chmod +x ./decrypt_appinsights.sh
+        ./decrypt_appinsights.sh
+
+    - name: Fix Frontend Calls to API to point to Azure Backend
+      shell: pwsh
+      run: (Get-Content "./DerekHoneycutt.Frontend/main/app.js").replace('"http://localhost:7071/"', '"https://derekhoneycuttapi20210526111505.azurewebsites.net/"') | Set-Content "./DerekHoneycutt.Frontend/main/app.js"
+
+    - name: Build Frontend
+      shell: pwsh
+      run: ./BuildFrontend.ps1
+
+    - name: Deploy Frontend to Azure Storage
+      uses: LanceMcCarthy/Action-AzureBlobUpload@v1.9.0
+      with:
+        source_folder: './DerekHoneycutt.Frontend/wwwroot/'
+        container_name: '$web'
+        connection_string: ${{ secrets.DEREKHONEYCUTT_AZURESTORAGE_CONNECTION }}
