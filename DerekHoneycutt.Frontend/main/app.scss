@@ -167,10 +167,12 @@ drock-splash {
     min-width: 0;
     max-width: 0;
     min-height: 0;
-    max-height:0;
+    max-height: 0;
     overflow: hidden;
     display: flex;
     z-index: 20;
+    justify-content: center;
+    align-items: center;
 }
 
 #drock-img-dialog.active {
@@ -183,9 +185,7 @@ drock-splash {
 }
 
 #drock-img-dialog-img {
-    max-width: calc(100% - 80px);
-    min-width: calc(100% - 80px);
-    max-height: calc(100% - 40px);
+    flex-shrink: 0;
     margin: auto;
 }
 
