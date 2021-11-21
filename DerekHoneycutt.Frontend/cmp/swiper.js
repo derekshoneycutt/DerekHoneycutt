@@ -8,7 +8,11 @@ const preventDefault = e => e.preventDefault();
 
 /** Element that handles swiping */
 export default class DrockSwiperElement extends HTMLElement {
-    //#values = {};
+    #values = {
+        hidexmove: $_.value(this.hidexmove),
+        hideymove: $_.value(this.hideymove),
+        orientation: $_.value(this.orientation, v => v === 'x' ? 'row' : 'column')
+    };
     #elementCache = {
         container: $_.makeEmpty(),
         slot: $_.makeEmpty(),
@@ -58,13 +62,6 @@ export default class DrockSwiperElement extends HTMLElement {
     /** Marks if user appears to have begun scrolling in opposing axis, blocking swiping actions */
     #beganScroll = false;
 
-    /** Marks whether currently scrolling with the mouse wheel */
-    #isWheeling = false;
-    /** Current position of scrolling with the mouse wheel */
-    #wheelPosition = 0;
-    /** Current timeout to handle when mouse wheeling has ended */
-    #wheelTimeout = null;
-
     constructor() {
         super();
 
@@ -96,54 +93,50 @@ export default class DrockSwiperElement extends HTMLElement {
             const fabRipple = new MDCRipple(f);
             f.mdcRipple = fabRipple;
         });
-        this.#elementCache.prevlink.addEvents({
-            click: e => {
-                this.movePrevious();
-                e.preventDefault();
+        this.#elementCache.prevlink.setProperties({
+            classList: {
+                'drock-swiper-hidden': this.#values.hidexmove
+            },
+            on: {
+                click: this.#onPreviousClick
             }
-        });
-        this.#elementCache.prevlink.setClassList({
-            'drock-swiper-hidden': this.hidexmove
         });
 
         this.#elementCache.uplink.forEach(b => {
             b.mdcRipple = new MDCRipple(b);
         });
-        this.#elementCache.uplink.addEvents({
-            click: e => {
-                this.movePrevious();
-                e.preventDefault();
+        this.#elementCache.uplink.setProperties({
+            classList: {
+                'drock-swiper-hidden': this.#values.hideymove
+            },
+            on: {
+                click: this.#onPreviousClick
             }
-        });
-        this.#elementCache.uplink.setClassList({
-            'drock-swiper-hidden': true
         });
 
         this.#elementCache.nextlink.forEach(f => {
             const fabRipple = new MDCRipple(f);
             f.mdcRipple = fabRipple;
         });
-        this.#elementCache.nextlink.addEvents({
-            click: e => {
-                this.moveNext(e);
-                e.preventDefault();
+        this.#elementCache.nextlink.setProperties({
+            classList: {
+                'drock-swiper-hidden': this.#values.hidexmove
+            },
+            on: {
+                click: this.#onNextClick
             }
-        });
-        this.#elementCache.nextlink.setClassList({
-            'drock-swiper-hidden': this.hidexmove
         });
 
         this.#elementCache.downlink.forEach(b => {
             b.mdcRipple = new MDCRipple(b);
         });
-        this.#elementCache.downlink.addEvents({
-            click: e => {
-                this.moveNext(e);
-                e.preventDefault();
+        this.#elementCache.downlink.setProperties({
+            classList: {
+                'drock-swiper-hidden': this.#values.hideymove
+            },
+            on: {
+                click: this.#onNextClick
             }
-        });
-        this.#elementCache.downlink.setClassList({
-            'drock-swiper-hidden': true
         });
 
         this.#elementCache.container.addEvents({
@@ -156,6 +149,7 @@ export default class DrockSwiperElement extends HTMLElement {
                 this.#updateNavShown();
             }
         });
+
         this.style.setProperty("--drock-swiper-orientation",
             this.orientation === 'x' ? 'row' : 'column');
 
@@ -163,7 +157,6 @@ export default class DrockSwiperElement extends HTMLElement {
         this.#elementCache.container[0].addEventListener('touchmove', e => this.#onSwipeMove(e), true);
         this.#elementCache.container[0].addEventListener('touchend', e => this.#onSwipeEnd(e, true), true);
         this.#elementCache.container[0].addEventListener('touchcancel', e => this.#onSwipeEnd(e, false), true);
-        //this.#elementCache.container[0].addEventListener('wheel', e => this.#onWheel(e));
 
         this.#elementCache.slot.addEvents({
             slotchange: e => {
@@ -230,38 +223,15 @@ export default class DrockSwiperElement extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        /*const camelName = $_.camelize(name);
+        const camelName = $_.camelize(name);
         if (this.#values[camelName]) {
             this.#values[camelName].set(newValue);
-        }*/
+        }
+
         if (name.toLowerCase() === 'index') {
             let index = Math.trunc(parseInt(this.index, 0));
             if (index !== this.#currIndex)
                 this.moveToIndex(index);
-        }
-        else if (name.toLowerCase() === 'hidexmove') {
-            if (!this.#elementCache.prevlink || !this.#elementCache.nextlink)
-                return;
-            this.#elementCache.prevlink.setClassList({
-                'drock-swiper-hidden': this.hidexmove
-            });
-            this.#elementCache.nextlink.setClassList({
-                'drock-swiper-hidden': this.hidexmove
-            });
-        }
-        else if (name.toLowerCase() === 'hideymove') {
-            if (!this.#elementCache.uplink || !this.#elementCache.downlink)
-                return;
-            this.#elementCache.uplink.setClassList({
-                'drock-swiper-hidden': this.hideymove
-            });
-            this.#elementCache.downlink.setClassList({
-                'drock-swiper-hidden': this.hideymove
-            });
-        }
-        else if (name.toLowerCase() === 'orientation') {
-            this.style.setProperty("--drock-swiper-orientation",
-                this.orientation === 'x' ? 'row' : 'column');
         }
     }
 
@@ -354,7 +324,7 @@ export default class DrockSwiperElement extends HTMLElement {
 
         //Note: This doesn't *actually* initiate swiping, though it does prepare the component expecting movement
         const curroffset = this.getBoundingClientRect();
-        const detailPoint = this.getGesturePointFromEvent(e);
+        const detailPoint = this.#getGesturePointFromEvent(e);
         this.#start = detailPoint;
         this.#startMod.width = curroffset.width;
         this.#startMod.height = curroffset.height;
@@ -403,7 +373,7 @@ export default class DrockSwiperElement extends HTMLElement {
         const capFirst = s => s.charAt(0).toUpperCase() + s.slice(1);
 
         if (this.#isSwiping && !this.#beganScroll) {
-            const detailPoint = this.getGesturePointFromEvent(evt);
+            const detailPoint = this.#getGesturePointFromEvent(evt);
             this.#updateminmax(detailPoint[this.orientation]);
 
             const moved = detailPoint[this.orientation] - this.#start[this.orientation];
@@ -484,7 +454,7 @@ export default class DrockSwiperElement extends HTMLElement {
 
             //Although difference from start is useful, the pivot allows us some more dynamic use
                 //Pivot resets minmaxX object, allowing us to use min/max to figure out swipe direction
-            const detailPoint = this.getGesturePointFromEvent(evt);
+            const detailPoint = this.#getGesturePointFromEvent(evt);
             let diff = detailPoint[this.orientation] - this.#minmax.pivot;
             if (diff > 0)
                 diff = detailPoint[this.orientation] - this.#minmax.min;
@@ -509,80 +479,15 @@ export default class DrockSwiperElement extends HTMLElement {
         }
     }
 
-    /**
-     * Event raised when the mouse wheel is used on the component
-     * @param {WheelEvent} evt event object sent with the event
-     */
-    #onWheel = (evt) => {
-        const moveNumber = evt[`delta${this.orientation.toUpperCase()}`];
-        if (Math.abs(moveNumber) < 25 && !this.#isWheeling || this.#childCount <= 1)
-            return;
-
-        evt.preventDefault();
-
-        if (this.#isWheeling) {
-            clearTimeout(this.#wheelTimeout);
-            this.#wheelPosition -= moveNumber;
-        }
-        else {
-            this.#isWheeling = true;
-            this.#wheelPosition = -1 * moveNumber;
-
-            const curroffset = this.getBoundingClientRect();
-            this.#startMod.width = curroffset.width;
-            this.#startMod.height = curroffset.height;
-            this.#startMod.x = -1 * curroffset.width * this.#currIndex;
-            this.#startMod.y = -1 * curroffset.height * this.#currIndex;
-
-            this.style.setProperty('--drock-swiper-slottranslength', '0');
-        }
-
-        const dimension = this.orientation === 'x' ? 'width' : 'height';
-        let use = this.#startMod[this.orientation] + this.#wheelPosition;
-        if (use < this.#startMod[this.orientation] - this.#startMod[dimension])
-            use = this.#startMod[this.orientation] - this.#startMod[dimension];
-        if (use > this.#startMod[this.orientation] + this.#startMod[dimension])
-            use = this.#startMod[this.orientation] + this.#startMod[dimension];
-        if (!this.allowOvershoot) {
-            if (use > 0)
-                use = 0;
-            if (use < (this.#childCount - 1) * this.#startMod[dimension] * -1)
-                use = (this.#childCount - 1) * this.#startMod[dimension] * -1;
-        }
-        this.style.setProperty(`--drock-swiper-positionoffset${this.orientation.toUpperCase()}`, `${use}px`);
-        this.#wheelTimeout = setTimeout(() => {
-            clearTimeout(this.#wheelTimeout);
-            this.#wheelTimeout = null;
-            this.#isWheeling = false;
-            this.style.setProperty('--drock-swiper-slottranslength', 'var(--drock-transitions-length, 0.3s)');
-
-            let dir = -1 * Math.sign(this.#wheelPosition);
-            let doMove = this.#currIndex;
-            if (Math.abs(this.#wheelPosition) > 50) {
-                doMove = this.#currIndex + dir;
-            }
-            this.#wheelPosition = 0;
-            this.moveToIndex(doMove, true);
-        }, 150);
-    }
-
     /** Update whether navigation buttons are shown overlaying the viewport */
     #updateNavShown = () => {
         if (this.hideymove) {
-            this.#elementCache.uplink.setClassList({
-                'drock-swiper-hidden': true
-            });
-            this.#elementCache.downlink.setClassList({
-                'drock-swiper-hidden': true
-            });
+            this.#elementCache.uplink[0].classList.toggle('drock-swiper-shownav', false);
+            this.#elementCache.downlink[0].classList.toggle('drock-swiper-shownav', false);
         }
         else {
-            this.#elementCache.uplink.setClassList({
-                'drock-swiper-hidden': (this.#currIndex < 1)
-            });
-            this.#elementCache.downlink.setClassList({
-                'drock-swiper-hidden': (this.#currIndex >= this.#childCount - 1)
-            });
+            this.#elementCache.uplink[0].classList.toggle('drock-swiper-shownav', (this.#currIndex < 1));
+            this.#elementCache.downlink[0].classList.toggle('drock-swiper-shownav', (this.#currIndex >= this.#childCount - 1));
         }
 
         if (!this.#allowPopoverNav || this.#lastMouse === undefined) {
@@ -590,6 +495,7 @@ export default class DrockSwiperElement extends HTMLElement {
             this.#elementCache.nextlink[0].classList.toggle('drock-swiper-shownav', false);
         }
         else {
+            // Get the x-movers by the mouse position only
             let curroffset = this.getBoundingClientRect();
             const prevlinkoffset = this.#elementCache.prevlink[0].getBoundingClientRect();
 
@@ -607,6 +513,24 @@ export default class DrockSwiperElement extends HTMLElement {
                 this.#allowPopoverNav && this.#currIndex < this.#childCount - 1 &&
                 this.#lastMouse >= nextEnough);
         }
+    }
+
+    /**
+     * Event to run when a Next button is clicked
+     * @param {MouseEvent} evt event object for event
+     */
+    #onNextClick = (evt) => {
+        this.moveNext();
+        evt.preventDefault();
+    }
+
+    /**
+     * Event to run when a Previous button is clicked
+     * @param {MouseEvent} evt event object for event
+     */
+    #onPreviousClick = (evt) => {
+        this.movePrevious();
+        evt.preventDefault();
     }
 
     /**

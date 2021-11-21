@@ -79,7 +79,7 @@
     @include ripple.radius-bounded;
     @include ripple.states;
     position: absolute;
-    top: 0;
+    top: -100px;
     left: 0;
     right: 0;
     min-height: 45px;
@@ -91,6 +91,11 @@
     z-index: 10;
     overflow: hidden;
     border: none;
+    display: none;
+}
+.drock-swiper-upprev.drock-swiper-shownav {
+    top: 0;
+    display: block;
 }
 
 .drock-swiper-downnext {
@@ -98,7 +103,7 @@
     @include ripple.radius-bounded;
     @include ripple.states;
     position: absolute;
-    bottom: 0;
+    bottom: -100px;
     left: 0;
     right: 0;
     min-height: 45px;
@@ -110,6 +115,11 @@
     z-index: 10;
     overflow: hidden;
     border: none;
+    display: none;
+}
+.drock-swiper-downnext.drock-swiper-shownav {
+    bottom: 0;
+    display: block;
 }
 
 @media screen and (orientation: portrait) {
