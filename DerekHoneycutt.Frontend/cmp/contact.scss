@@ -6,8 +6,8 @@
 @use "@material/button/mdc-button";
 @use "@material/ripple";
 @use "@material/elevation";
-@import '../../material-icons.scss';
-@import '../../RobotoFont.scss';
+@import '../material-icons.scss';
+@import '../RobotoFont.scss';
 
 :host {
     all: initial;

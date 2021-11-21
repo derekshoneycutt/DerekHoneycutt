@@ -1,4 +1,4 @@
-﻿import { Imogene as $_ } from '../../Imogene/Imogene';
+﻿import { Imogene as $_ } from '../Imogene/Imogene';
 import { MDCRipple } from '@material/ripple';
 import { MDCTextField } from '@material/textfield';
 

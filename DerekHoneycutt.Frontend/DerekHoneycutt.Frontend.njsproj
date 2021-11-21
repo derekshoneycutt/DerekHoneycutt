@@ -119,12 +119,12 @@
     <Content Include="statics\mstile-150x150.png" />
     <Content Include="statics\orienteer-min.jpg" />
     <Content Include="statics\safari-pinned-tab.svg" />
-    <Content Include="cmp\drock\contact.js" />
-    <Content Include="cmp\drock\topbar.js" />
-    <Content Include="cmp\drock\contact.html" />
-    <Content Include="cmp\drock\topbar.html" />
-    <Content Include="cmp\drock\contact.scss" />
-    <Content Include="cmp\drock\topbar.scss" />
+    <Content Include="cmp\contact.js" />
+    <Content Include="cmp\topbar.js" />
+    <Content Include="cmp\contact.html" />
+    <Content Include="cmp\topbar.html" />
+    <Content Include="cmp\contact.scss" />
+    <Content Include="cmp\topbar.scss" />
     <Content Include="sawtooth\cmp\sawbase.js" />
     <Content Include="sawtooth\cmp\sawbase.html" />
     <Content Include="sawtooth\cmp\sawbase-addbutton.scss" />
@@ -150,7 +150,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cmp" />
-    <Folder Include="cmp\drock" />
     <Folder Include="Imogene\" />
     <Folder Include="main" />
     <Folder Include="RestFetch\" />
