@@ -1,58 +1,50 @@
-﻿import { Imogene as $, ImogeneExports as $_, ImogeneTemplate as $t } from '../../Imogene/Imogene';
+﻿import { Imogene as $_ } from '../../Imogene/Imogene';
 import { MDCRipple } from '@material/ripple';
 import { MDCTextField } from '@material/textfield';
 
 /** Component for showing the contact form of my portfolio */
 export default class DrockContact extends HTMLElement {
+    #elementCache = {
+        buttons: $_.makeEmpty(),
+        textFields: $_.makeEmpty(),
+        iconButtons: $_.makeEmpty(),
+
+        backButton: $_.makeEmpty()
+    };
+    #mdcCache = {};
+
     constructor() {
         super();
-
-        this._constructed = false;
     }
 
     connectedCallback() {
+        // Only run this once from here
         if (this.shadowRoot)
             return;
 
-        //If shadowroot is not already retrieved, create it, copy the template, and setup events & properties
+        // Get the shadow root and template data
+        const shadowRoot = $_.enhance(this.attachShadow({ mode: 'open' }));
+        shadowRoot.appendChildren($_.find('#drock-contact').prop('content').cloneNode(true));
 
-        const shadowRoot = this.attachShadow({ mode: 'open' });
-        /** @type {HTMLTemplateElement} */
-        const template = $('#drock-contact')[0];
-        const showChildren = template.content.cloneNode(true);
+        this.#elementCache = {
+            buttons: shadowRoot.find('.mdc-button'),
+            textFields: shadowRoot.find('.mdc-text-field'),
+            iconButtons: shadowRoot.find('.mdc-icon-button'),
 
-        const buttons = $(showChildren, '.mdc-button');
-        buttons.forEach(v => v.mdcRipple = new MDCRipple(v));
-        const textFields = $(showChildren, '.mdc-text-field');
-        textFields.forEach(v => v.mdcTextField = new MDCTextField(v));
-        const iconButtons = $(showChildren, '.mdc-icon-button');
-        iconButtons.forEach(v => {
-            v.mdcRipple = new MDCRipple(v);
-            v.mdcRipple.unbounded = true;
-        });
+            backButton: shadowRoot.find('.contact-topbar-back-button')
+        };
+        this.#mdcCache = {
+            buttons: this.#elementCache.buttons.map(b => new MDCRipple(b)),
+            textFields: this.#elementCache.textFields.map(tf => new MDCTextField(tf)),
+            iconButtons: this.#elementCache.iconButtons.map(v => {
+                v.mdcRipple = new MDCRipple(v);
+                v.mdcRipple.unbounded = true;
+            })
+        };
 
-        this._backButton = $(showChildren, '.contact-topbar-back-button');
-        this._backButton.addEvents({
+        this.#elementCache.backButton.addEvents({
             click: e => this.onClose()
         });
-        /*this._nameField = $(showChildren, '.drock-contact-name-field')[0];
-        this._emailField = $(showChildren, '.drock-contact-email-field')[0];
-        this._msgField = $(showChildren, '.drock-contact-msg-field')[0];
-        this._cancelButton = $(showChildren, '.drock-contact-cancel-btn');
-        this._cancelButton.addEvents({
-            click: e => this.onClose()
-        });
-        this._sendButton = $(showChildren, '.drock-contact-send-btn');
-        this._sendButton.addEvents({
-            click: e => this.onSend()
-        });*/
-
-
-
-        /* * @type {HTMLSlotElement} */
-        //const slotEl = $(showChildren, 'slot')[0];
-
-        shadowRoot.appendChild(showChildren);
     }
 
     static get observedAttributes() {
@@ -64,21 +56,21 @@ export default class DrockContact extends HTMLElement {
         }
     }*/
 
-    __setAttribute(attr, value) {
+    #setAttribute = (attr, value) => {
         if (value)
             this.setAttribute(attr, value);
         else if (this.hasAttribute(attr))
             this.removeAttribute(attr);
     }
 
-    onClose() {
+    onClose = () => {
         this.dispatchEvent(new CustomEvent('requestclose', {
             bubbles: true,
             composed: true
         }));
     }
 
-    onSend() {
+    onSend = () => {
         /*if (`${this._nameField.value}`.trim() === '') {
             return;
         }
@@ -102,7 +94,7 @@ export default class DrockContact extends HTMLElement {
         }));*/
     }
 
-    clearFields() {
+    clearFields = () => {
         /*this._emailField.value = '';
         this._nameField.value = '';
         this._msgField.value = '';*/

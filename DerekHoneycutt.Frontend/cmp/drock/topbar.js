@@ -1,4 +1,4 @@
-﻿import { Imogene as $, ImogeneExports as $_, ImogeneTemplate as $t } from '../../Imogene/Imogene';
+﻿import { Imogene as $_ } from '../../Imogene/Imogene';
 import { MDCTabBar } from '@material/tab-bar';
 import { MDCRipple } from '@material/ripple';
 
@@ -9,30 +9,29 @@ import { MDCRipple } from '@material/ripple';
 
 /** Component for showing the topbar of my portfolio */
 export default class DrockTopBar extends HTMLElement {
+    #elementCache = {
+        tabBarContent: $_.makeEmpty(),
+        tabBar: $_.makeEmpty()
+    };
+    #constructed = false;
+
     constructor() {
         super();
-
-        this._constructed = false;
     }
 
     connectedCallback() {
+        // Only run this once from here
         if (this.shadowRoot)
             return;
 
-        //If shadowroot is not already retrieved, create it, copy the template, and setup events & properties
+        // Get the shadow root and template data
+        const shadowRoot = $_.enhance(this.attachShadow({ mode: 'open' }));
+        shadowRoot.appendChildren($_.find('#drock-topbar').prop('content').cloneNode(true));
 
-        const shadowRoot = this.attachShadow({ mode: 'open' });
-        /** @type {HTMLTemplateElement} */
-        const template = $('#drock-topbar')[0];
-        const showChildren = template.content.cloneNode(true);
-
-        this._tabBarContent = $(showChildren, '.mdc-tab-scroller__scroll-content');
-        this._tabBar = $(showChildren, '.mdc-tab-bar');
-
-        /* * @type {HTMLSlotElement} */
-        //const slotEl = $(showChildren, 'slot')[0];
-
-        shadowRoot.appendChild(showChildren);
+        this.#elementCache = {
+            tabBarContent: shadowRoot.find('.mdc-tab-scroller__scroll-content'),
+            tabBar: shadowRoot.find('.mdc-tab-bar')
+        };
     }
 
     static get observedAttributes() {
@@ -44,7 +43,7 @@ export default class DrockTopBar extends HTMLElement {
         }
     }*/
 
-    __setAttribute(attr, value) {
+    #setAttribute = (attr, value) => {
         if (value)
             this.setAttribute(attr, value);
         else if (this.hasAttribute(attr))
@@ -57,8 +56,8 @@ export default class DrockTopBar extends HTMLElement {
      * @param {string} label Label to put on the tab
      * @param {boolean} [active] Whether this is an active tab or not
      */
-    _constructTab(icon, label, active = false) {
-        return $(['button', {
+    #constructTab = (icon, label, active = false) => {
+        return $_.make('button', {
             class: 'mdc-tab mdc-tab--stacked ' + (active ? 'mdc-tab--active' : ''),
             role: 'tab',
             "aria-selected": active,
@@ -72,14 +71,14 @@ export default class DrockTopBar extends HTMLElement {
                 ['span', { class: 'mdc-tab-indicator__content mdc-tab-indicator__content--underline' }]
             ],
             ['span', { class: 'mdc-tab__ripple' }]
-        ]);
+        );
     }
 
     /**
      * Event triggered when the tabbar changes
      * @param {any} event
      */
-    onTabbarActivate(event) {
+    onTabbarActivate = (event) => {
         this.dispatchEvent(new CustomEvent('tabbarchange', {
             detail: {
                 index: event.detail.index
@@ -93,14 +92,14 @@ export default class DrockTopBar extends HTMLElement {
      * 
      * @param {DrockTopbarTabDef[]} tabs Tabs fill the tab-bar with
      */
-    fillTabs(tabs) {
-        if (this._constructed)
+    fillTabs = (tabs) => {
+        if (this.#constructed)
             return;
 
-        var madeTabs = tabs.map(t => this._constructTab(t.icon, t.label, t.active));
-        this._tabBarContent.appendChildren(...madeTabs);
+        var madeTabs = tabs.map(t => this.#constructTab(t.icon, t.label, t.active));
+        this.#elementCache.tabBarContent.appendChildren(...madeTabs);
 
-        this._tabBar.forEach(tb => {
+        this.#elementCache.tabBar.forEach(tb => {
             let mdcTabBar = new MDCTabBar(tb);
             mdcTabBar.listen("MDCTabBar:activated", e => {
                 this.onTabbarActivate(e);
@@ -108,15 +107,15 @@ export default class DrockTopBar extends HTMLElement {
             tb.mdcTabBar = mdcTabBar;
         });
 
-        this._constructed = true;
+        this.#constructed = true;
     }
 
     /**
      * Move the tabbar to the given index
      * @param {number} index Index of the tab to move the TabBar to
      */
-    moveToTabIndex(index) {
-        this._tabBar.forEach(tb => {
+    moveToTabIndex = (index) => {
+        this.#elementCache.tabBar.forEach(tb => {
             tb.mdcTabBar.activateTab(index);
         });
     }

@@ -1,4 +1,4 @@
-﻿import { Imogene as $, ImogeneExports as $_ } from '../Imogene/Imogene';
+﻿import { Imogene as $_ } from '../Imogene/Imogene';
 import { MDCRipple } from '@material/ripple';
 
 /** Offset pixels to break into swiping actions */
@@ -73,12 +73,12 @@ export default class DrockSwiperElement extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: 'open' });
 
         /** @type {HTMLTemplateElement} */
-        const template = $('#drock-swiper')[0];
+        const template = $_.find('#drock-swiper')[0];
         const showChildren = template.content.cloneNode(true);
 
         /** Link to move previous
          *  @type {HTMLAnchorElement} */
-        this.__prevlink = $(showChildren, '.drock-swiper-prev');
+        this.__prevlink = $_.findChildren(showChildren, '.drock-swiper-prev');
         this.__prevlink.forEach(f => {
             const fabRipple = new MDCRipple(f);
             f.mdcRipple = fabRipple;
@@ -93,7 +93,7 @@ export default class DrockSwiperElement extends HTMLElement {
             'drock-swiper-hidden': this.hidexmove
         });
 
-        this.__uplink = $(showChildren, '.drock-swiper-upprev');
+        this.__uplink = $_.findChildren(showChildren, '.drock-swiper-upprev');
         this.__uplink.forEach(b => {
             b.mdcRipple = new MDCRipple(b);
         });
@@ -109,7 +109,7 @@ export default class DrockSwiperElement extends HTMLElement {
 
         /** Link to move next
          * @type {HTMLAnchorElement} */
-        this.__nextlink = $(showChildren, '.drock-swiper-next');
+        this.__nextlink = $_.findChildren(showChildren, '.drock-swiper-next');
         this.__nextlink.forEach(f => {
             const fabRipple = new MDCRipple(f);
             f.mdcRipple = fabRipple;
@@ -124,7 +124,7 @@ export default class DrockSwiperElement extends HTMLElement {
             'drock-swiper-hidden': this.hidexmove
         });
 
-        this.__downlink = $(showChildren, '.drock-swiper-downnext');
+        this.__downlink = $_.findChildren(showChildren, '.drock-swiper-downnext');
         this.__downlink.forEach(b => {
             b.mdcRipple = new MDCRipple(b);
         });
@@ -139,7 +139,7 @@ export default class DrockSwiperElement extends HTMLElement {
         });
 
         /** @type {HTMLDivElement} */
-        const container = $(showChildren, '.drock-swiper-container');
+        const container = $_.findChildren(showChildren, '.drock-swiper-container');
         container.addEvents({
             mousemove: e => {
                 this.__lastMouse = e[`client${this.orientation.toUpperCase()}`];
@@ -160,7 +160,7 @@ export default class DrockSwiperElement extends HTMLElement {
         //container[0].addEventListener('wheel', e => this.onWheel(e));
 
         /** @type {HTMLSlotElement} */
-        const slot = $(container, 'slot');
+        const slot = $_.findChildren(container, 'slot');
         slot.addEvents({
             slotchange: e => {
                 const nodes = slot[0].assignedNodes();
@@ -362,7 +362,7 @@ export default class DrockSwiperElement extends HTMLElement {
 
         //Handle children that scroll, if applicable (one at a time: find it?)
         this._allowedScroll = false;
-        const scrollwith = $(this, '.drock-swiper-scrollwith');
+        const scrollwith = $_.findChildren(this, '.drock-swiper-scrollwith');
         let scrollChildren = [];
         scrollwith.forEach(sw => {
             const divCoords = sw.getBoundingClientRect();

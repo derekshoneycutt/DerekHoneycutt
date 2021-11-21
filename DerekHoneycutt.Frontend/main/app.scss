@@ -184,6 +184,7 @@ drock-splash {
 
 #drock-img-dialog-img {
     max-width: calc(100% - 80px);
+    min-width: calc(100% - 80px);
     max-height: calc(100% - 40px);
     margin: auto;
 }

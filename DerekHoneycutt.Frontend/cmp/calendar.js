@@ -1,4 +1,4 @@
-﻿import { Imogene as $, ImogeneExports as $_ } from '../Imogene/Imogene';
+﻿import { Imogene as $_ } from '../Imogene/Imogene';
 import { MDCRipple } from '@material/ripple';
 import * as defs from '../localdefs';
 import '../DateExts';
@@ -8,52 +8,66 @@ const monthNameFormatter = Intl.DateTimeFormat(defs.currlocal, { month: 'long' }
 
 /** Component used to display a navigable calendar */
 export default class DrockCalendarElement extends HTMLElement {
+    #values = {
+        usemonth: $_.value(Date.today()),
+        selection: $_.value(Date.today()),
+
+        monthhead: $_.value(''),
+
+        days: $_.valueArray(42),
+        dates: $_.valueArray(42),
+        istoday: $_.valueArray(42, v => false),
+        isoutmonth: $_.valueArray(42, v => false),
+        isselected: $_.valueArray(42, v => false)
+    };
+    #elementCache = {
+        monthheadEl: $_.makeEmpty(),
+        caldaytexts: $_.makeEmpty(),
+        ripples: $_.makeEmpty(),
+        prevButton: $_.makeEmpty(),
+        nextButton: $_.makeEmpty()
+    };
+    #mdcCache = {
+        ripples: []
+    };
+    #currSelected = null;
+    
     constructor() {
         super();
-
-        this._values = {
-            usemonth: $_.value(Date.today()),
-            selection: $_.value(Date.today()),
-
-            monthhead: $_.value(''),
-
-            days: $_.valueArray(42),
-            dates: $_.valueArray(42),
-            istoday: $_.valueArray(42, v => false),
-            isoutmonth: $_.valueArray(42, v => false),
-            isselected: $_.valueArray(42, v => false)
-        };
-
-        this._currSelected = null;
 
         this.setMonthView();
 
     }
 
     connectedCallback() {
+        // Only run this once from here
         if (this.shadowRoot)
             return;
 
-        const shadowRoot = this.attachShadow({ mode: 'open' });
-        /** @type {HTMLTemplateElement} */
-        const template = $('#drock-calendar')[0];
-        const showChildren = template.content.cloneNode(true);
-        shadowRoot.appendChild(showChildren);
+        // Get the shadow root and template data
+        const shadowRoot = $_.enhance(this.attachShadow({ mode: 'open' }));
+        shadowRoot.appendChildren($_.find('#drock-calendar').prop('content').cloneNode(true));
 
-        const monthheadEl = $(shadowRoot, '.drock-cal-month');
-        $_.appendChildren(monthheadEl, this._values.monthhead);
+        this.#elementCache = {
+            monthheadEl: shadowRoot.find('.drock-cal-month'),
+            caldaytexts: shadowRoot.find('.drock-cal-day__text'),
+            ripples: shadowRoot.find('.mdc-ripple-surface'),
+            prevButton: shadowRoot.find('.drock-cal-nav-prev'),
+            nextButton: shadowRoot.find('.drock-cal-nav-next')
+        };
 
-        const caldaytexts = $(shadowRoot, '.drock-cal-day__text');
-        this._values.dates.forEach((date, i) => {
-            const dateEl = caldaytexts[i];//$(shadowRoot, `#drock-cal-day${i + 1}`);
-            $_.appendChildren(dateEl, this._values.days[i]);
+        $_.appendChildren(this.#elementCache.monthheadEl, this.#values.monthhead);
+
+        this.#values.dates.forEach((date, i) => {
+            const dateEl = this.#elementCache.caldaytexts[i];
+            $_.appendChildren(dateEl, this.#values.days[i]);
             const parentEls = $_.parentElements(dateEl);
             $_.setProperties(parentEls, {
                 'data-date': date,
                 classList: {
-                    'drock-cal-day-today': this._values.istoday[i],
-                    'drock-cal-day-outmonth': this._values.isoutmonth[i],
-                    'drock-cal-day-selected': this._values.isselected[i]
+                    'drock-cal-day-today': this.#values.istoday[i],
+                    'drock-cal-day-outmonth': this.#values.isoutmonth[i],
+                    'drock-cal-day-selected': this.#values.isselected[i]
                 },
                 on: {
                     click: (e) => this.selection = date.get(),
@@ -69,12 +83,9 @@ export default class DrockCalendarElement extends HTMLElement {
             });
         });
 
-        $(shadowRoot, '.mdc-ripple-surface').forEach(ripple => {
-            const mdcripple = new MDCRipple(ripple.parentElement);
-        });
+        this.#mdcCache.ripples = this.#elementCache.ripples.map(ripple => new MDCRipple(ripple.parentElement));
 
-        const prevButton = $(shadowRoot, '.drock-cal-nav-prev');
-        $_.addEvents(prevButton, {
+        this.#elementCache.prevButton.addEvents({
             click: e => {
                 let goMonth = new Date(this.usemonth || Date.now());
                 goMonth.setMonth(goMonth.getMonth() - 1);
@@ -82,16 +93,15 @@ export default class DrockCalendarElement extends HTMLElement {
             },
             keyup: e => {
                 if (e.key === ' ')
-                    prevButton[0].click();
+                    this.#elementCache.prevButton[0].click();
             },
             keydown: e => {
                 if (e.key === 'Enter')
-                    prevButton[0].click();
+                    this.#elementCache.prevButton[0].click();
             }
         });
 
-        const nextButton = $(shadowRoot, '.drock-cal-nav-next');
-        $_.addEvents(nextButton, {
+        this.#elementCache.nextButton.addEvents({
             click: e => {
                 let goMonth = new Date(this.usemonth || Date.now());
                 goMonth.setMonth(goMonth.getMonth() + 1);
@@ -99,19 +109,19 @@ export default class DrockCalendarElement extends HTMLElement {
             },
             keyup: e => {
                 if (e.key === ' ')
-                    nextButton[0].click();
+                    this.#elementCache.nextButton[0].click();
             },
             keydown: e => {
                 if (e.key === 'Enter')
-                    nextButton[0].click();
+                    this.#elementCache.nextButton[0].click();
             }
         });
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
         const camelName = $_.camelize(name);
-        if (this._values[camelName]) {
-            this._values[camelName].set(newValue);
+        if (this.#values[camelName]) {
+            this.#values[camelName].set(newValue);
         }
 
         switch (name) {
@@ -124,7 +134,7 @@ export default class DrockCalendarElement extends HTMLElement {
         }
     }
 
-    __setAttribute(attr, value) {
+    #setAttribute = (attr, value) => {
         if (value)
             this.setAttribute(attr, value);
         else if (this.hasAttribute(attr))
@@ -142,7 +152,7 @@ export default class DrockCalendarElement extends HTMLElement {
         return Date.today();
     }
     set usemonth(value) {
-        this.__setAttribute('usemonth', value || Date.today());
+        this.#setAttribute('usemonth', value || Date.today());
     }
 
     /** Current date selected on the calendar */
@@ -152,7 +162,7 @@ export default class DrockCalendarElement extends HTMLElement {
         return Date.today();
     }
     set selection(value) {
-        this.__setAttribute('selection', value || Date.today());
+        this.#setAttribute('selection', value || Date.today());
     }
 
 
@@ -161,7 +171,7 @@ export default class DrockCalendarElement extends HTMLElement {
      * @param {string} oldValue The previous value of usemonth
      * @param {string} newValue The new value of usemonth
      */
-    onChangeMonth(oldValue, newValue) {
+    onChangeMonth = (oldValue, newValue) => {
         if (oldValue !== newValue) {
             this.setMonthView();
 
@@ -181,7 +191,7 @@ export default class DrockCalendarElement extends HTMLElement {
      * @param {string} oldValue old selection, if present
      * @param {string} newValue new selection
      */
-    onSelection(oldValue, newValue) {
+    onSelection = (oldValue, newValue) => {
         if (oldValue !== newValue) {
             var prevusemonth = new Date(this.usemonth || Date.now());
             var useselection = new Date(this.selection || Date.now());
@@ -190,8 +200,8 @@ export default class DrockCalendarElement extends HTMLElement {
                 this.usemonth = useselection;
             }
             else {
-                if (this._currSelected)
-                    this._values.isselected[this._currSelected].set(false);
+                if (this.#currSelected)
+                    this.#values.isselected[this.#currSelected].set(false);
 
                 let currDate = new Date(useselection);
                 currDate.setDate(1);
@@ -202,8 +212,8 @@ export default class DrockCalendarElement extends HTMLElement {
                     if (useselection.getFullYear() === currDate.getFullYear() &&
                         useselection.getMonth() === currDate.getMonth() &&
                         useselection.getDate() === currDate.getDate()) {
-                        this._values.isselected[day].set(true);
-                        this._currSelected = day;
+                        this.#values.isselected[day].set(true);
+                        this.#currSelected = day;
                     }
 
                     currDate.setDate(currDate.getDate() + 1);
@@ -226,7 +236,7 @@ export default class DrockCalendarElement extends HTMLElement {
      * @param {Date} fromDate date to get the header from
      * @returns {string} string heading the current month shown
      */
-    getMonthHeadContent(fromDate) {
+    getMonthHeadContent = (fromDate) => {
         let useMonthDate = new Date(fromDate);
         let monthStr = '';
         try {
@@ -239,11 +249,11 @@ export default class DrockCalendarElement extends HTMLElement {
     }
 
     /** Update what is currently shown to the current state */
-    setMonthView() {
+    setMonthView = () => {
         let useMonthDate = new Date(this.usemonth || Date.now());
         let selectionDate = new Date(this.selection || Date.now());
 
-        this._values.monthhead.set(this.getMonthHeadContent(useMonthDate));
+        this.#values.monthhead.set(this.getMonthHeadContent(useMonthDate));
 
         let currDate = new Date(useMonthDate);
         currDate.setDate(1);
@@ -253,14 +263,14 @@ export default class DrockCalendarElement extends HTMLElement {
         for (let day = 0; day < 42; ++day) {
             let newDate = new Date(currDate);
 
-            this._values.dates[day].set(newDate);
-            this._values.days[day].set(newDate.getDate());
-            this._values.istoday[day].set(newDate.isToday());
-            this._values.isoutmonth[day].set(newDate.getMonth() !== useMonthDate.getMonth());
+            this.#values.dates[day].set(newDate);
+            this.#values.days[day].set(newDate.getDate());
+            this.#values.istoday[day].set(newDate.isToday());
+            this.#values.isoutmonth[day].set(newDate.getMonth() !== useMonthDate.getMonth());
             const isselected = !newDate.isSameDateAs(selectionDate);
-            this._values.isselected[day].set(isselected);
+            this.#values.isselected[day].set(isselected);
             if (isselected)
-                this._currSelected = day;
+                this.#currSelected = day;
 
             currDate.setDate(currDate.getDate() + 1);
         }

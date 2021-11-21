@@ -1,4 +1,4 @@
-﻿import { Imogene as $, ImogeneExports as $_, ImogeneTemplate as $t } from '../Imogene/Imogene';
+﻿import { Imogene as $_ } from '../Imogene/Imogene';
 import { MDCSnackbar } from '@material/snackbar';
 
 /** Main controller class for managing the porfolio interface */
@@ -130,17 +130,17 @@ export default class DrockMainController {
 
     /** Fill the elements in the controller based on those in the document */
     findElements() {
-        this.splashScreen = $('drock-splash')[0];
-        this.swipeBase = $("#swipe-base")[0];
-        this.mainNav = $("#drock-main-nav")[0];
-        this.contactDialog = $("#drock-contact-dialog")[0];
-        this.contactEl = $("#drock-contact-dlg")[0];
-        this.contactFab = $('#drock-contactfab')[0];
-        this.contactSnackbar = $("#drock-contact-snackbar")[0];
+        this.splashScreen = $_.find('drock-splash')[0];
+        this.swipeBase = $_.find("#swipe-base")[0];
+        this.mainNav = $_.find("#drock-main-nav")[0];
+        this.contactDialog = $_.find("#drock-contact-dialog")[0];
+        this.contactEl = $_.find("#drock-contact-dlg")[0];
+        this.contactFab = $_.find('#drock-contactfab')[0];
+        this.contactSnackbar = $_.find("#drock-contact-snackbar")[0];
         this.contactMdcSnackbar = new MDCSnackbar(this.contactSnackbar);
-        this.imgDialog = $("#drock-img-dialog")[0];
-        this.imgDialogImg = $("#drock-img-dialog-img")[0];
-        this.imgDialogClose = $("#drock-img-dialog-close")[0];
+        this.imgDialog = $_.find("#drock-img-dialog")[0];
+        this.imgDialogImg = $_.find("#drock-img-dialog-img")[0];
+        this.imgDialogClose = $_.find("#drock-img-dialog-close")[0];
 
         $_.addEvents(this.contactDialog, {
             requestclose: e => {

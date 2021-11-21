@@ -1,4 +1,4 @@
-﻿import { Imogene as $, ImogeneExports as $_, ImogeneTemplate as $t } from '../Imogene/Imogene';
+﻿import { Imogene as $_ } from '../Imogene/Imogene';
 import showdown from 'showdown';
 import DOMPurify from 'dompurify';
 import { MDCRipple } from '@material/ripple';
@@ -21,14 +21,14 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
  * @param {(number, Event) => void} onlandingclick Event to call when a landing is clicked on
  */
 export function constructHomePage(controller, landings, onlandingclick) {
-    const homecontainer = $(['div', { class: 'landing-div home-landing-div' },
+    const homecontainer = $_.make('div', { class: 'landing-div home-landing-div' },
         ['div', { class: 'home-page drock-page-base' },
             ['div', { class: 'drock-page-background' }],
             ['div', { class: 'home-page-list drock-page-data' },
                 ...landings.map((l, index) => {
                     let link;
-                    const ret = $(['div', { class: 'home-page-list-item' },
-                        link = $(['a', {
+                    const ret = $_.make('div', { class: 'home-page-list-item' },
+                        link = $_.make('a', {
                             class: 'home-page-list-link mdc-ripple-surface',
                             href: `?landing=${index + 1}&page=0`,
                             on: {
@@ -47,14 +47,14 @@ export function constructHomePage(controller, landings, onlandingclick) {
                                 ['div', { class: 'home-page-listing-title' }, l.title],
                                 ['div', { class: 'home-page-listing-subtitle' }, l.subtitle]
                             ]
-                        ])
-                    ]);
-                    link.mdcRipple = new MDCRipple(link);
+                        )
+                    );
+                    link.mdcRipple = new MDCRipple(link[0]);
                     return ret;
                 })
             ]
         ]
-    ]);
+    );
 
     return {
         container: homecontainer
@@ -67,14 +67,14 @@ export function constructHomePage(controller, landings, onlandingclick) {
  * @param {HTMLDivElement} contentDiv content div to add the page to
  */
 function createResumeHeadPage(page, contentDiv) {
-    let dataDiv = $(['div', { class: 'drock-page-data drock-resumehead-data' }]);
+    let dataDiv = $_.make('div', { class: 'drock-page-data drock-resumehead-data' });
     $_.appendChildren(dataDiv,
         ['div', { class: 'drock-resumehead-body' },
             ['div', { class: 'drock-resumehead-title' }, page.title],
             ['div', { class: 'drock-resumehead-desc' }, page.description]
         ]
     );
-    contentDiv.append(dataDiv);
+    contentDiv.appendChildren(...dataDiv);
 }
 
 /**
@@ -83,12 +83,12 @@ function createResumeHeadPage(page, contentDiv) {
  * @param {HTMLDivElement} contentDiv content div to add the page to
  */
 function createGitHubPage(page, contentDiv) {
-    contentDiv.append(
-        $(['div', { class: 'drock-page-data drock-github-data' },
+    contentDiv.appendChildren(
+        ...$_.make('div', { class: 'drock-page-data drock-github-data' },
             ['div', { class: 'drock-github-body' },
                 ['div', { class: 'drock-github-head' }, 'GitHub'],
                 (() => {
-                    let githubCard = $(['div', { class: 'mdc-card drock-github-card' },
+                    let githubCard = $_.make('div', { class: 'mdc-card drock-github-card' },
                         ['a', {
                             class: 'mdc-card__primary-action drock-github-content',
                             tabindex: 0,
@@ -102,12 +102,12 @@ function createGitHubPage(page, contentDiv) {
                             ['div', { class: 'drock-github-card-title' }, page.gitHub],
                             ['div', { class: 'drock-github-card-desc' }, page.description]
                         ]
-                    ]);
-                    githubCard.mdcRipple = new MDCRipple(githubCard);
+                    );
+                    githubCard.mdcRipple = new MDCRipple(githubCard[0]);
                     return githubCard;
                 })()
             ]
-        ]));
+        ));
 }
 
 /**
@@ -116,7 +116,7 @@ function createGitHubPage(page, contentDiv) {
  * @param {HTMLDivElement} contentDiv content div to add the page to
  */
 function createResumeExpPage(page, contentDiv) {
-    let dataDiv = $(['div', { class: 'drock-page-data drock-resumeexp-data' },
+    let dataDiv = $_.make('div', { class: 'drock-page-data drock-resumeexp-data' },
         ['div', { class: 'drock-resumeexp-body' },
             ['div', { class: 'drock-resumeexp-title' }, page.title],
             ['div', { class: 'drock-resumeexp-jobs' },
@@ -128,8 +128,8 @@ function createResumeExpPage(page, contentDiv) {
                 })
             ]
         ]
-    ]);
-    contentDiv.append(dataDiv);
+    );
+    contentDiv.appendChildren(...dataDiv);
 }
 
 /**
@@ -138,7 +138,7 @@ function createResumeExpPage(page, contentDiv) {
  * @param {HTMLDivElement} contentDiv content div to add the page to
  */
 function createTextBlockPage(page, contentDiv) {
-    let dataDiv = $(['div', { class: 'drock-page-data drock-textblock-data' }]);
+    let dataDiv = $_.make('div', { class: 'drock-page-data drock-textblock-data' });
     const html = DOMPurify.sanitize(new showdown.Converter().makeHtml(page.text));
     $_.appendChildren(dataDiv,
         ['div', { class: 'drock-textblock-body' },
@@ -149,7 +149,7 @@ function createTextBlockPage(page, contentDiv) {
             }]
         ]
     );
-    contentDiv.append(dataDiv);
+    contentDiv.appendChildren(...dataDiv);
 }
 
 /**
@@ -158,7 +158,7 @@ function createTextBlockPage(page, contentDiv) {
  * @param {HTMLDivElement} contentDiv content div to add the page to
  */
 function createImageWallPage(page, contentDiv, controller, landingIndex) {
-    let dataDiv = $(['div', { class: 'drock-page-data drock-imagewall-data' }]);
+    let dataDiv = $_.make('div', { class: 'drock-page-data drock-imagewall-data' });
     const html = DOMPurify.sanitize(new showdown.Converter().makeHtml(page.description));
     $_.appendChildren(dataDiv,
         ['div', { class: 'drock-imagewall-body' },
@@ -190,7 +190,7 @@ function createImageWallPage(page, contentDiv, controller, landingIndex) {
             ]
         ]
     );
-    contentDiv.append(dataDiv);
+    contentDiv.appendChildren(...dataDiv);
 }
 
 /**
@@ -199,7 +199,7 @@ function createImageWallPage(page, contentDiv, controller, landingIndex) {
  * @param {HTMLDivElement} contentDiv content div to add the page to
  */
 function createSchoolsPage(page, contentDiv) {
-    let dataDiv = $(['div', { class: 'drock-page-data drock-schools-data' },
+    let dataDiv = $_.make('div', { class: 'drock-page-data drock-schools-data' },
         ['div', { class: 'drock-schools-body' },
             ['div', { class: 'drock-schools-title' }, page.title],
             ['div', { class: 'drock-schools-schools' },
@@ -212,8 +212,8 @@ function createSchoolsPage(page, contentDiv) {
                 })
             ]
         ]
-    ]);
-    contentDiv.append(dataDiv);
+    );
+    contentDiv.appendChildren(...dataDiv);
 }
 
 /**
@@ -223,19 +223,19 @@ function createSchoolsPage(page, contentDiv) {
  * @param {DrockServerLanding} landing landing to construct in html
  */
 export function constructLanding(controller, landingIndex, landing) {
-    const container = $(['div', { class: 'landing-div' }]);
+    const container = $_.make('div', { class: 'landing-div' });
 
     const pages = landing.pages.length;
     landing.pages.forEach((p, i) => {
         const zindex = pages - i;
-        const div = $(['div', {
+        const div = $_.make('div', {
             class: 'drock-page-base',
             style: {
                 'z-index': zindex
             }
-        }]);
+        });
         if (p.background || p.image) {
-            const bgDiv = $(['div', { class: 'drock-page-background' }]);
+            const bgDiv = $_.make('div', { class: 'drock-page-background' });
             if (p.background) {
                 $_.setStyle(bgDiv, {
                     'background-color': p.background,
@@ -248,7 +248,7 @@ export function constructLanding(controller, landingIndex, landing) {
                     opacity: '0.2'
                 });
             }
-            div.append(bgDiv);
+            div.appendChildren(...bgDiv);
         }
         let markdown;
         if (p.type === 'resumehead') {
@@ -275,15 +275,15 @@ export function constructLanding(controller, landingIndex, landing) {
             div.innerHTML = html;
         }
         p.pageBaseDiv = div;
-        container.append(div);
+        container.appendChildren(...div);
     });
 
     if (landing.pages.length > 1) {
-        const scrollIndicator = $(['div', { class: 'landing-div-scrollmore' },
+        const scrollIndicator = $_.make('div', { class: 'landing-div-scrollmore' },
             ['span', { class: 'landing-div-scrollmore-icon material-icons' }, 'expand_more'],
             ['span', { class: 'landing-div-scrollmore-desc' }, 'Scroll for more']
-        ]);
-        container.append(scrollIndicator);
+        );
+        container.appendChildren(...scrollIndicator);
         $_.addEvents(container, {
             scroll: e => {
                 $_.setClassList(scrollIndicator, {

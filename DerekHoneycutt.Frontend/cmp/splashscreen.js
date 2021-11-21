@@ -1,23 +1,36 @@
-﻿import { Imogene as $, ImogeneExports as $_ } from '../Imogene/Imogene';
+﻿import { Imogene as $_ } from '../Imogene/Imogene';
 
 /** Splash screen component showing an image and disappearing */
 export default class DrockSplashScreen extends HTMLElement {
+    #elementCache = {
+        img: $_.makeEmpty(),
+        shadowParent: $_.makeEmpty()
+    };
+    #values = {
+        src: $_.value(this.getAttribute('src'))
+    };
+
     constructor() {
         super();
+    }
 
-        this._src = $_.value(this.getAttribute('src'));
+    connectedCallback() {
+        // Only run this once from here
+        if (this.shadowRoot)
+            return;
 
-        const shadowRoot = this.attachShadow({ mode: 'open' });
+        // Get the shadow root and template data
+        const shadowRoot = $_.enhance(this.attachShadow({ mode: 'open' }));
+        shadowRoot.appendChildren($_.find('#drock-splashscreen').prop('content').cloneNode(true));
 
-        /** @type {HTMLTemplateElement} */
-        const template = $('#drock-splashscreen')[0];
-        const showChildren = template.content.cloneNode(true);
-        $_.setProperties($(showChildren, '.drock-splashscreen-img'), {
-            src: this._src
+        this.#elementCache = {
+            img: shadowRoot.find('.drock-splashscreen-img'),
+            shadowParent: shadowRoot.find('.drock-splashscreen-parent')
+        };
+
+        this.#elementCache.img.setProperties({
+            src: this.#values.src
         });
-        /** @type {HTMLDivElement} */
-        this._shadowParent = $(showChildren, '.drock-splashscreen-parent');
-        shadowRoot.appendChild(showChildren);
     }
 
     static get observedAttributes() {
@@ -25,14 +38,13 @@ export default class DrockSplashScreen extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        switch (name) {
-            case 'src':
-                this._src.set(newValue);
-                break;
+        const camelName = $_.camelize(name);
+        if (this.#values[camelName]) {
+            this.#values[camelName].set(newValue);
         }
     }
 
-    __setAttribute(attr, value) {
+    #setAttribute = (attr, value) => {
         if (value)
             this.setAttribute(attr, value);
         else if (this.hasAttribute(attr))
@@ -44,7 +56,7 @@ export default class DrockSplashScreen extends HTMLElement {
         return this.getAttribute('src');
     }
     set src(value) {
-        this.__setAttribute('src', value);
+        this.#setAttribute('src', value);
     }
 
     /**
@@ -55,7 +67,7 @@ export default class DrockSplashScreen extends HTMLElement {
     async pauseAndFade(timeout = 1000, fadeduration = 1000) {
         await new Promise(r => setTimeout(r, timeout));
 
-        this._shadowParent[0].classList.add('hidden');
+        this.#elementCache.shadowParent.addClass('hidden');
 
         await new Promise(r => setTimeout(r, fadeduration));
 

@@ -22,7 +22,11 @@
   <ItemGroup>
     <Content Include="DateExts.js" />
     <None Include="localdefs.js" />
+    <Content Include="Imogene\Imogene.js" />
+    <Content Include="Imogene\README.md" />
     <Content Include="postcss.config.js" />
+    <Content Include="RestFetch\README.md" />
+    <Content Include="RestFetch\RestFetch.js" />
     <Content Include="server.js">
       <SubType>Code</SubType>
     </Content>
@@ -45,17 +49,6 @@
     <Content Include="cmp\fab.scss" />
     <Content Include="cmp\splashscreen.scss" />
     <Content Include="cmp\swiper.scss" />
-    <Content Include="Imogene\Animate.js" />
-    <Content Include="Imogene\AnimationState.js" />
-    <Content Include="Imogene\Base.js" />
-    <Content Include="Imogene\DomMods.js" />
-    <Content Include="Imogene\EventsHandler.js" />
-    <Content Include="Imogene\Imogene.js" />
-    <Content Include="Imogene\IntervalFunction.js" />
-    <Content Include="Imogene\NotifyingValue.js" />
-    <Content Include="Imogene\RestFetch.js" />
-    <Content Include="Imogene\shortQuery.js" />
-    <Content Include="Imogene\Template.js" />
     <Content Include="main\app.js" />
     <Content Include="main\appinsights.js" />
     <Content Include="main\MainController.js" />
@@ -123,8 +116,9 @@
   <ItemGroup>
     <Folder Include="cmp" />
     <Folder Include="cmp\drock" />
-    <Folder Include="Imogene" />
+    <Folder Include="Imogene\" />
     <Folder Include="main" />
+    <Folder Include="RestFetch\" />
     <Folder Include="statics\" />
     <Folder Include="sawtooth" />
     <Folder Include="sawtooth\cmp" />

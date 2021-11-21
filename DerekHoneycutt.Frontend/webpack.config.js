@@ -5,7 +5,7 @@ const HtmlWebpackPartialsPlugin = require('html-webpack-partials-plugin');
 
 const UserConfig = require('./webpack.user_config').UserConfig;
 
-const buildMode = 'production';
+const buildMode = 'development';
 
 const components = [
     { file: 'swiper', name: 'swiper' },
@@ -140,7 +140,7 @@ module.exports = [
             new HtmlWebpackPartialsPlugin(
                 getHighBodyPartials('index.html', mainPartials))
         ]
-    },
+    }/*,
     ...getCssExports('sawtooth/cmp', 'cmpcss/sawtooth', sawtoothComponents),
     {
         mode: buildMode,
@@ -168,5 +168,5 @@ module.exports = [
             new HtmlWebpackPartialsPlugin(
                 getHighBodyPartials('sawtooth.html', sawtoothPartials))
         ]
-    }
+    }*/
 ];

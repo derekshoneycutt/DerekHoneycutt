@@ -1,37 +1,39 @@
-﻿import { Imogene as $, ImogeneExports as $_ } from '../Imogene/Imogene';
+﻿import { Imogene as $_ } from '../Imogene/Imogene';
 import { MDCRipple } from '@material/ripple';
 
 /** Component for showing a MDC-based Floating Action Button */
 export default class DrockFab extends HTMLElement {
+    #elementCache = {
+        fab: $_.makeEmpty(),
+        iconEl: $_.makeEmpty()
+    };
+    #values = {
+        icon: $_.value('add', v => v || 'add')
+    };
+
     constructor() {
         super();
     }
 
     connectedCallback() {
+        // Only run this once from here
         if (this.shadowRoot)
             return;
 
-        //If shadowroot is not already retrieved, create it, copy the template, and setup events & properties
+        // Get the shadow root and template data
+        const shadowRoot = $_.enhance(this.attachShadow({ mode: 'open' }));
+        shadowRoot.appendChildren($_.find('#drock-fab').prop('content').cloneNode(true));
 
-        const shadowRoot = this.attachShadow({ mode: 'open' });
-        /** @type {HTMLTemplateElement} */
-        const template = $('#drock-fab')[0];
-        const showChildren = template.content.cloneNode(true);
+        this.#elementCache = {
+            fab: shadowRoot.find('.mdc-fab'),
+            iconEl: shadowRoot.find('.mdc-fab__icon')
+        };
 
-        /** @type {HTMLButtonElement[]} */
-        const fab = $(showChildren, '.mdc-fab');
-        fab.forEach(f => {
+        this.#elementCache.fab.forEach(f => {
             const fabRipple = new MDCRipple(f);
             f.mdcRipple = fabRipple;
         });
-        /** @type {HTMLSpanElement} */
-        this.__iconEl = $(showChildren, '.mdc-fab__icon')[0];
-        $_.emptyAndReplace(this.__iconEl, this.icon);
-
-        /* * @type {HTMLSlotElement} */
-        //const slotEl = $(showChildren, 'slot')[0];
-
-        shadowRoot.appendChild(showChildren);
+        this.#elementCache.iconEl.emptyAndReplace(this.#values.icon);
     }
 
     static get observedAttributes() {
@@ -45,22 +47,17 @@ export default class DrockFab extends HTMLElement {
     }
     set icon(value) {
         if (this.getAttribute('icon') !== value)
-            this.__setAttribute('icon', value);
+            this.#setAttribute('icon', value);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        switch (name) {
-            case 'icon':
-                this.icon = newValue;
-                if (this.__iconEl)
-                    $_.emptyAndReplace(this.__iconEl, value || 'add');
-                break;
-            default:
-                break;
+        const camelName = $_.camelize(name);
+        if (this.#values[camelName]) {
+            this.#values[camelName].set(newValue);
         }
     }
 
-    __setAttribute(attr, value) {
+    #setAttribute = (attr, value) => {
         if (value)
             this.setAttribute(attr, value);
         else if (this.hasAttribute(attr))

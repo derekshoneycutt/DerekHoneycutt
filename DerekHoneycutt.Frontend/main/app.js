@@ -1,4 +1,5 @@
-﻿import { Imogene as $, ImogeneExports as $_, ImogeneTemplate as $t } from '../Imogene/Imogene';
+﻿import { Imogene as $_ } from '../Imogene/Imogene';
+import RestFetch from '../RestFetch/RestFetch';
 import DrockSwiperElement from '../cmp/swiper';
 import DrockFab from '../cmp/fab';
 import DrockSplashScreen from '../cmp/splashscreen';
@@ -39,8 +40,7 @@ function fillLandings(controller) {
  * @param {DrockMainController} controller */
 async function fetchhome(controller) {
     //localhost:7071 is for development; set otherwise for prod
-    let homefetch = await $_.RestFetch("http://localhost:7071/", "api/portfolio");
-    //let homefetch = await $_.RestFetch("https://derekhoneycuttapi20210526111505.azurewebsites.net/", "api/portfolio");
+    let homefetch = await RestFetch("http://localhost:7071/", "api/portfolio");
 
     controller.homefetch = homefetch;
 
@@ -51,7 +51,7 @@ async function fetchhome(controller) {
     controller.hideSplash();
 }
 
-$(() => {
+$_.runOnLoad(() => {
     const controller = new DrockMainController();
     controller.findElements();
     controller.watchUrl();

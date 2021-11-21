@@ -1,0 +1,6 @@
+[submodule "DerekHoneycutt.Frontend/RestFetch"]
+	path = DerekHoneycutt.Frontend/RestFetch
+	url = https://github.com/derekshoneycutt/RestFetch.git
+[submodule "DerekHoneycutt.Frontend/Imogene"]
+	path = DerekHoneycutt.Frontend/Imogene
+	url = https://github.com/derekshoneycutt/Imogene.git
