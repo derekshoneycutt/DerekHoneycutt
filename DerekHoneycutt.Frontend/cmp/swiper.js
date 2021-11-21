@@ -167,7 +167,7 @@ export default class DrockSwiperElement extends HTMLElement {
 
         this.#elementCache.slot.addEvents({
             slotchange: e => {
-                const nodes = slot[0].assignedNodes();
+                const nodes = this.#elementCache.slot[0].assignedNodes();
                 this.#childCount = nodes.length;
                 this.#updateNavShown();
             }
@@ -604,7 +604,7 @@ export default class DrockSwiperElement extends HTMLElement {
                 this.#allowPopoverNav && this.#currIndex > 0 &&
                 this.#lastMouse <= prevEnough);
             this.#elementCache.nextlink[0].classList.toggle('drock-swiper-shownav',
-                this.#allowPopoverNav && this.#currIndex <= this.#childCount - 1 &&
+                this.#allowPopoverNav && this.#currIndex < this.#childCount - 1 &&
                 this.#lastMouse >= nextEnough);
         }
     }
