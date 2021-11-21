@@ -5,7 +5,7 @@ const HtmlWebpackPartialsPlugin = require('html-webpack-partials-plugin');
 
 const UserConfig = require('./webpack.user_config').UserConfig;
 
-const buildMode = 'development';
+const buildMode = 'production';
 
 const components = [
     { file: 'swiper', name: 'swiper' },
