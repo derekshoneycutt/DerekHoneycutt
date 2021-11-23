@@ -20,6 +20,9 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include="cmp\mdctabbar.html" />
+    <Content Include="cmp\mdctabbar.js" />
+    <Content Include="cmp\mdctabbar.scss" />
     <Content Include="DateExts.js" />
     <None Include="localdefs.js" />
     <Content Include="Imogene\Imogene.js" />

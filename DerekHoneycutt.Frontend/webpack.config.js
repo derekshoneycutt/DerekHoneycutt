@@ -13,6 +13,7 @@ const components = [
     { file: 'fab', name: 'fab' },
     { file: 'splashscreen', name: 'splashscreen' },
     { file: 'topbar', name: 'topbar' },
+    { file: 'mdctabbar', name: 'mdctabbar' },
     { file: 'contact', name: 'contact' }
 ];
 
@@ -21,6 +22,7 @@ const mainPartials = [
     'cmp/fab.html',
     'cmp/splashscreen.html',
     'cmp/topbar.html',
+    'cmp/mdctabbar.html',
     'cmp/contact.html'
 ];
 

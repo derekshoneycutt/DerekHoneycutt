@@ -14,6 +14,7 @@ export default class DrockMainController {
 
         this.swipeBase = null;
         this.mainNav = null;
+        this.mainNavTabs = null;
 
         this.contactDialogOpen = false;
         this.contactDialog = null;
@@ -133,6 +134,7 @@ export default class DrockMainController {
         this.splashScreen = $_.find('drock-splash')[0];
         this.swipeBase = $_.find("#swipe-base")[0];
         this.mainNav = $_.find("#drock-main-nav")[0];
+        this.mainNavTabs = $_.find('#drock-main-navtabs')[0];
         this.contactDialog = $_.find("#drock-contact-dialog")[0];
         this.contactEl = $_.find("#drock-contact-dlg")[0];
         this.contactFab = $_.find('#drock-contactfab')[0];
@@ -175,7 +177,12 @@ export default class DrockMainController {
         this.tabs = tabs;
         this.pages = pages;
 
-        this.mainNav.fillTabs(tabs);
+        // Fill up the tab bar with the appropriate items
+        $_.appendChildren(
+            this.mainNavTabs,
+            ...tabs
+                .map(tab => $_.make('drock-mdctabbaritem', { icon: tab.icon, title: tab.label }))
+                .reduce((p, c) => { p.push(c); return p; }, []));
         $_.appendChildren(this.swipeBase, ...pages.map(p => p.container));
 
         //Listen to swipe and navigation events
@@ -186,7 +193,7 @@ export default class DrockMainController {
                 this.moveLanding(e.detail.index, 0, false);
             }
         });
-        $_.addEvents(this.mainNav, {
+        $_.addEvents(this.mainNavTabs, {
             tabbarchange: e => this.moveLanding(e.detail.index, 0, false)
         });
 
@@ -207,7 +214,7 @@ export default class DrockMainController {
      * @param {Boolean} [force] Whether to force the update
      */
     moveLanding(landing, page, contact, force = false) {
-        if ((this.swipeBase === null && this.mainNav === null) || (this.tabs.length < 1))
+        if ((this.swipeBase === null && this.mainNavTabs === null) || (this.tabs.length < 1))
             return;
 
         let uselanding = landing;
@@ -227,8 +234,8 @@ export default class DrockMainController {
             this.UrlHandler.landing = uselanding;
             if (this.swipeBase)
                 this.swipeBase.moveToIndex(uselanding);
-            if (this.mainNav)
-                this.mainNav.moveToTabIndex(uselanding);
+            if (this.mainNavTabs)
+                this.mainNavTabs.moveToTabIndex(uselanding);
         }
     }
 
