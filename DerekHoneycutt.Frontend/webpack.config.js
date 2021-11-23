@@ -8,22 +8,23 @@ const UserConfig = require('./webpack.user_config').UserConfig;
 const buildMode = 'production';
 
 const components = [
-    { file: 'swiper', name: 'swiper' },
-    { file: 'calendar', name: 'calendar' },
-    { file: 'fab', name: 'fab' },
-    { file: 'splashscreen', name: 'splashscreen' },
-    { file: 'topbar', name: 'topbar' },
-    { file: 'mdctabbar', name: 'mdctabbar' },
-    { file: 'contact', name: 'contact' }
+    { file: 'extendcomponents/swiper', name: 'swiper' },
+    { file: 'mdccore/fab', name: 'fab' },
+    { file: 'mdccore/mdctabbar', name: 'mdctabbar' },
+    { file: 'coreview/splashscreen', name: 'splashscreen' },
+    { file: 'coreview/topbar', name: 'topbar' },
+    { file: 'coreview/contact', name: 'contact' },
+    { file: 'pages/homepage', name: 'homepage' }
 ];
 
 const mainPartials = [
-    'cmp/swiper.html',
-    'cmp/fab.html',
-    'cmp/splashscreen.html',
-    'cmp/topbar.html',
-    'cmp/mdctabbar.html',
-    'cmp/contact.html'
+    'coreview/splashscreen.html',
+    'coreview/topbar.html',
+    'coreview/contact.html',
+    'extendcomponents/swiper.html',
+    'mdccore/fab.html',
+    'mdccore/mdctabbar.html',
+    'pages/homepage.html'
 ];
 
 const sawtoothComponents = [
@@ -34,7 +35,7 @@ const sawtoothComponents = [
 ];
 
 const sawtoothPartials = [
-    'cmp/calendar.html',
+    'fun/calendar.html',
     'cmp/swiper.html',
     'cmp/splashscreen.html',
     'sawtooth/cmp/Core/mdciconbutton.html',
@@ -78,10 +79,10 @@ function getCSSExportRule(name) {
     };
 }
 
-function getCssExports(entrydir, outdir, cmp) {
+function getCssExports(outdir, cmp) {
     return cmp.map(v => ({
         mode: buildMode,
-        entry: [`./${entrydir}/${v.file}.scss`],
+        entry: [`./${v.file}.scss`],
         output: {
             path: path.resolve(__dirname, `wwwroot/${outdir}`),
             filename: `sass.js`
@@ -106,7 +107,7 @@ function getHighBodyPartials(templatefilename, paths) {
 }
 
 module.exports = [
-    ...getCssExports('cmp', 'cmpcss', components),
+    ...getCssExports('cmpcss', components),
     {
         mode: buildMode,
         entry: [`./main/app.scss`, './main/app.js'],
@@ -125,11 +126,6 @@ module.exports = [
         plugins: [
             new HtmlWebpackPlugin({
                 hash: true,
-                /*title: 'Derek Honeycutt',
-                first_name: 'Derek',
-                last_name: 'Honeycutt',
-                description: 'Derek Honeycutt\'s personal portfolio. Software developer, student, photographer, hiker, Subaru Vagabond travel blogger',
-                url: 'https://derekhoneycuttportfolio.azurewebsites.net/',*/
                 title: UserConfig.title,
                 first_name: UserConfig.first_name,
                 last_name: UserConfig.last_name,

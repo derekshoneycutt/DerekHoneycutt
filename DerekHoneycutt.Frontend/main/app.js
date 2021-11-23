@@ -1,11 +1,11 @@
 ﻿import { Imogene as $_ } from '../Imogene/Imogene';
 import RestFetch from '../RestFetch/RestFetch';
-import DrockSwiperElement from '../cmp/swiper';
-import DrockFab from '../cmp/fab';
-import DrockSplashScreen from '../cmp/splashscreen';
-import DrockTopBar from '../cmp/topbar';
-import DrockTabBar from '../cmp/mdctabbar';
-import DrockContact from '../cmp/contact';
+import DrockSwiperElement from '../extendcomponents/swiper';
+import DrockFab from '../mdccore/fab';
+import DrockSplashScreen from '../coreview/splashscreen';
+import DrockTopBar from '../coreview/topbar';
+import DrockTabBar from '../mdccore/mdctabbar';
+import DrockContact from '../coreview/contact';
 import DrockMainController from './MainController';
 import * as pageFactories from './PageFactories';
 import '../ServerTypeDefs';

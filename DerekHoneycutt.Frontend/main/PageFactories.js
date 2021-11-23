@@ -4,6 +4,7 @@ import DOMPurify from 'dompurify';
 import { MDCRipple } from '@material/ripple';
 import '../ServerTypeDefs';
 import DrockMainController from './MainController';
+import DrockHomepage from '../pages/homepage';
 
 // Make all purified links open in a new window
 DOMPurify.addHook('afterSanitizeAttributes', function (node) {
@@ -21,40 +22,19 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
  * @param {(number, Event) => void} onlandingclick Event to call when a landing is clicked on
  */
 export function constructHomePage(controller, landings, onlandingclick) {
-    const homecontainer = $_.make('div', { class: 'landing-div home-landing-div' },
-        ['div', { class: 'home-page drock-page-base' },
-            ['div', { class: 'drock-page-background' }],
-            ['div', { class: 'home-page-list drock-page-data' },
-                ...landings.map((l, index) => {
-                    let link;
-                    const ret = $_.make('div', { class: 'home-page-list-item' },
-                        link = $_.make('a', {
-                            class: 'home-page-list-link mdc-ripple-surface',
-                            href: `?landing=${index + 1}&page=0`,
-                            on: {
-                                click: e => {
-                                    if (onlandingclick) {
-                                        e.preventDefault();
-                                        onlandingclick(index, e);
-                                    }
-                                }
-                            }
-                        },
-                            ['div', { class: 'home-page-icons' },
-                                ['span', { class: 'home-page-icon-actual material-icons' }, l.icon]
-                            ],
-                            ['div', { class: 'home-page-listing' },
-                                ['div', { class: 'home-page-listing-title' }, l.title],
-                                ['div', { class: 'home-page-listing-subtitle' }, l.subtitle]
-                            ]
-                        )
-                    );
-                    link.mdcRipple = new MDCRipple(link[0]);
-                    return ret;
-                })
-            ]
-        ]
-    );
+    const homecontainer = $_.make('drock-homepage', { class: 'landing-div home-landing-div' },
+        ...landings.map((l, index) => $_.make('drock-homepageitem', {
+                icon: l.icon, title: l.title, subtitle: l.subtitle, href: `?landing=${index + 1}&page=0`,
+                on: {
+                    navigate: e => {
+                        if (onlandingclick) {
+                            e.preventDefault();
+                            onlandingclick(index, e);
+                        }
+                    }
+                }
+            }))
+        );
 
     return {
         container: homecontainer

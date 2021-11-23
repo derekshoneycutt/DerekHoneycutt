@@ -1,0 +1,147 @@
+@use "@material/elevation";
+@use "@material/ripple";
+@use "@material/icon-button/mdc-icon-button";
+@use "@material/card/mdc-card";
+@use "@material/image-list/mdc-image-list";
+@use "@material/image-list";
+@import '../material-icons.scss';
+@import '../RobotoFont.scss';
+
+:host {
+    all: initial;
+    display: block;
+    contain: layout;
+    font-family: Roboto, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+
+.landing-div {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    perspective: 1px;
+    height: 100%;
+    width: 100%;
+}
+
+
+.drock-page-base {
+    @include elevation.elevation(1);
+    background-color: var(--mdc-theme-surface, #fff);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transform-style: preserve-3d;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+}
+
+.drock-page-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    //background-image: url("../homescreen-min.jpg");
+    background-size: cover;
+    background-position-x: center;
+    opacity: 0.2;
+    z-index: 0;
+    transform: translateZ(-5px) scale(1.1);
+}
+
+// Apple can F off No parallax for Apple. Whatever.
+_::-webkit-full-page-media, _:future, :root .drock-page-background {
+    transform: unset;
+}
+
+.drock-page-data {
+    padding: 45px 10px;
+    margin: auto 0;
+    z-index: 1;
+}
+
+@media screen and (orientation: landscape) {
+    .drock-page-data {
+        padding: 30px 30px 100px 50px;
+    }
+}
+
+
+
+.home-page {
+    min-height: 100%;
+}
+
+.home-page .drock-page-background {
+    background-image: url("../homescreen-min.jpg");
+}
+
+.home-page-list {
+    display: flex;
+    flex-direction: column;
+    margin: auto 0;
+    z-index: 1;
+}
+
+.home-page-list-item {
+    border-bottom: #bbb 1px solid;
+    overflow: hidden;
+}
+
+.home-page-list-link {
+    @include ripple.surface;
+    @include ripple.radius-bounded;
+    @include ripple.states;
+    display: flex;
+    cursor: pointer;
+    color: var(--mdc-theme-on-surface, #000);
+    text-decoration: none;
+    padding: 10px;
+}
+
+.home-page-icons {
+    margin-right: 25px;
+    display: flex;
+}
+
+.home-page-icon-actual {
+    margin: auto;
+}
+
+.home-page-listing {
+    display: flex;
+    flex-direction: column;
+}
+
+.home-page-listing-title {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.home-page-listing-subtitle {
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.drock-homepage-slotlol {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 0;
+    width: 0;
+    max-height: 0;
+    max-width: 0;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+}

@@ -20,13 +20,16 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
-    <Content Include="cmp\mdctabbar.html" />
-    <Content Include="cmp\mdctabbar.js" />
-    <Content Include="cmp\mdctabbar.scss" />
+    <Content Include="mdccore\mdctabbar.html" />
+    <Content Include="mdccore\mdctabbar.js" />
+    <Content Include="mdccore\mdctabbar.scss" />
     <Content Include="DateExts.js" />
     <None Include="localdefs.js" />
     <Content Include="Imogene\Imogene.js" />
     <Content Include="Imogene\README.md" />
+    <Content Include="pages\homepage.html" />
+    <Content Include="pages\homepage.js" />
+    <Content Include="pages\homepage.scss" />
     <Content Include="postcss.config.js" />
     <Content Include="RestFetch\README.md" />
     <Content Include="RestFetch\RestFetch.js" />
@@ -86,18 +89,18 @@
     <Content Include="RobotoFont.scss" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
-    <Content Include="cmp\calendar.js" />
-    <Content Include="cmp\fab.js" />
-    <Content Include="cmp\splashscreen.js" />
-    <Content Include="cmp\swiper.js" />
-    <Content Include="cmp\calendar.html" />
-    <Content Include="cmp\fab.html" />
-    <Content Include="cmp\splashscreen.html" />
-    <Content Include="cmp\swiper.html" />
-    <Content Include="cmp\calendar.scss" />
-    <Content Include="cmp\fab.scss" />
-    <Content Include="cmp\splashscreen.scss" />
-    <Content Include="cmp\swiper.scss" />
+    <Content Include="extendcomponents\calendar.js" />
+    <Content Include="mdccore\fab.js" />
+    <Content Include="coreview\splashscreen.js" />
+    <Content Include="extendcomponents\swiper.js" />
+    <Content Include="extendcomponents\calendar.html" />
+    <Content Include="mdccore\fab.html" />
+    <Content Include="coreview\splashscreen.html" />
+    <Content Include="extendcomponents\swiper.html" />
+    <Content Include="extendcomponents\calendar.scss" />
+    <Content Include="mdccore\fab.scss" />
+    <Content Include="coreview\splashscreen.scss" />
+    <Content Include="extendcomponents\swiper.scss" />
     <Content Include="main\app.js" />
     <Content Include="main\appinsights.js" />
     <Content Include="main\MainController.js" />
@@ -122,12 +125,12 @@
     <Content Include="statics\mstile-150x150.png" />
     <Content Include="statics\orienteer-min.jpg" />
     <Content Include="statics\safari-pinned-tab.svg" />
-    <Content Include="cmp\contact.js" />
-    <Content Include="cmp\topbar.js" />
-    <Content Include="cmp\contact.html" />
-    <Content Include="cmp\topbar.html" />
-    <Content Include="cmp\contact.scss" />
-    <Content Include="cmp\topbar.scss" />
+    <Content Include="coreview\contact.js" />
+    <Content Include="coreview\topbar.js" />
+    <Content Include="coreview\contact.html" />
+    <Content Include="coreview\topbar.html" />
+    <Content Include="coreview\contact.scss" />
+    <Content Include="coreview\topbar.scss" />
     <Content Include="sawtooth\cmp\sawbase.js" />
     <Content Include="sawtooth\cmp\sawbase.html" />
     <Content Include="sawtooth\cmp\sawbase-addbutton.scss" />
@@ -152,9 +155,12 @@
     <Content Include="statics\subaruvagabond-min.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="cmp" />
+    <Folder Include="coreview\" />
     <Folder Include="Imogene\" />
     <Folder Include="main" />
+    <Folder Include="extendcomponents\" />
+    <Folder Include="mdccore\" />
+    <Folder Include="pages\" />
     <Folder Include="RestFetch\" />
     <Folder Include="statics\" />
     <Folder Include="sawtooth" />

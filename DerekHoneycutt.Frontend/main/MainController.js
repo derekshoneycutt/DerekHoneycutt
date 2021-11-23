@@ -138,8 +138,8 @@ export default class DrockMainController {
         this.contactDialog = $_.find("#drock-contact-dialog")[0];
         this.contactEl = $_.find("#drock-contact-dlg")[0];
         this.contactFab = $_.find('#drock-contactfab')[0];
-        this.contactSnackbar = $_.find("#drock-contact-snackbar")[0];
-        this.contactMdcSnackbar = new MDCSnackbar(this.contactSnackbar);
+        //this.contactSnackbar = $_.find("#drock-contact-snackbar")[0];
+        //this.contactMdcSnackbar = new MDCSnackbar(this.contactSnackbar);
         this.imgDialog = $_.find("#drock-img-dialog")[0];
         this.imgDialogImg = $_.find("#drock-img-dialog-img")[0];
         this.imgDialogClose = $_.find("#drock-img-dialog-close")[0];
@@ -182,7 +182,7 @@ export default class DrockMainController {
             this.mainNavTabs,
             ...tabs
                 .map(tab => $_.make('drock-mdctabbaritem', { icon: tab.icon, title: tab.label }))
-                .reduce((p, c) => { p.push(c); return p; }, []));
+                .reduce((p, c) => { p.push(...c); return p; }, []));
         $_.appendChildren(this.swipeBase, ...pages.map(p => p.container));
 
         //Listen to swipe and navigation events

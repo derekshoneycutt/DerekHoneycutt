@@ -1,6 +1,6 @@
 ﻿import { Imogene as $, ImogeneExports as $_ } from '../../Imogene/Imogene';
 import { MdcIconButton } from './Core/mdciconbutton';
-import { DrockCalendarElement } from '../../cmp/calendar';
+import { DrockCalendarElement } from '../../fun/calendar';
 import { MDCRipple } from '@material/ripple';
 import { MDCList } from '@material/list';
 import { MDCChipSet } from '@material/chips';
