@@ -30,6 +30,10 @@
     <Content Include="pages\homepage.html" />
     <Content Include="pages\homepage.js" />
     <Content Include="pages\homepage.scss" />
+    <Content Include="pages\pages.scss" />
+    <Content Include="pages\resumeheadpage.html" />
+    <Content Include="pages\resumeheadpage.js" />
+    <Content Include="pages\resumeheadpage.scss" />
     <Content Include="postcss.config.js" />
     <Content Include="RestFetch\README.md" />
     <Content Include="RestFetch\RestFetch.js" />

@@ -14,7 +14,8 @@ const components = [
     { file: 'coreview/splashscreen', name: 'splashscreen' },
     { file: 'coreview/topbar', name: 'topbar' },
     { file: 'coreview/contact', name: 'contact' },
-    { file: 'pages/homepage', name: 'homepage' }
+    { file: 'pages/homepage', name: 'homepage' },
+    { file: 'pages/resumeheadpage', name: 'resumeheadpage' }
 ];
 
 const mainPartials = [
@@ -24,7 +25,8 @@ const mainPartials = [
     'extendcomponents/swiper.html',
     'mdccore/fab.html',
     'mdccore/mdctabbar.html',
-    'pages/homepage.html'
+    'pages/homepage.html',
+    'pages/resumeheadpage.html'
 ];
 
 const sawtoothComponents = [

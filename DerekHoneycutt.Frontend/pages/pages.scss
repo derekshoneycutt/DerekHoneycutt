@@ -1,0 +1,227 @@
+﻿@use "@material/elevation";
+@use "@material/ripple";
+@use "@material/icon-button/mdc-icon-button";
+@use "@material/card/mdc-card";
+@use "@material/image-list/mdc-image-list";
+@use "@material/image-list";
+
+
+.landing-div {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    perspective: 1px;
+    height: 100%;
+    width: 100%;
+}
+
+.drock-page-base {
+    @include elevation.elevation(1);
+    //background-color: var(--mdc-theme-surface, #fff);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transform-style: preserve-3d;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+}
+
+.drock-page-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    //background-image: url("../homescreen-min.jpg");
+    background-size: cover;
+    background-position-x: center;
+    opacity: 0.2;
+    z-index: 0;
+    transform: translateZ(-5px) scale(1.1);
+}
+
+// Apple can F off No parallax for Apple. Whatever.
+_::-webkit-full-page-media, _:future, :root .drock-page-background {
+    transform: unset;
+}
+
+.drock-page-data {
+    padding: 45px 10px;
+    margin: auto 0;
+    z-index: 1;
+}
+@media screen and (orientation: landscape) {
+    .drock-page-data {
+        padding: 30px 30px 100px 50px;
+    }
+}
+
+
+
+
+@mixin drock-page-body-boxed {
+    background: rgba(255,255,255,0.6);
+    padding: 10px;
+}
+
+@mixin drock-page-body-title {
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #bbb;
+    margin-bottom: 20px;
+}
+
+@mixin drock-page-body-textarea {
+    margin: 10px 30px 20px 50px;
+    font-size: 14px;
+}
+
+
+
+.drock-github-head {
+    @include drock-page-body-title;
+}
+
+.drock-github-body {
+    @include drock-page-body-boxed;
+}
+
+.drock-github-card {
+    background-color: var(--mdc-theme-surface, #fff);
+    color: var(--mdc-theme-on-surface, #000);
+    max-width: fit-content;
+    margin: 0 auto;
+}
+
+.drock-github-card-img {
+    text-align: center;
+    margin: 20px 0 0 0;
+
+    img {
+        max-height: 80px;
+    }
+}
+
+.drock-github-card-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 20px;
+}
+
+.drock-github-card-desc {
+    margin: 0 30px 20px 35px;
+    font-size: 13px;
+}
+
+
+
+.drock-resumeexp-body {
+    @include drock-page-body-boxed;
+}
+
+.drock-resumeexp-title {
+    @include drock-page-body-title;
+}
+
+.drock-resumeexp-jobs {
+    @include drock-page-body-textarea;
+}
+
+.drock-resumeexp-job {
+    margin-bottom: 15px;
+}
+
+.drock-resumeexp-job-title {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.drock-resumeexp-job-dates {
+    margin-left: 15px;
+}
+
+
+
+
+.drock-textblock-body {
+    @include drock-page-body-boxed;
+}
+
+.drock-textblock-title {
+    @include drock-page-body-title;
+}
+
+.drock-textblock-text {
+    @include drock-page-body-textarea;
+}
+
+
+
+
+.drock-schools-body {
+    @include drock-page-body-boxed;
+}
+
+.drock-schools-title {
+    @include drock-page-body-title;
+}
+
+.drock-schools-schools {
+    @include drock-page-body-textarea;
+}
+
+.drock-schools-school {
+    margin-bottom: 15px;
+}
+
+.drock-schools-school-title {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.drock-schools-school-program {
+    margin-left: 15px;
+}
+
+
+
+.drock-image-list {
+    @include image-list.standard-columns(3);
+    @include image-list.shape-radius(8px, true);
+    @include image-list.aspect(1.32);
+
+    .mdc-image-list__label {
+        font-size: 10px;
+        line-height: 12px;
+    }
+
+    .drock-image-item {
+        cursor: pointer;
+        transition: all var(--drock-transitions-length, 0.3s) ease-in-out;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .drock-image-list {
+        @include image-list.standard-columns(5);
+    }
+}
+
+.drock-imagewall-body {
+    @include drock-page-body-boxed;
+}
+
+.drock-imagewall-title {
+    @include drock-page-body-title;
+}
+
+.drock-imagewall-text {
+    @include drock-page-body-textarea;
+}
+

@@ -1,0 +1,32 @@
+@import '../material-icons.scss';
+@import '../RobotoFont.scss';
+@import 'pages.scss';
+
+
+:host {
+    all: initial;
+    display: block;
+    contain: layout;
+    font-family: Roboto, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+
+::slotted(*) {
+    font-size: 14px;
+}
+
+.drock-resumehead-body {
+    @include drock-page-body-boxed;
+}
+
+.drock-resumehead-title {
+    @include drock-page-body-title;
+}
+
+.drock-resumehead-desc {
+    @include drock-page-body-textarea;
+}
+
+

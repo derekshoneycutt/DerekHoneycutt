@@ -5,6 +5,7 @@ import { MDCRipple } from '@material/ripple';
 import '../ServerTypeDefs';
 import DrockMainController from './MainController';
 import DrockHomepage from '../pages/homepage';
+import DrockResumeHeadPage from '../pages/resumeheadpage';
 
 // Make all purified links open in a new window
 DOMPurify.addHook('afterSanitizeAttributes', function (node) {
@@ -47,13 +48,7 @@ export function constructHomePage(controller, landings, onlandingclick) {
  * @param {HTMLDivElement} contentDiv content div to add the page to
  */
 function createResumeHeadPage(page, contentDiv) {
-    let dataDiv = $_.make('div', { class: 'drock-page-data drock-resumehead-data' });
-    $_.appendChildren(dataDiv,
-        ['div', { class: 'drock-resumehead-body' },
-            ['div', { class: 'drock-resumehead-title' }, page.title],
-            ['div', { class: 'drock-resumehead-desc' }, page.description]
-        ]
-    );
+    let dataDiv = $_.make('drock-resumeheadpage', { title: page.title }, page.description);
     contentDiv.appendChildren(...dataDiv);
 }
 
